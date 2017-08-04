@@ -1,0 +1,8 @@
+services:
+    hh.contao-newsalert.listener.newspostedlistener:
+        class: HeimrichHannot\ContaoNewsAlertBundle\Listener\NewsPostedListener
+        arguments:
+            - '@service_container'
+
+    hh.contao-newsalert.newstopiccollection:
+        class: HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection

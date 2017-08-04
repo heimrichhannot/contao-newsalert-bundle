@@ -1,0 +1,4 @@
+hh.newsalert.tl_news.field.newsalert_activate: Newsalert aktivieren
+hh.newsalert.tl_news.field.newsalert_activate.desc: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesendet).
+hh.newsalert.tl_news.field.newsalert_send: Newsalert gesendet
+hh.newsalert.tl_news.field.newsalert_send.desc: Der Newsalert für diesen Beitrag wurde bereits gesendet (kann durch abwählen dieser Option erneut gesendet werden).
