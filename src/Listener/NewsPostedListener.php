@@ -86,9 +86,12 @@ class NewsPostedListener
             while ($objContents->next())
             {
                 $item = $objContents->current();
-                $title = deserialize($item->headline);
-                $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
-                $strContent .= $headline;
+                if (!empty($item->headline))
+                {
+                    $title = deserialize($item->headline);
+                    $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
+                    $strContent .= $headline;
+                }
                 $strContent .= $item->text;
             }
         }

@@ -1,6 +1,6 @@
 # Contao Newsalert Bundle
 
-> Bundle is in active development and not ready yet!
+> Bundle is in active development and not ready to use yet!
 
 A contao bundle, to let website visitor subscribe to a news topic.
 

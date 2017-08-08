@@ -1,6 +1,13 @@
 # Changelog
 
-## [0.1.0] (04.08.2017)
+## [dev] - 2017-08-08
+
+### Added
+
+### Fixed
+* content element illegal offset
+
+## [0.1.0] - 2017-08-04
 
 ### Added
 * NewsTopicCollection Service
