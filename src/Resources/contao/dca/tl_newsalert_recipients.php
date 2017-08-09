@@ -15,10 +15,8 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
         'dataContainer'    => 'Table',
         'switchToEdit'     => true,
         'enableVersioning' => false,
-        //        'onsubmit_callback' => array
-        //        (
-        //            array('HeimrichHannot\Haste\Dca\General', 'setDateAdded'),
-        //        ),
+        'backlink'         => 'do=news',
+        'label'            => $translator->trans('hh.newsalert.tl_newsalert_recipients.label'),
         'sql'              => [
             'keys' => [
                 'id' => 'primary',
@@ -27,14 +25,13 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
     ],
     'list'     => [
         'sorting'           => [
-            'mode'         => 1,
-            'fields'       => ['email', 'topic'],
-            'headerFields' => ['email', 'topic'],
+            'mode'         => 2,
+            'fields'       => ['email', 'topic', 'confirmed'],
             'flag'         => 1,
             'panelLayout'  => 'debug;filter;sort,search,limit',
         ],
         'label'             => [
-            'fields'      => ['email', 'topic'],
+            'fields'      => ['email', 'topic', 'confirmed'],
             'format'      => '%s',
             'showColumns' => true,
         ],
@@ -82,6 +79,7 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
             'sorting'   => true,
             'flag'      => 1,
             'inputType' => 'text',
+            'search'    => true,
             'eval'      => [
                 'mandatory'      => true,
                 'rgxp'           => 'email',
@@ -104,6 +102,7 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
             ],
             'sorting'   => true,
             'inputType' => 'text',
+            'search'    => true,
             'eval'      => [
                 'maxlength' => 128,
                 'mandatory' => true,
@@ -118,6 +117,7 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.confirmed.desc')
             ],
             'inputType'   => 'checkbox',
+            'sorting'     => true,
             'sql'         => "int(1) NOT NULL default 1",
             'eval'        => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
         ],

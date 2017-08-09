@@ -1,19 +1,20 @@
-hh.newsalert.tl_news:
-    newsalert_recipients: Newsalert
-    newsalert_activate:
-        name: Newsalert aktivieren
-        desc: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesendet).
-    newsalert_send:
-        name: Newsalert gesendet
-        desc: Der Newsalert für diesen Beitrag wurde bereits gesendet (kann durch abwählen dieser Option erneut gesendet werden).
-
-hh.newsalert.tl_newsalert_recipients:
-    email:
-        name: E-Mail
-        desc: E-Mailadresse des Abonnenten.
-    topic:
-        name: Thema
-        desc: Abonniertes Thema des Abonnenten.
-    confirmed:
-        name: Bestätigt
-        desc: Das Abonnement des Newsalert muss durch den Nutzer akzeptiert werden.
+hh.newsalert:
+    tl_news:
+        newsalert_recipients: Newsalert
+        newsalert_activate:
+            name: Newsalert aktivieren
+            desc: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesendet).
+        newsalert_send:
+            name: Newsalert gesendet
+            desc: Der Newsalert für diesen Beitrag wurde bereits gesendet (kann durch abwählen dieser Option erneut gesendet werden).
+    tl_newsalert_recipients:
+        label: Newsalert Abonnement
+        email:
+            name: E-Mail
+            desc: E-Mailadresse des Abonnenten.
+        topic:
+            name: Thema
+            desc: Abonniertes Thema des Abonnenten.
+        confirmed:
+            name: Bestätigt
+            desc: Das Abonnement des Newsalert muss durch den Nutzer akzeptiert werden.
