@@ -1,11 +1,13 @@
 hh.newsalert.tl_news:
-    newsalert_activate.name: Newsalert aktivieren
-    newsalert_activate.desc: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesendet).
-    newsalert_send.name: Newsalert gesendet
-    newsalert_send.desc: Der Newsalert für diesen Beitrag wurde bereits gesendet (kann durch abwählen dieser Option erneut gesendet werden).
+    newsalert_recipients: Newsalert
+    newsalert_activate:
+        name: Newsalert aktivieren
+        desc: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesendet).
+    newsalert_send:
+        name: Newsalert gesendet
+        desc: Der Newsalert für diesen Beitrag wurde bereits gesendet (kann durch abwählen dieser Option erneut gesendet werden).
 
 hh.newsalert.tl_newsalert_recipients:
-    abonnement_legend: Newsalert
     email:
         name: E-Mail
         desc: E-Mailadresse des Abonnenten.

@@ -24,6 +24,8 @@ composer require heimrichhannot/contao-newsalert-bundle
 
 The bundle adds two checkboxes to the news form (at the bottom). You can enable or disable sending a newsalert for each article and you can undo marking an article as already send (so it will send again).
 
+The managment of the receivers is placed within the news model (News -> Newsalert)
+
 ## Developers
 
 ### Add topic source

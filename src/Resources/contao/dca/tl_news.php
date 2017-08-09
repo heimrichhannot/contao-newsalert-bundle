@@ -12,7 +12,7 @@ $dc = &$GLOBALS['TL_DCA']['tl_news'];
 $translator = System::getContainer()->get('translator');
 
 /*
- * Hooks
+ * Callbacks
  */
 $dc['config']['onsubmit_callback'][] = ['hh.contao-newsalert.listener.newspostedlistener','newsPosted'];
 
