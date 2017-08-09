@@ -3,6 +3,8 @@
 ## [dev] - 2017-08-08
 
 ### Added
+* Recipients table (dca)
+* Backend module for recipients
 
 ### Fixed
 * content element illegal offset

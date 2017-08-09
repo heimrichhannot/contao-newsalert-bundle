@@ -33,3 +33,11 @@ $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['hh_newsalert'] = array
     ]
 );
 
+$GLOBALS['BE_MOD']['content']['newsalert'] = [
+    'tables' => ['tl_newsalert_recipients']
+];
+
+
+
+//array_insert($GLOBALS['BE_MOD']['content']['news']['tables'])
+
