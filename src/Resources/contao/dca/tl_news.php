@@ -52,16 +52,6 @@ $fields = [
         'exclude'   => true,
         'sql'       => "int(1) NOT NULL default 0",
         'eval'      => ['tl_class' => 'w50'],
-    ],
-    'newsalert_sendtest' => [
-        'label'     => [
-            $translator->trans('hh.newsalert.tl_news.newsalert_send.name'),
-            $translator->trans('hh.newsalert.tl_news.newsalert_send.desc')
-        ],
-        'inputType' => 'checkbox',
-        'exclude'   => true,
-        'sql'       => "int(1) NOT NULL default 0",
-        'eval'      => ['tl_class' => 'w50'],
     ]
 ];
 

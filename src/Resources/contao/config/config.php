@@ -8,6 +8,20 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
+/*
+ * Modules
+ */
+
+$GLOBALS['BE_MOD']['content']['news']['tables'][] = 'tl_newsalert_recipients';
+
+$GLOBALS['FE_MOD']['miscellaneous'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule::MODULE_NAME] = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule';
+
+/*
+ * Models
+ */
+
+$GLOBALS['TL_MODELS']['tl_newsalert_recipients'] = 'HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel';
+
 
 $arrTokens = [
     'hh_newsalert_topic_recipient',
@@ -32,21 +46,3 @@ $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['hh_newsalert'] = array
         'attachment_tokens'    => array('form_*', 'formconfig_*'),
     ]
 );
-
-//$GLOBALS['BE_MOD']['content']['newsalert'] = [
-//    'tables' => ['tl_newsalert_recipients']
-//];
-
-$GLOBALS['BE_MOD']['content']['news']['tables'][] = 'tl_newsalert_recipients';
-
-
-//array_insert($GLOBALS['BE_MOD']['content']['news']['tables'], 1, array
-//(
-//    array('tl_newsalert_recipients'),
-//));
-//
-//array_insert();
-//
-//$GLOBALS['BE_MOD']['content']['news']['tables'] =
-//    array_merge($GLOBALS['BE_MOD']['content']['news']['tables'], ['tl_newsalert_recipients']);
-

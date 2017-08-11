@@ -32,6 +32,17 @@ The managment of the receivers is placed within the news model (News -> Newsaler
 
 To add a topic source, your topics class needs to implement the `NewsTopicInterface` and has to be registered as service with the `hh.newsalert.topic_source` tag.
 
+### Notification center tokens
+ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tokens are added to news_posted type (in addition to the default ones): 
+
+|Tag                              |Example                   |Description|
+|---------------------------------|--------------------------|-----------|
+|##hh_newsalert_topic_recipient## |max.mustermann@example.org|E-Mailadress of the subscriber|
+|##hh_newsalert_news_title##      |Wer haftet bei einem Verkehrsunfall?|Title of the news for which newsalert is triggered|
+|##hh_newsalert_recipient_topics##|Auto, Verkehrsrecht       |The intersection of news topics and subscribed topics of the receiver|
+
+
+
 ## Todo
 
 * Let users register to topic

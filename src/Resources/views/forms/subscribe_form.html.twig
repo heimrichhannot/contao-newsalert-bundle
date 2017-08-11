@@ -1,0 +1,20 @@
+{% block body %}
+    {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+    {{ form_errors(form) }}
+    <div class="container">
+        <div class="form-body">
+            <div class="form-row">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.topic) }}
+            </div>
+            <div class="form-submit">
+                {{ form_row(form.submit) }}
+
+            </div>
+            {{ form_rest(form) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

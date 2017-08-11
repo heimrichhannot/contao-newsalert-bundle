@@ -101,9 +101,11 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.topic.desc')
             ],
             'sorting'   => true,
-            'inputType' => 'text',
+            'inputType' => 'select',
+            'options' => ['a','c'],
             'search'    => true,
             'eval'      => [
+                'chosen'    => true,
                 'maxlength' => 128,
                 'mandatory' => true,
                 'nospace'   => true,
@@ -118,16 +120,12 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
             ],
             'inputType'   => 'checkbox',
             'sorting'     => true,
-            'sql'         => "int(1) NOT NULL default 1",
+            'default'     => 0,
+            'sql'         => "int(1) NOT NULL default 0",
             'eval'        => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
-        ],
-        'ip'        => [
-            'label'   => &$GLOBALS['TL_LANG']['tl_newsletter_recipients']['ip'],
-            'search'  => true,
-            'sorting' => true,
-            'flag'    => 11,
-            'eval'    => array('doNotCopy' => true),
-            'sql'     => "varchar(64) NOT NULL default ''"
         ]
     ]
 ];
+
+\HeimrichHannot\FormHybrid\FormHybrid::addOptInFieldToTable('tl_newsalert_recipients');
+\HeimrichHannot\Haste\Dca\General::addDateAddedToDca('tl_newsalert_recipients');
