@@ -6,6 +6,13 @@ A contao bundle, to let website visitor subscribe to a news topic.
 
 The bundle comes with an interface to add custom news topic, for example categories, tags, authors.
 
+## Features
+* Let users subscribe to news topics
+* add different topic sources to subscribe for (e.g. categories, tags,..)
+* send notification to user, if news with subscribed topic(s)  are posted (via Notification Center)
+* Captcha in form field and opt-in process after subscribe
+
+
 ## Requirements
 
 * Contao 4.4
@@ -19,6 +26,13 @@ Install via composer
 ```
 composer require heimrichhannot/contao-newsalert-bundle
 ```
+
+Afterwards call the Contao install procedure to update the database.
+
+## Setup
+
+* set up notification center notification (`hh_newsalert`)
+* add frontend module and configure it
 
 ## Usage
 
@@ -42,12 +56,11 @@ ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tok
 |##hh_newsalert_recipient_topics##|Auto, Verkehrsrecht       |The intersection of news topics and subscribed topics of the receiver|
 
 
-
 ## Todo
 
-* Let users register to topic
-* Autocomple form element with availiable topics
+* Autocomplete form element with availiable topics
 * set article as already send
 * bundled topic source?
 * translation (currently only german)
 * evaluate the best callback for calling the listener
+* unsubscribe link
