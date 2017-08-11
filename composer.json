@@ -9,7 +9,7 @@
         "contao/core-bundle": "~4.4.0",
         "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
         "terminal42/notification_center": "~1.4.1",
-        "heimrichhannot/contao-frontendedit": "dev-master"
+        "heimrichhannot/contao-formhybrid": "~2.8.19"
     },
     "require-dev": {
         "contao/manager-plugin": "^2.0"
