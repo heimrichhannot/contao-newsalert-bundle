@@ -95,7 +95,7 @@ class NewsalertSubscribeModule extends \Module
             $this->formHybridOptInConfirmedProperty = 'confirmed';
         }
 
-        $this->formHybridEditable = ['email', 'topic'];
+        $this->formHybridEditable = ['email', 'topic','captcha'];
 
         $objForm = new NewsAlertSubscriptionForm($this);
         $this->Template->form = $objForm->generate();

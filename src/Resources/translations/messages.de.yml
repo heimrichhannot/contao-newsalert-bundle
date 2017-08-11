@@ -18,3 +18,6 @@ hh.newsalert:
         confirmed:
             name: Bestätigt
             desc: Das Abonnement des Newsalert muss durch den Nutzer akzeptiert werden.
+        captcha:
+            name: Sicherheitsabfrage
+            desc: Bitte lösen Sie diese Sicherheitsabfrage.

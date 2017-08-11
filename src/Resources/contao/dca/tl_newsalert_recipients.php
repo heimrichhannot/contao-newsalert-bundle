@@ -123,6 +123,13 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
             'default'     => 0,
             'sql'         => "int(1) NOT NULL default 0",
             'eval'        => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
+        ],
+        'captcha' => [
+            'label'       => [
+                $translator->trans('hh.newsalert.tl_newsalert_recipients.captcha.name'),
+                $translator->trans('hh.newsalert.tl_newsalert_recipients.captcha.desc')
+            ],
+            'inputType' => 'captcha',
         ]
     ]
 ];
