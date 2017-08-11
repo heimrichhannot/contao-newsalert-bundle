@@ -83,7 +83,7 @@ class NewsalertSubscribeModule extends \Module
         }
 
         $this->formHybridDataContainer = static::TABLE;
-
+        $this->formHybridAsync = "1";
 
 
 //        'formHybridOptInSuccessMessage,formHybridOptInNotification,formHybridOptInConfirmedProperty'

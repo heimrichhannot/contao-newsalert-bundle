@@ -12,6 +12,7 @@ namespace HeimrichHannot\ContaoNewsAlertBundle\Forms;
 
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel;
 use HeimrichHannot\FormHybrid\Form;
+use HeimrichHannot\StatusMessages\StatusMessage;
 
 class NewsAlertSubscriptionForm extends Form
 {
@@ -23,7 +24,10 @@ class NewsAlertSubscriptionForm extends Form
 
     protected function compile()
     {
-
+        if (!$this->Template->message)
+        {
+            $this->Template->message = StatusMessage::generate($this->objModule->id);
+        }
     }
 
     protected function onSubmitCallback(\DataContainer $dc)

@@ -1,10 +1,12 @@
 # Changelog
 
-## [dev] - 2017-08-08
+## [0.2.0] - 2017-08-11
 
 ### Added
 * Recipients table (dca)
 * Backend module for recipients (placed as global operation under news)
+* Frontend form module
+* opt in handling
 
 ### Fixed
 * content element illegal offset
