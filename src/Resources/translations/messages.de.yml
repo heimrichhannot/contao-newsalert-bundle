@@ -21,3 +21,5 @@ hh.newsalert:
         captcha:
             name: Sicherheitsabfrage
             desc: Bitte lösen Sie diese Sicherheitsabfrage.
+    notifications:
+        unsubscribe: Abmelden

@@ -9,8 +9,10 @@ The bundle comes with an interface to add custom news topic, for example categor
 ## Features
 * Let users subscribe to news topics
 * add different topic sources to subscribe for (e.g. categories, tags,..)
-* send notification to user, if news with subscribed topic(s)  are posted (via Notification Center)
-* Captcha in form field and opt-in process after subscribe
+* send notification to user, if news with subscribed topic(s) are posted (via Notification Center)
+* Captcha in form field
+* opt-in process after subscribe
+* opt-out links
 
 
 ## Requirements
@@ -36,9 +38,9 @@ Afterwards call the Contao install procedure to update the database.
 
 ## Usage
 
-The bundle adds two checkboxes to the news form (at the bottom). You can enable or disable sending a newsalert for each article and you can undo marking an article as already send (so it will send again).
+The bundle adds two checkboxes to the news form (at the bottom). You can enable or disable sending a newsalert for each article and you can undo marking an article as already send (so it will be send again).
 
-The managment of the receivers is placed within the news model (News -> Newsalert)
+The management of the receivers is placed within the news section (News -> Newsalert)
 
 ## Developers
 
@@ -47,13 +49,15 @@ The managment of the receivers is placed within the news model (News -> Newsaler
 To add a topic source, your topics class needs to implement the `NewsTopicInterface` and has to be registered as service with the `hh.newsalert.topic_source` tag.
 
 ### Notification center tokens
-ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tokens are added to news_posted type (in addition to the default ones): 
+ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tokens are added to `news_posted` type (in addition to the default ones): 
 
-|Tag                              |Example                   |Description|
-|---------------------------------|--------------------------|-----------|
-|##hh_newsalert_topic_recipient## |max.mustermann@example.org|E-Mailadress of the subscriber|
-|##hh_newsalert_news_title##      |Wer haftet bei einem Verkehrsunfall?|Title of the news for which newsalert is triggered|
-|##hh_newsalert_recipient_topics##|Auto, Verkehrsrecht       |The intersection of news topics and subscribed topics of the receiver|
+|Tag                              |Description|
+|---------------------------------|-----------|
+|##hh_newsalert_topic_recipient## |E-Mailadress of the subscriber|
+|##hh_newsalert_news_title##      |Title of the news for which newsalert is triggered|
+|##hh_newsalert_recipient_topics##|The intersection of news topics and subscribed topics of the receiver|
+|##hh_newsalert_opt_out_html##    |A list of topics (same as above) and the corresponding unsubscribe links in html format (Topic: Link)|
+|##hh_newsalert_opt_out_text      |Same list as above, but textonly| 
 
 
 ## Todo
@@ -63,4 +67,4 @@ ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tok
 * bundled topic source?
 * translation (currently only german)
 * evaluate the best callback for calling the listener
-* unsubscribe link
+* check for duplicate entries

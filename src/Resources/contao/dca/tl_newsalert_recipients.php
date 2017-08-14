@@ -135,4 +135,5 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
 ];
 
 \HeimrichHannot\FormHybrid\FormHybrid::addOptInFieldToTable('tl_newsalert_recipients');
+\HeimrichHannot\FormHybrid\FormHybrid::addOptOutFieldToTable('tl_newsalert_recipients');
 \HeimrichHannot\Haste\Dca\General::addDateAddedToDca('tl_newsalert_recipients');

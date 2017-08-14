@@ -22,7 +22,9 @@ use HeimrichHannot\Haste\Model\Model;
  * @property string  $email
  * @property string  $topic
  * @property boolean $confirmed
- * @property string  $ip
+ * @property string  $optInToken
+ * @property string  $optOutToken
+ * @property string  $dateAdded
  */
 
 class NewsalertRecipientsModel extends Model

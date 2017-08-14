@@ -12,7 +12,8 @@ $arrDca = &$GLOBALS['TL_DCA']['tl_module'];
 
 $arrDca['palettes'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule::MODULE_NAME] =
     '{title_legend},name,headline,type;'
-    .'{optin_legend},newsalertOptIn;';
+    .'{optin_legend},newsalertOptIn;'
+    .'{optout_legend},formHybridAddOptOut;';
 
 $arrDca['palettes']['__selector__'][] = 'newsalertOptIn';
 

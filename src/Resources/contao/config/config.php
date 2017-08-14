@@ -26,7 +26,9 @@ $GLOBALS['TL_MODELS']['tl_newsalert_recipients'] = 'HeimrichHannot\ContaoNewsAle
 $arrTokens = [
     'hh_newsalert_topic_recipient',
     'hh_newsalert_news_title',
-    'hh_newsalert_recipient_topics'
+    'hh_newsalert_recipient_topics',
+    'hh_newsalert_opt_out_html',
+    'hh_newsalert_opt_out_text',
 ];
 
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['hh_newsalert'] = array

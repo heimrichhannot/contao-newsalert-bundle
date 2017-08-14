@@ -10,3 +10,8 @@
 
 
 $GLOBALS['TL_LANG']['FMD']['contao-newsalert-subscribe'] = array('Newsalert Anmeldung', 'Anmeldung für Newsalert-Topics');
+
+$arrLang = &$GLOBALS['TL_LANG']['tl_module'];
+
+$arrLang['optin_legend'] = "Opt-In Handling";
+$arrLang['optout_legend'] = "Opt-Out Handling";

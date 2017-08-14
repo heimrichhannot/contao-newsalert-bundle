@@ -14,12 +14,20 @@ use Contao\ContentModel;
 use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\DC_Table;
 use Contao\Email;
+use Contao\Environment;
+use Contao\Input;
 use Contao\Newsletter;
+use Contao\Request;
 use Contao\System;
+use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel;
+use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
+use HeimrichHannot\FormHybrid\TokenGenerator;
+use HeimrichHannot\Modal\PageModel;
 use Model\Collection;
 use NotificationCenter\Model\Notification;
 use Psr\Log\LogLevel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use HeimrichHannot\Haste\Util\Url;
 
 class NewsPostedListener
 {
@@ -31,6 +39,8 @@ class NewsPostedListener
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->translator = $container->get('translator');
+        $container->get('contao.framework')->initialize();
     }
 
 
@@ -97,14 +107,26 @@ class NewsPostedListener
         }
 
         $arrTokens = [];
-        foreach ($arrRecipients as $email => $topics)
+        foreach ($arrRecipients as $email => $data)
         {
+            $strOptOutLinksHtml = '';
+            $strOptOutLinksText = '';
+            foreach ($data['topics'] as $topic=>$value)
+            {
+                $strLink = Environment::get('url').$value['opt_out_link'];
+                $strOptOutLinksHtml .= $topic.': <a href="'.$strLink.'">'.$this->translator->trans('hh.newsalert.notifications.unsubscribe').'</a><br />';
+                $strOptOutLinksText .= $topic.' '.$this->translator->trans('hh.newsalert.notifications.unsubscribe').': '.$strLink.'\n';
+            }
+
             $arrTokens = [
                 'hh_newsalert_topic_recipient' => $email,
-                'hh_newsalert_recipient_topics' => implode(",", $topics),
+                'hh_newsalert_recipient_topics' => implode(",", array_keys($data['topics'])),
                 'hh_newsalert_news_title' => $objArticle->headline,
+                'hh_newsalert_opt_out_html' => $strOptOutLinksHtml,
+                'hh_newsalert_opt_out_text' => $strOptOutLinksText,
                 'raw_data' => $strContent
             ];
+
             while ($objNotificationCollection->next())
             {
                 $objNotification = $objNotificationCollection->current();
@@ -132,35 +154,57 @@ class NewsPostedListener
         foreach ($arrTopic as $item)
         {
             $recipients = static::recipients($item);
-
-            foreach ($recipients as $recipient)
+            if (!$recipients)
             {
-                $arrRecipients[$recipient][] = $item;
+                continue;
+            }
+            while ($recipients->next())
+            {
+                if (!$recipients->confirmed)
+                {
+                    continue;
+                }
+                $strOptOutUrl = TokenGenerator::optOutTokens(
+                    NewsalertSubscribeModule::TABLE,
+                    $recipients->optOutToken
+                )['opt_out_link'];
+                $arrRecipients[$recipients->email]['topics'][$item] = [
+                    'opt_out_link' => $strOptOutUrl
+                ];
             }
         }
         return $arrRecipients;
     }
 
+    /**
+     * @param $topic
+     *
+     * @return NewsalertRecipientsModel|null
+     */
     public static function recipients($topic)
     {
-        $recipients = [];
-        switch ($topic)
-        {
-            case "Abo":
-            case "Abfallrecht":
-                $recipients = [
-                    't.koerner@heimrich-hannot.de',
-                    'test@example.org'
-                ];
-                break;
-            case "Abgeordnete":
-            case "Sozialabgabenrecht":
-                $recipients = [
-                    't.koerner@heimrich-hannot.de',
-                    'max.mustermann@example.org'
-                ];
-                break;
-        }
-        return $recipients;
+        return NewsalertRecipientsModel::findByTopic($topic);
+
+
+
+
+//        switch ($topic)
+//        {
+//            case "Abo":
+//            case "Abfallrecht":
+//                $recipients = [
+//                    't.koerner@heimrich-hannot.de',
+//                    'test@example.org'
+//                ];
+//                break;
+//            case "Abgeordnete":
+//            case "Sozialabgabenrecht":
+//                $recipients = [
+//                    't.koerner@heimrich-hannot.de',
+//                    'max.mustermann@example.org'
+//                ];
+//                break;
+//        }
+//        return $recipients;
     }
 }
