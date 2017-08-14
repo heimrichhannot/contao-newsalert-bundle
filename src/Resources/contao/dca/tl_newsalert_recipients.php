@@ -102,7 +102,7 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
             ],
             'sorting'   => true,
             'inputType' => 'select',
-            'options' => ['a','c'],
+            'options_callback' => ['hh.contao-newsalert.newstopiccollection','getAllTopics'],
             'search'    => true,
             'eval'      => [
                 'chosen'    => true,

@@ -1,10 +1,14 @@
 # Changelog
 
+## [0.5-dev] - 2017-08-14
+
+### Added
+* topic options callback
+
 ## [0.4.0] - 2017-08-14
 
 ### Added
 * opt-out handling
-* 
 
 ## [0.3.0] - 2017-08-11
 
