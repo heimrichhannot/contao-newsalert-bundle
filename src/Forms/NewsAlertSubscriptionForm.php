@@ -12,6 +12,7 @@ namespace HeimrichHannot\ContaoNewsAlertBundle\Forms;
 
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel;
 use HeimrichHannot\FormHybrid\Form;
+use HeimrichHannot\NewsBundle\NewsModel;
 use HeimrichHannot\StatusMessages\StatusMessage;
 
 class NewsAlertSubscriptionForm extends Form
@@ -21,6 +22,8 @@ class NewsAlertSubscriptionForm extends Form
     protected $strTemplate = 'formhybrid_default';
     protected $strTable = 'tl_newsalert_recipients';
     protected $strModelClass = NewsalertRecipientsModel::class;
+    protected $isDuplicateEntityError = false;
+
 
     protected function compile()
     {
@@ -32,10 +35,37 @@ class NewsAlertSubscriptionForm extends Form
 
     protected function onSubmitCallback(\DataContainer $dc)
     {
-        $this->objActiveRecord->email = $dc->getFieldValue('email');
-        $this->objActiveRecord->topic = $dc->getFieldValue('topic');
-        $this->objActiveRecord->confirmed = 0;
-        $this->objActiveRecord->save();
+
+        $strEmail = $dc->getFieldValue('email');
+        $strTopic = $dc->getFieldValue('topic');
+
+//        $objRecipients = NewsalertRecipientsModel::findBy('email', $dc->getFieldValue('email'));
+
+
+        $objRecipients = NewsalertRecipientsModel::findBy(
+            ['email = ?', 'topic = ?'],
+            [$strEmail, $strTopic]
+        );
+
+        if (!$objRecipients)
+        {
+            $this->objActiveRecord->email = $dc->getFieldValue('email');
+            $this->objActiveRecord->topic = $dc->getFieldValue('topic');
+            $this->objActiveRecord->confirmed = 0;
+            $this->objActiveRecord->save();
+        }
+        else
+        {
+            while ($objRecipients->next())
+            {
+                if (!$objRecipients->confirmed)
+                {
+                    $this->objActiveRecord = $objRecipients->current();
+                    return;
+                }
+            }
+            $this->isDuplicateEntityError = true;
+        }
     }
 
     protected function createSubmission($strModelClass = null)

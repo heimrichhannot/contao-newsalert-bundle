@@ -31,6 +31,7 @@ class NewsTopicCollection
             $topics = array_merge($source->getTopics(), $topics);
         }
         $topics = array_unique($topics, SORT_REGULAR);
+        sort($topics);
         $this->topicCache = $topics;
     }
 

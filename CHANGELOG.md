@@ -4,6 +4,10 @@
 
 ### Added
 * topic options callback
+* check if dublicate entry
+
+### Changed
+* newstopics now sorted alphabetical
 
 ## [0.4.0] - 2017-08-14
 

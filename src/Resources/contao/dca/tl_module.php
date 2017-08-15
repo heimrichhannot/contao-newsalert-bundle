@@ -13,11 +13,14 @@ $arrDca = &$GLOBALS['TL_DCA']['tl_module'];
 $arrDca['palettes'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule::MODULE_NAME] =
     '{title_legend},name,headline,type;'
     .'{optin_legend},newsalertOptIn;'
-    .'{optout_legend},formHybridAddOptOut;';
+    .'{optout_legend},formHybridAddOptOut;'
+    .'{misc_legend},formHybridCustomSubmit;';
 
 $arrDca['palettes']['__selector__'][] = 'newsalertOptIn';
+$arrDca['palettes']['__selector__'][] = 'formHybridCustomSubmit';
 
 $arrDca['subpalettes']['newsalertOptIn'] = 'formHybridOptInSuccessMessage,formHybridOptInNotification';
+$arrDca['subpalettes']['formHybridCustomSubmit'] = 'formHybridSubmitLabel,formHybridSubmitClass';
 
 
 

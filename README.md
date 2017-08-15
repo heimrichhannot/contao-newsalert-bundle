@@ -13,6 +13,8 @@ The bundle comes with an interface to add custom news topic, for example categor
 * Captcha in form field
 * opt-in process after subscribe
 * opt-out links
+* check if dublicate entries exist
+    * when dublicate entry is not confirmed, resend activation link instead of showing error message
 
 
 ## Requirements
@@ -59,12 +61,13 @@ ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tok
 |##hh_newsalert_opt_out_html##    |A list of topics (same as above) and the corresponding unsubscribe links in html format (Topic: Link)|
 |##hh_newsalert_opt_out_text      |Same list as above, but textonly| 
 
+### Frontend autocompletion
+We recommend [Chosen](https://harvesthq.github.io/chosen/) to add a search field to the topic select element. It's already used by Contao in the backend.
 
 ## Todo
 
-* Autocomplete form element with availiable topics
 * set article as already send
 * bundled topic source?
 * translation (currently only german)
 * evaluate the best callback for calling the listener
-* check for duplicate entries
+* use caching for speed improvement?
