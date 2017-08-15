@@ -9,8 +9,9 @@
  * // */
 
 $translator = System::getContainer()->get('translator');
+$strTable = 'tl_newsalert_recipients';
 //
-$GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
+$GLOBALS['TL_DCA'][$strTable] = [
     'config'   => [
         'dataContainer'    => 'Table',
         'switchToEdit'     => true,
@@ -36,8 +37,8 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
             'showColumns' => true,
         ],
         'global_operations' => [
-            'newsalert_recipients' => [
-                'label'               => $translator->trans('hh.newsalert.tl_newsalert_recipients.label'),
+            'newsalert_sent' => [
+                'label'               => $translator->trans('hh.newsalert.tl_newsalert_sent.label'),
                 'href'                => 'table=tl_newsalert_sent',
                 'icon'                => 'db.svg',
             ]
@@ -135,7 +136,7 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
             'sorting'     => true,
             'default'     => 0,
             'sql'         => "int(1) NOT NULL default 0",
-            'eval'        => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
+            'eval'        => ['tl_class' => 'w50'],
         ],
         'captcha' => [
             'label'       => [
@@ -147,6 +148,6 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
     ]
 ];
 
-\HeimrichHannot\FormHybrid\FormHybrid::addOptInFieldToTable('tl_newsalert_recipients');
-\HeimrichHannot\FormHybrid\FormHybrid::addOptOutFieldToTable('tl_newsalert_recipients');
-\HeimrichHannot\Haste\Dca\General::addDateAddedToDca('tl_newsalert_recipients');
+\HeimrichHannot\FormHybrid\FormHybrid::addOptInFieldToTable($strTable);
+\HeimrichHannot\FormHybrid\FormHybrid::addOptOutFieldToTable($strTable);
+\HeimrichHannot\Haste\Dca\General::addDateAddedToDca($strTable);

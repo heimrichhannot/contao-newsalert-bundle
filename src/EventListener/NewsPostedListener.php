@@ -140,14 +140,19 @@ class NewsPostedListener
                 $intCountMails++;
 
             }
+
             $objNewsalertSend = new NewsalertSendModel();
             $objNewsalertSend->pid = $objArticle->id;
             $objNewsalertSend->topics = $topics;
             $objNewsalertSend->senddate = time();
             $objNewsalertSend->count_messages = $intCountMails;
+            $objNewsalertSend->user = \BackendUser::getInstance()->id;
             $objNewsalertSend->save();
 
             $objNotificationCollection->reset();
+
+            $objArticle->newsalert_send = 1;
+            $objArticle->save();
         }
         return;
     }
@@ -199,27 +204,5 @@ class NewsPostedListener
     public static function recipients($topic)
     {
         return NewsalertRecipientsModel::findByTopic($topic);
-
-
-
-
-//        switch ($topic)
-//        {
-//            case "Abo":
-//            case "Abfallrecht":
-//                $recipients = [
-//                    't.koerner@heimrich-hannot.de',
-//                    'test@example.org'
-//                ];
-//                break;
-//            case "Abgeordnete":
-//            case "Sozialabgabenrecht":
-//                $recipients = [
-//                    't.koerner@heimrich-hannot.de',
-//                    'max.mustermann@example.org'
-//                ];
-//                break;
-//        }
-//        return $recipients;
     }
 }

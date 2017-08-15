@@ -7,6 +7,7 @@
     * new backend module listing sent alerts
 * topic options callback
 * check if dublicate entry
+* set article sent
 
 ### Changed
 * newstopics now sorted alphabetical

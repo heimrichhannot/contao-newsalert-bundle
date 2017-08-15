@@ -7,14 +7,16 @@ A contao bundle, to let website visitor subscribe to a news topic.
 The bundle comes with an interface to add custom news topic, for example categories, tags, authors.
 
 ## Features
-* Let users subscribe to news topics
-* add different topic sources to subscribe for (e.g. categories, tags,..)
-* send notification to user, if news with subscribed topic(s) are posted (via Notification Center)
-* Captcha in form field
-* opt-in process after subscribe
-* opt-out links
-* check if dublicate entries exist
+* subscribe form module
+* add custom topic sources
+* send notifications to user subscribed to topics with notification center
+* security features
+    * captcha in form field
+    * opt-in process after subscribe
+    * token secured opt-out links
+* dublicate entry check
     * when dublicate entry is not confirmed, resend activation link instead of showing error message
+* archive informations about sent messages
 
 
 ## Requirements
@@ -42,7 +44,8 @@ Afterwards call the Contao install procedure to update the database.
 
 The bundle adds two checkboxes to the news form (at the bottom). You can enable or disable sending a newsalert for each article and you can undo marking an article as already send (so it will be send again).
 
-The management of the receivers is placed within the news section (News -> Newsalert)
+The management of the receivers is placed within the news section (News -> Newsalert).
+The overview about sent messages is fount withing the newsalert section (News -> Newsalert -> )
 
 ## Developers
 
@@ -66,7 +69,6 @@ We recommend [Chosen](https://harvesthq.github.io/chosen/) to add a search field
 
 ## Todo
 
-* set article as already send
 * bundled topic source?
 * translation (currently only german)
 * evaluate the best callback for calling the listener
