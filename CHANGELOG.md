@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.5-dev] - 2017-08-14
+## [0.5-dev] - 2017-08-15
 
 ### Added
 * topic options callback

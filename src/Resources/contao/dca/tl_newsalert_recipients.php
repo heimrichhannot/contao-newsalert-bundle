@@ -38,24 +38,36 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
         'global_operations' => [],
         'operations'        => [
             'edit'   => [
-                'href' => 'table=tl_newsalert_recipients',
+                'label'     => [
+                    $translator->trans('hh.newsalert.operations.edit.0'),
+                    $translator->trans('hh.newsalert.operations.edit.1')
+                ],
+                'href' => 'act=edit',
                 'icon' => 'edit.gif',
-                'href' => 'act=edit'
             ],
             'copy'   => [
-                'label' => &$GLOBALS['TL_LANG']['tl_newsalert_recipients']['copy'],
+                'label'     => [
+                    $translator->trans('hh.newsalert.operations.copy.0'),
+                    $translator->trans('hh.newsalert.operations.copy.1')
+                ],
                 'href'  => 'act=copy',
                 'icon'  => 'copy.gif',
             ],
             'delete' => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_newsalert_recipients']['delete'],
+                'label'     => [
+                    $translator->trans('hh.newsalert.operations.delete.0'),
+                    $translator->trans('hh.newsalert.operations.delete.1')
+                ],
                 'href'       => 'act=delete',
                 'icon'       => 'delete.gif',
                 'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
                                 . '\'))return false;Backend.getScrollOffset()"',
             ],
             'show'   => [
-                'label' => &$GLOBALS['TL_LANG']['tl_newsalert_recipients']['show'],
+                'label'     => [
+                    $translator->trans('hh.newsalert.operations.show.0'),
+                    $translator->trans('hh.newsalert.operations.show.1')
+                ],
                 'href'  => 'act=show',
                 'icon'  => 'show.gif'
             ]
@@ -73,8 +85,8 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
         ],
         'email'     => [
             'label'     => [
-                $translator->trans('hh.newsalert.tl_newsalert_recipients.email.name'),
-                $translator->trans('hh.newsalert.tl_newsalert_recipients.email.desc')
+                $translator->trans('hh.newsalert.tl_newsalert_recipients.email.0'),
+                $translator->trans('hh.newsalert.tl_newsalert_recipients.email.1')
             ],
             'sorting'   => true,
             'flag'      => 1,
@@ -88,17 +100,12 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
                 'nospace'        => true,
                 'tl_class'       => 'w50'
             ],
-            //            'save_callback' => array
-            //            (
-            //                array('tl_newsletter_recipients', 'checkUniqueRecipient'),
-            //                array('tl_newsletter_recipients', 'checkBlacklistedRecipient')
-            //            ),
             'sql'       => "varchar(255) NOT NULL default ''"
         ],
         'topic'     => [
             'label'     => [
-                $translator->trans('hh.newsalert.tl_newsalert_recipients.topic.name'),
-                $translator->trans('hh.newsalert.tl_newsalert_recipients.topic.desc')
+                $translator->trans('hh.newsalert.tl_newsalert_recipients.topic.0'),
+                $translator->trans('hh.newsalert.tl_newsalert_recipients.topic.1')
             ],
             'sorting'   => true,
             'inputType' => 'select',
@@ -115,8 +122,8 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
         ],
         'confirmed' => [
             'label'       => [
-                $translator->trans('hh.newsalert.tl_newsalert_recipients.confirmed.name'),
-                $translator->trans('hh.newsalert.tl_newsalert_recipients.confirmed.desc')
+                $translator->trans('hh.newsalert.tl_newsalert_recipients.confirmed.0'),
+                $translator->trans('hh.newsalert.tl_newsalert_recipients.confirmed.1')
             ],
             'inputType'   => 'checkbox',
             'sorting'     => true,
@@ -126,8 +133,8 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
         ],
         'captcha' => [
             'label'       => [
-                $translator->trans('hh.newsalert.tl_newsalert_recipients.captcha.name'),
-                $translator->trans('hh.newsalert.tl_newsalert_recipients.captcha.desc')
+                $translator->trans('hh.newsalert.tl_newsalert_recipients.captcha.0'),
+                $translator->trans('hh.newsalert.tl_newsalert_recipients.captcha.1')
             ],
             'inputType' => 'captcha',
         ]

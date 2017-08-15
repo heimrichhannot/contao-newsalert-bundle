@@ -2,24 +2,48 @@ hh.newsalert:
     tl_news:
         newsalert_recipients: Newsalert
         newsalert_activate:
-            name: Newsalert aktivieren
-            desc: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesendet).
+            0: Newsalert aktivieren
+            1: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesendet).
         newsalert_send:
-            name: Newsalert gesendet
-            desc: Der Newsalert für diesen Beitrag wurde bereits gesendet (kann durch abwählen dieser Option erneut gesendet werden).
+            0: Newsalert gesendet
+            1: Der Newsalert für diesen Beitrag wurde bereits gesendet (kann durch abwählen dieser Option erneut gesendet werden).
     tl_newsalert_recipients:
         label: Newsalert Abonnement
         email:
-            name: E-Mail
-            desc: E-Mailadresse des Abonnenten.
+            0: E-Mail
+            1: E-Mailadresse des Abonnenten.
         topic:
-            name: Thema
-            desc: Abonniertes Thema des Abonnenten.
+            0: Thema
+            1: Abonniertes Thema des Abonnenten.
         confirmed:
-            name: Bestätigt
-            desc: Das Abonnement des Newsalert muss durch den Nutzer akzeptiert werden.
+            0: Bestätigt
+            1: Das Abonnement des Newsalert muss durch den Nutzer akzeptiert werden.
         captcha:
-            name: Sicherheitsabfrage
-            desc: Bitte lösen Sie diese Sicherheitsabfrage.
+            0: Sicherheitsabfrage
+            1: Bitte lösen Sie diese Sicherheitsabfrage.
+    tl_newsalert_send:
+        label: Gesendete Newsalerts
+        topics:
+            0: Themen
+            1: Die Themengebiete des Newsalert
+        senddate:
+            0: Sendedatum
+            1: Das Datum, an dem der Newsalert verschickt wurde.
+        count_messages:
+            0: Anzahl Nachrichten
+            1: Die Anzahl der versendeten Nachrichten für den Newsalert.
     notifications:
         unsubscribe: Abmelden
+    operations:
+        edit:
+            0: Edit
+            1: Bearbeiten
+        copy:
+            0: Copy
+            1: Kopieren
+        delete:
+            0: Delete
+            1: Löschen
+        show:
+            0: Details
+            1: Details

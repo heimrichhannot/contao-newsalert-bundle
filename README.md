@@ -35,7 +35,7 @@ Afterwards call the Contao install procedure to update the database.
 
 ## Setup
 
-* set up notification center notification (`hh_newsalert`)
+* set up notification center notification (`hh_newsalert`) for newsalert and opt-in mails.
 * add frontend module and configure it
 
 ## Usage

@@ -73,6 +73,4 @@ class NewsAlertSubscriptionForm extends Form
         $strModelClass = $this->strModelClass;
         return parent::createSubmission($this->strModelClass);
     }
-
-
 }
