@@ -13,6 +13,7 @@
  */
 
 $GLOBALS['BE_MOD']['content']['news']['tables'][] = 'tl_newsalert_recipients';
+$GLOBALS['BE_MOD']['content']['news']['tables'][] = 'tl_newsalert_sent';
 
 $GLOBALS['FE_MOD']['miscellaneous'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule::MODULE_NAME] = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule';
 
@@ -33,7 +34,7 @@ $arrTokens = [
 
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['hh_newsalert'] = array
 (
-    \HeimrichHannot\ContaoNewsAlertBundle\Listener\NewsPostedListener::NotificationCenterType => [
+    \HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener::NotificationCenterType => [
         'recipients'           => array_merge($arrTokens, ['admin_email', 'form_*', 'formconfig_*']),
         'email_subject'        => array_merge($arrTokens, ['form_*', 'formconfig_*', 'admin_email']),
         'email_text'           => array_merge($arrTokens, ['form_*', 'formconfig_*', 'formlabel_*', 'raw_data', 'admin_email']),

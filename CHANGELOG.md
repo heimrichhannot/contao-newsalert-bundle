@@ -3,11 +3,14 @@
 ## [0.5-dev] - 2017-08-15
 
 ### Added
+* log sent mails to tl_newsalert_sent
+    * new backend module listing sent alerts
 * topic options callback
 * check if dublicate entry
 
 ### Changed
 * newstopics now sorted alphabetical
+* renamed namespace Listener to EventListener
 
 ## [0.4.0] - 2017-08-14
 

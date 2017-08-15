@@ -28,5 +28,5 @@ use HeimrichHannot\Haste\Model\Model;
  */
 class NewsalertSendModel extends Model
 {
-    protected static $strTable = 'tl_newsalert_send';
+    protected static $strTable = 'tl_newsalert_sent';
 }

@@ -35,7 +35,13 @@ $GLOBALS['TL_DCA']['tl_newsalert_recipients'] = [
             'format'      => '%s',
             'showColumns' => true,
         ],
-        'global_operations' => [],
+        'global_operations' => [
+            'newsalert_recipients' => [
+                'label'               => $translator->trans('hh.newsalert.tl_newsalert_recipients.label'),
+                'href'                => 'table=tl_newsalert_sent',
+                'icon'                => 'db.svg',
+            ]
+        ],
         'operations'        => [
             'edit'   => [
                 'label'     => [

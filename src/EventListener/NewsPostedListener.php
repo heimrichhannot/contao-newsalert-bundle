@@ -8,7 +8,7 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
-namespace HeimrichHannot\ContaoNewsAlertBundle\Listener;
+namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
 use Contao\ContentModel;
 use Contao\CoreBundle\Monolog\ContaoContext;
@@ -20,6 +20,7 @@ use Contao\Newsletter;
 use Contao\Request;
 use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel;
+use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertSendModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
 use HeimrichHannot\FormHybrid\TokenGenerator;
 use HeimrichHannot\Modal\PageModel;
@@ -107,6 +108,7 @@ class NewsPostedListener
         }
 
         $arrTokens = [];
+        $intCountMails = 0;
         foreach ($arrRecipients as $email => $data)
         {
             $strOptOutLinksHtml = '';
@@ -118,9 +120,10 @@ class NewsPostedListener
                 $strOptOutLinksText .= $topic.' '.$this->translator->trans('hh.newsalert.notifications.unsubscribe').': '.$strLink.'\n';
             }
 
+            $strTopics = implode(",", array_keys($data['topics']));
             $arrTokens = [
                 'hh_newsalert_topic_recipient' => $email,
-                'hh_newsalert_recipient_topics' => implode(",", array_keys($data['topics'])),
+                'hh_newsalert_recipient_topics' => $topics,
                 'hh_newsalert_news_title' => $objArticle->headline,
                 'hh_newsalert_opt_out_html' => $strOptOutLinksHtml,
                 'hh_newsalert_opt_out_text' => $strOptOutLinksText,
@@ -129,9 +132,21 @@ class NewsPostedListener
 
             while ($objNotificationCollection->next())
             {
+                /**
+                 * @var $objNotification Notification
+                 */
                 $objNotification = $objNotificationCollection->current();
                 $objNotification->send($arrTokens);
+                $intCountMails++;
+
             }
+            $objNewsalertSend = new NewsalertSendModel();
+            $objNewsalertSend->pid = $objArticle->id;
+            $objNewsalertSend->topics = $topics;
+            $objNewsalertSend->senddate = time();
+            $objNewsalertSend->count_messages = $intCountMails;
+            $objNewsalertSend->save();
+
             $objNotificationCollection->reset();
         }
         return;

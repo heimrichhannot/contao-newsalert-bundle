@@ -1,6 +1,11 @@
 services:
     hh.contao-newsalert.listener.newspostedlistener:
-        class: HeimrichHannot\ContaoNewsAlertBundle\Listener\NewsPostedListener
+        class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener
+        arguments:
+            - '@service_container'
+
+    hh.contao-newsalert.listener.dcaListener:
+        class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\DataContainer\NewsalertListener
         arguments:
             - '@service_container'
 

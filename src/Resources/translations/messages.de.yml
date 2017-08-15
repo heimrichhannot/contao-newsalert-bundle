@@ -21,8 +21,11 @@ hh.newsalert:
         captcha:
             0: Sicherheitsabfrage
             1: Bitte lösen Sie diese Sicherheitsabfrage.
-    tl_newsalert_send:
+    tl_newsalert_sent:
         label: Gesendete Newsalerts
+        pid:
+            0: Newsartikel
+            1: Newsartikel, für welchen der Newsalert verschickt wurde.
         topics:
             0: Themen
             1: Die Themengebiete des Newsalert
@@ -47,3 +50,6 @@ hh.newsalert:
         show:
             0: Details
             1: Details
+        parent:
+            0: News article
+            1: Newsartikel

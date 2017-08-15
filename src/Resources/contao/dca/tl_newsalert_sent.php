@@ -9,17 +9,16 @@
  * // */
 
 $translator = System::getContainer()->get('translator');
+$strTable = 'tl_newsalert_sent';
+
 //
-$GLOBALS['TL_DCA']['tl_newsalert_send'] = [
+$GLOBALS['TL_DCA'][$strTable] = [
     'config'   => [
         'dataContainer'    => 'Table',
         'switchToEdit'     => true,
         'enableVersioning' => false,
         'backlink'         => 'do=news&table=tl_newsalert_recipients',
-        'label'            => $translator->trans('hh.newsalert.tl_newsalert_send.label'),
-        'onload_callback'  => ['onload_callback' => [
-            ['HeimrichHannot\Haste\Dca\General', 'setDateAdded', true]
-        ]],
+        'label'            => $translator->trans('hh.newsalert.tl_newsalert_sent.label'),
         'sql'              => [
             'keys' => [
                 'id' => 'primary',
@@ -29,13 +28,12 @@ $GLOBALS['TL_DCA']['tl_newsalert_send'] = [
     'list'     => [
         'sorting'           => [
             'mode'         => 2,
-            'fields'       => ['email', 'topic', 'confirmed'],
-            'flag'         => 1,
+            'fields'       => ['senddate DESC'],
+            'flag'         => 8,
             'panelLayout'  => 'debug;filter;sort,search,limit',
         ],
         'label'             => [
-            'fields'      => ['email', 'topic', 'confirmed'],
-            'format'      => '%s',
+            'fields'      => ['senddate', 'pid:tl_news.headline', 'topics', 'count_messages'],
             'showColumns' => true,
         ],
         'global_operations' => [],
@@ -59,6 +57,10 @@ $GLOBALS['TL_DCA']['tl_newsalert_send'] = [
         ],
         'pid' => array
         (
+            'label'     => [
+                $translator->trans('hh.newsalert.tl_newsalert_sent.pid.0'),
+                $translator->trans('hh.newsalert.tl_newsalert_sent.pid.1')
+            ],
             'foreignKey'              => 'tl_news.id',
             'sql'                     => "int(10) unsigned NOT NULL default '0'",
             'relation'                => array('type'=>'belongsTo', 'load'=>'eager')
@@ -68,8 +70,8 @@ $GLOBALS['TL_DCA']['tl_newsalert_send'] = [
         ],
         'topics'     => [
             'label'     => [
-                $translator->trans('hh.newsalert.tl_newsalert_send.topics.0'),
-                $translator->trans('hh.newsalert.tl_newsalert_send.topics.1')
+                $translator->trans('hh.newsalert.tl_newsalert_sent.topics.0'),
+                $translator->trans('hh.newsalert.tl_newsalert_sent.topics.1')
             ],
             'sorting'   => true,
             'inputType' => 'text',
@@ -78,24 +80,24 @@ $GLOBALS['TL_DCA']['tl_newsalert_send'] = [
         ],
         'senddate' => [
             'label'     => [
-                $translator->trans('hh.newsalert.tl_newsalert_send.senddate.0'),
-                $translator->trans('hh.newsalert.tl_newsalert_send.senddate.1')
+                $translator->trans('hh.newsalert.tl_newsalert_sent.senddate.0'),
+                $translator->trans('hh.newsalert.tl_newsalert_sent.senddate.1')
             ],
+            'inputType' => 'text',
+            'exclude' => true,
             'sorting' => true,
-            'eval'    => ['rgxp' => 'datim', 'doNotCopy' => true],
+            'flag'    => 6,
+            'eval'    => ['rgxp' => 'datim', 'datepicker' => true, 'doNotCopy' => true, 'sort' => 12],
             'sql'     => "int(10) unsigned NOT NULL default '0'",
         ],
         'count_messages' => [
             'label'     => [
-                $translator->trans('hh.newsalert.tl_newsalert_send.count_messages.0'),
-                $translator->trans('hh.newsalert.tl_newsalert_send.count_messages.1')
+                $translator->trans('hh.newsalert.tl_newsalert_sent.count_messages.0'),
+                $translator->trans('hh.newsalert.tl_newsalert_sent.count_messages.1')
             ],
             'sorting' => true,
             'eval'    => ['doNotCopy' => true],
             'sql'     => "int(10) unsigned NOT NULL default '0'",
         ],
-
     ]
 ];
-
-\HeimrichHannot\Haste\Dca\General::addDateAddedToDca('tl_newsalert_send');
