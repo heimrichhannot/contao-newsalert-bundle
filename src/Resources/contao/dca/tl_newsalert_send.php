@@ -86,8 +86,15 @@ $GLOBALS['TL_DCA']['tl_newsalert_send'] = [
             'sql'     => "int(10) unsigned NOT NULL default '0'",
         ],
         'count_messages' => [
+            'label'     => [
+                $translator->trans('hh.newsalert.tl_newsalert_send.count_messages.0'),
+                $translator->trans('hh.newsalert.tl_newsalert_send.count_messages.1')
+            ],
+            'sorting' => true,
+            'eval'    => ['doNotCopy' => true],
+            'sql'     => "int(10) unsigned NOT NULL default '0'",
+        ],
 
-        ]
     ]
 ];
 
