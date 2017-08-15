@@ -1,7 +1,5 @@
 # Contao Newsalert Bundle
 
-> Bundle is in active development and not ready to use yet!
-
 A contao bundle, to let website visitor subscribe to a news topic.
 
 The bundle comes with an interface to add custom news topic, for example categories, tags, authors.

@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.5-dev] - 2017-08-15
+## [1.0.0] - 2017-08-15
 
 ### Added
 * log sent mails to tl_newsalert_sent
