@@ -33,7 +33,8 @@ use HeimrichHannot\Haste\Util\Url;
 class NewsPostedListener
 {
 
-    const NotificationCenterType = 'news_posted';
+    const NOTIFICATION_TYPE_NEWSALERT = 'hh_newsalert';
+    const NOTIFICATION_TYPE_NEW_ARTICLE = 'news_posted';
 
     protected $container;
 
@@ -71,19 +72,19 @@ class NewsPostedListener
         /**
          * @var Collection|Notification $objNotificationCollection
          */
-        $objNotificationCollection = Notification::findByType(static::NotificationCenterType);
+        $objNotificationCollection = Notification::findByType(static::NOTIFICATION_TYPE_NEW_ARTICLE);
         if ($objNotificationCollection === null)
         {
             $this->container->get('monolog.logger.contao')->log(
                 LogLevel::NOTICE,
-                "No notification by type ".static::NotificationCenterType." was found. No newsalert send.",
+                "No notification by type ".static::NOTIFICATION_TYPE_NEW_ARTICLE . " was found. No newsalert send.",
                 ['contao' => new ContaoContext(__CLASS__.'::'.__FUNCTION__, TL_GENERAL)]
             );
             return;
         }
         if ($objNotificationCollection->count() > 1)
         {
-            $this->container->get('monolog.logger.contao')->addNotice('Multiple notifications by type '.static::NotificationCenterType.' found. Can lead to multiple notifications for the same person.');
+            $this->container->get('monolog.logger.contao')->addNotice('Multiple notifications by type '.static::NOTIFICATION_TYPE_NEW_ARTICLE . ' found. Can lead to multiple notifications for the same person.');
         }
 
 //        $strContentRaw = '';

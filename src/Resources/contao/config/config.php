@@ -32,9 +32,8 @@ $arrTokens = [
     'hh_newsalert_opt_out_text',
 ];
 
-$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['hh_newsalert'] = array
-(
-    \HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener::NotificationCenterType => [
+$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE'][\HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener::NOTIFICATION_TYPE_NEWSALERT] = [
+    \HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener::NOTIFICATION_TYPE_NEW_ARTICLE => [
         'recipients'           => array_merge($arrTokens, ['admin_email', 'form_*', 'formconfig_*']),
         'email_subject'        => array_merge($arrTokens, ['form_*', 'formconfig_*', 'admin_email']),
         'email_text'           => array_merge($arrTokens, ['form_*', 'formconfig_*', 'formlabel_*', 'raw_data', 'admin_email']),
@@ -48,4 +47,4 @@ $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['hh_newsalert'] = array
         'email_replyTo'        => array('admin_email', 'form_*', 'formconfig_*'),
         'attachment_tokens'    => array('form_*', 'formconfig_*'),
     ]
-);
+];

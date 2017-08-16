@@ -4,6 +4,7 @@
 
 ### Added
 * nc tokens now added to file name and file content
+* translation for notification center types
 
 ### Fixed
 * recipient topics token array instead of string
