@@ -138,7 +138,6 @@ class NewsPostedListener
                 $objNotification = $objNotificationCollection->current();
                 $objNotification->send($arrTokens);
                 $intCountMails++;
-
             }
 
             $objNewsalertSend = new NewsalertSendModel();
