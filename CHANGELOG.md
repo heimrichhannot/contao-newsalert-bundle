@@ -1,5 +1,13 @@
 # Changelog
 
+
+
+## [1.0.1] - 2017-08-16
+
+### Added
+* english translation
+* updated readme
+
 ## [1.0.0] - 2017-08-15
 
 ### Added
