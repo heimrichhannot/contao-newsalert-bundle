@@ -123,7 +123,7 @@ class NewsPostedListener
             $strTopics = implode(",", array_keys($data['topics']));
             $arrTokens = [
                 'hh_newsalert_topic_recipient' => $email,
-                'hh_newsalert_recipient_topics' => $topics,
+                'hh_newsalert_recipient_topics' => $strTopics,
                 'hh_newsalert_news_title' => $objArticle->headline,
                 'hh_newsalert_opt_out_html' => $strOptOutLinksHtml,
                 'hh_newsalert_opt_out_text' => $strOptOutLinksText,
@@ -140,19 +140,18 @@ class NewsPostedListener
                 $intCountMails++;
             }
 
-            $objNewsalertSend = new NewsalertSendModel();
-            $objNewsalertSend->pid = $objArticle->id;
-            $objNewsalertSend->topics = $topics;
-            $objNewsalertSend->senddate = time();
-            $objNewsalertSend->count_messages = $intCountMails;
-            $objNewsalertSend->user = \BackendUser::getInstance()->id;
-            $objNewsalertSend->save();
-
             $objNotificationCollection->reset();
 
             $objArticle->newsalert_send = 1;
             $objArticle->save();
         }
+        $objNewsalertSend = new NewsalertSendModel();
+        $objNewsalertSend->pid = $objArticle->id;
+        $objNewsalertSend->topics = $topics;
+        $objNewsalertSend->senddate = time();
+        $objNewsalertSend->count_messages = $intCountMails;
+        $objNewsalertSend->user = \BackendUser::getInstance()->id;
+        $objNewsalertSend->save();
         return;
     }
 

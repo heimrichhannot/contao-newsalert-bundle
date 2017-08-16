@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3] - 2017-08-16
+
+### Added
+* nc tokens now added to file name and file content
+
+### Fixed
+* recipient topics token array instead of string
+
 ## [1.0.2] - 2017-08-16
 
 ### Added 

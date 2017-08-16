@@ -74,3 +74,6 @@ We recommend [Chosen](https://harvesthq.github.io/chosen/) to add a search field
 * evaluate the best callback for calling the listener (currently called by onsubmit_callback)
 * use caching for speed improvements?
 * serverside validation
+* find dublicates
+* cleanup
+    * find non-available topics

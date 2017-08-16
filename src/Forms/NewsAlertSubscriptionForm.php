@@ -39,9 +39,6 @@ class NewsAlertSubscriptionForm extends Form
         $strEmail = $dc->getFieldValue('email');
         $strTopic = $dc->getFieldValue('topic');
 
-//        $objRecipients = NewsalertRecipientsModel::findBy('email', $dc->getFieldValue('email'));
-
-
         $objRecipients = NewsalertRecipientsModel::findBy(
             ['email = ?', 'topic = ?'],
             [$strEmail, $strTopic]
