@@ -22,6 +22,7 @@ The bundle comes with an interface to add custom news topic, for example categor
 * Contao 4.4
 * PHP7
 * [Contao Notification Center](https://github.com/terminal42/contao-notification_center)
+* [Formhybrid](https://github.com/heimrichhannot/contao-formhybrid)
 
 ## Installation
 
@@ -35,7 +36,10 @@ Afterwards call the Contao install procedure to update the database.
 
 ## Setup
 
-* set up notification center notification (`hh_newsalert`) for newsalert and opt-in mails.
+* add topic sources
+* set up notification center notifications
+    * `hh_newsalert` for newsalert messages
+    * `formhybrid-opt-in` for opt-in mails
 * add frontend module and configure it
 
 ## Usage
@@ -70,4 +74,4 @@ We recommend [Chosen](https://harvesthq.github.io/chosen/) to add a search field
 * bundled topic source?
 * translation (currently only german)
 * evaluate the best callback for calling the listener
-* use caching for speed improvement?
+* use caching for speed improvements?
