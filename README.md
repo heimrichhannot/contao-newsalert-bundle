@@ -15,6 +15,7 @@ The bundle comes with an interface to add custom news topic, for example categor
 * dublicate entry check
     * when dublicate entry is not confirmed, resend activation link instead of showing error message
 * archive informations about sent messages
+* bundled topic source for news archives
 
 
 ## Requirements
@@ -70,8 +71,6 @@ ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tok
 We recommend [Chosen](https://harvesthq.github.io/chosen/) to add a search field to the topic select element. It's already used by Contao in the backend.
 
 ## Todo
-
-* bundled topic source?
-* translation (currently only german)
-* evaluate the best callback for calling the listener
+* evaluate the best callback for calling the listener (currently called by onsubmit_callback)
 * use caching for speed improvements?
+* serverside validation

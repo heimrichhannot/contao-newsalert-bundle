@@ -1,6 +1,13 @@
 # Changelog
 
+## [1.0.2] - 2017-08-16
 
+### Added 
+* bundles topic source for news archive
+
+### Changed
+* removed unused service
+* fixed NewsTopicSourceInterface file name not resampled class name (renamed file)
 
 ## [1.0.1] - 2017-08-16
 

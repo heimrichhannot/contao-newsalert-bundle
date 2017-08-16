@@ -4,10 +4,8 @@ services:
         arguments:
             - '@service_container'
 
-    hh.contao-newsalert.listener.dcaListener:
-        class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\DataContainer\NewsalertListener
-        arguments:
-            - '@service_container'
-
     hh.contao-newsalert.newstopiccollection:
         class: HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection
+
+    HeimrichHannot\ContaoNewsAlertBundle\Components\NewsArchiveTopics:
+        tags: [hh.newsalert.topic_source]
