@@ -10,6 +10,9 @@
 * unsubscribe link list contains now all subscribed topics
 * content token don't include teaser anymore
 
+### Fixed
+* dateAdded not set
+
 ## [1.0.3] - 2017-08-16
 
 ### Added

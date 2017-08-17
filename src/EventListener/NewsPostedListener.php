@@ -15,6 +15,7 @@ use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\DC_Table;
 use Contao\Email;
 use Contao\Environment;
+use Contao\Frontend;
 use Contao\Input;
 use Contao\NewsArchiveModel;
 use Contao\Newsletter;
@@ -148,8 +149,7 @@ class NewsPostedListener
             {
                 foreach ($GLOBALS['TL_HOOKS']['hh_newsalert_customToken'] as $callback)
                 {
-                    $this->import($callback[0]);
-                    $arrTokens = $this->$callback[0]->$callback[1]($objArticle, $arrTokens, $dc);
+                    $arrTokens = System::importStatic($callback[0])->{$callback[1]}($objArticle, $arrTokens, $dc);
                 }
             }
 

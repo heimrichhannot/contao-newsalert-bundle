@@ -48,6 +48,7 @@ class NewsAlertSubscriptionForm extends Form
         {
             $this->objActiveRecord->email = $dc->getFieldValue('email');
             $this->objActiveRecord->topic = $dc->getFieldValue('topic');
+            $this->objActiveRecord->dateAdded = time();
             $this->objActiveRecord->confirmed = 0;
             $this->objActiveRecord->save();
         }

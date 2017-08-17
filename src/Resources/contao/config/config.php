@@ -29,6 +29,7 @@ $arrTokens = [
     'hh_newsalert_news_title',
     'hh_newsalert_news_teaser',
     'hh_newsalert_news_content',
+    'hh_newsalert_news_url',
     'hh_newsalert_recipient_topics',
     'hh_newsalert_recipient_topic_count',
     'hh_newsalert_opt_out_html',
