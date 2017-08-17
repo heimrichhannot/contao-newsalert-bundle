@@ -16,6 +16,7 @@ use Contao\DC_Table;
 use Contao\Email;
 use Contao\Environment;
 use Contao\Input;
+use Contao\NewsArchiveModel;
 use Contao\Newsletter;
 use Contao\Request;
 use Contao\System;
@@ -65,7 +66,6 @@ class NewsPostedListener
             return;
         }
 
-        $objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
         $topics = $this->container->get('hh.contao-newsalert.newstopiccollection')->getTopicsByItem($objArticle);
         $arrRecipients = $this->getRecipientsByTopic($topics);
 
@@ -91,8 +91,9 @@ class NewsPostedListener
 //        $strContentHtml = '';
 
         $strContent = '';
-        $strContent .= empty($objArticle->teaser) ? '' : $objArticle->teaser;
+        $strTeaser = empty($objArticle->teaser) ? '' : $objArticle->teaser;
 
+        $objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
         if ($objContents !== null)
         {
             while ($objContents->next())
@@ -112,24 +113,45 @@ class NewsPostedListener
         $intCountMails = 0;
         foreach ($arrRecipients as $email => $data)
         {
+            $arrAllTopics = $this->getAllTopicsByRecipient($email);
+
             $strOptOutLinksHtml = '';
             $strOptOutLinksText = '';
-            foreach ($data['topics'] as $topic=>$value)
+            foreach ($arrAllTopics as $strTopic=>$strOptOutToken)
             {
-                $strLink = Environment::get('url').$value['opt_out_link'];
-                $strOptOutLinksHtml .= $topic.': <a href="'.$strLink.'">'.$this->translator->trans('hh.newsalert.notifications.unsubscribe').'</a><br />';
-                $strOptOutLinksText .= $topic.' '.$this->translator->trans('hh.newsalert.notifications.unsubscribe').': '.$strLink.'\n';
+                $strLink = Environment::get('url').$strOptOutToken;
+                $strOptOutLinksHtml .= $strTopic.': <a href="'.$strLink.'">'.$this->translator->trans('hh.newsalert.notifications.unsubscribe').'</a><br />';
+                $strOptOutLinksText .= $strTopic.' '.$this->translator->trans('hh.newsalert.notifications.unsubscribe').': '.$strLink.'\n';
             }
 
-            $strTopics = implode(",", array_keys($data['topics']));
+            $strTopics = implode(",", $data['topics']);
+
+            $objNewsPage = \PageModel::findByPk(NewsArchiveModel::findById($objArticle->pid)->jumpTo);
+
+            $strUrl = $this->container->get('contao.routing.url_generator')->generate($objNewsPage->alias).$objArticle->alias;
+
             $arrTokens = [
                 'hh_newsalert_topic_recipient' => $email,
                 'hh_newsalert_recipient_topics' => $strTopics,
+                'hh_newsalert_recipient_topic_count' => count($data['topics']),
                 'hh_newsalert_news_title' => $objArticle->headline,
+                'hh_newsalert_news_teaser' => $strTeaser,
+                'hh_newsalert_news_content' => $strContent,
+                'hh_newsalert_news_url' => $strUrl,
                 'hh_newsalert_opt_out_html' => $strOptOutLinksHtml,
                 'hh_newsalert_opt_out_text' => $strOptOutLinksText,
+                'hh_newsalert_year' => date('Y'),
                 'raw_data' => $strContent
             ];
+
+            if (isset($GLOBALS['TL_HOOKS']['hh_newsalert_customToken']) && is_array($GLOBALS['TL_HOOKS']['hh_newsalert_customToken']))
+            {
+                foreach ($GLOBALS['TL_HOOKS']['hh_newsalert_customToken'] as $callback)
+                {
+                    $this->import($callback[0]);
+                    $arrTokens = $this->$callback[0]->$callback[1]($objArticle, $arrTokens, $dc);
+                }
+            }
 
             while ($objNotificationCollection->next())
             {
@@ -157,22 +179,22 @@ class NewsPostedListener
     }
 
     /**
-     * Return recipients email adresses and their subscribed topics
+     * Return recipients list with emails, topics and unsubscribe links
      * List is filtered, so every recipient is only once included in the list
      * (if he/she is not registered with multiple mail adresses),
      * even if he/she registered to multiple topics from the given list.
      *
-     * @param array $arrTopic Simple list of topic names. Example ['Music','Live','Concert']
+     * @param array $arrTopics Simple list of topic names. Example ['Music','Live','Concert']
      *
      * @return array Key is the recipient mail adrress, values are the topics.
      *               Example: ['text@example.org' => ['Windows','MacOs','Linux']]
      */
-    protected function getRecipientsByTopic($arrTopic = [])
+    protected function getRecipientsByTopic($arrTopics = [])
     {
         $arrRecipients = [];
-        foreach ($arrTopic as $item)
+        foreach ($arrTopics as $strTopic)
         {
-            $recipients = static::recipients($item);
+            $recipients = static::recipients($strTopic);
             if (!$recipients)
             {
                 continue;
@@ -183,16 +205,40 @@ class NewsPostedListener
                 {
                     continue;
                 }
-                $strOptOutUrl = TokenGenerator::optOutTokens(
-                    NewsalertSubscribeModule::TABLE,
-                    $recipients->optOutToken
-                )['opt_out_link'];
-                $arrRecipients[$recipients->email]['topics'][$item] = [
-                    'opt_out_link' => $strOptOutUrl
-                ];
+                $arrRecipients[$recipients->email]['topics'][] = $strTopic;
+//
+//
+//                $strOptOutUrl = TokenGenerator::optOutTokens(
+//                    NewsalertSubscribeModule::TABLE,
+//                    $recipients->optOutToken
+//                )['opt_out_link'];
+//                $arrRecipients[$recipients->email]['topics'][$strTopic] = [
+//                    'opt_out_link' => $strOptOutUrl
+//                ];
             }
         }
         return $arrRecipients;
+    }
+
+    /**
+     * Returns all topics by a recipient with opt out links
+     *
+     * @param $recipient string email address of the recipient
+     *
+     * @return array [Topic => Opt-out-link]
+     */
+    protected function getAllTopicsByRecipient($recipient)
+    {
+        $objAllRecipientsTopics = NewsalertRecipientsModel::findByEmail($recipient);
+        $arrAllRecipientsTopics = [];
+        while ($objAllRecipientsTopics->next())
+        {
+            $arrAllRecipientsTopics[$objAllRecipientsTopics->topic] = TokenGenerator::optOutTokens(
+                NewsalertSubscribeModule::TABLE,
+                $objAllRecipientsTopics->optOutToken
+            )['opt_out_link'];
+        }
+        return $arrAllRecipientsTopics;
     }
 
     /**

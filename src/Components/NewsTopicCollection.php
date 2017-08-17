@@ -28,7 +28,8 @@ class NewsTopicCollection
          */
         foreach ($this->topicSources as $source)
         {
-            $topics = array_merge($source->getTopics(), $topics);
+            $srcTopics = $source->getTopics();
+            $topics = array_merge($srcTopics, $topics);
         }
         $topics = array_unique($topics, SORT_REGULAR);
         sort($topics);

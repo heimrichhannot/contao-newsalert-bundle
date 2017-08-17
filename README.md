@@ -59,13 +59,24 @@ To add a topic source, your topics class needs to implement the `NewsTopicInterf
 ### Notification center tokens
 ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tokens are added to `news_posted` type (in addition to the default ones): 
 
-|Tag                              |Description|
-|---------------------------------|-----------|
-|##hh_newsalert_topic_recipient## |E-Mailadress of the subscriber|
-|##hh_newsalert_news_title##      |Title of the news for which newsalert is triggered|
-|##hh_newsalert_recipient_topics##|The intersection of news topics and subscribed topics of the receiver|
-|##hh_newsalert_opt_out_html##    |A list of topics (same as above) and the corresponding unsubscribe links in html format (Topic: Link)|
-|##hh_newsalert_opt_out_text      |Same list as above, but textonly| 
+Tag                                   | Description
+--------------------------------------|-----------
+##hh_newsalert_topic_recipient##      | Emailaddress of the subscriber
+##hh_newsalert_news_title##           | Title of the news for which newsalert is triggered
+##hh_newsalert_news_teaser##          | Teaser text of the news article
+##hh_newsalert_news_content##         | Article content
+##hh_newsalert_recipient_topics##     | The intersection of news topics and subscribed topics of the receiver
+##hh_newsalert_recipient_topic_count##| The the number of topics from ##hh_newsalert_recipient_topics##
+##hh_newsalert_opt_out_html##         | A list of all recipients topics and the corresponding unsubscribe links in html format (Topic: Link)
+##hh_newsalert_opt_out_text##         | Same list as above, but textonly
+##hh_newsalert_year##                 | The current year
+
+### Hooks
+
+Name                     | Arguments                                            | Expected return value | Description
+-------------------------|------------------------------------------------------|-----------------------|------------
+hh_newsalert_customToken |NewsModel $objArticle, array $arrTokens, DC_Table $dc | $arrTokens            | Hook to add custom tokens or manipulate existing ones. Don't forget to register them via your config.php file.
+
 
 ### Frontend autocompletion
 We recommend [Chosen](https://harvesthq.github.io/chosen/) to add a search field to the topic select element. It's already used by Contao in the backend.

@@ -27,9 +27,13 @@ $GLOBALS['TL_MODELS']['tl_newsalert_recipients'] = 'HeimrichHannot\ContaoNewsAle
 $arrTokens = [
     'hh_newsalert_topic_recipient',
     'hh_newsalert_news_title',
+    'hh_newsalert_news_teaser',
+    'hh_newsalert_news_content',
     'hh_newsalert_recipient_topics',
+    'hh_newsalert_recipient_topic_count',
     'hh_newsalert_opt_out_html',
     'hh_newsalert_opt_out_text',
+    'hh_newsalert_year',
 ];
 
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE'][\HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener::NOTIFICATION_TYPE_NEWSALERT] = [

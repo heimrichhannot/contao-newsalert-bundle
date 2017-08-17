@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.4] - 2017-08-17
+
+### Added 
+* hh_newsalert_customToken Hook to manipulte notification center tokens
+* new notification center tokens
+
+### Changed
+* unsubscribe link list contains now all subscribed topics
+* content token don't include teaser anymore
+
 ## [1.0.3] - 2017-08-16
 
 ### Added
