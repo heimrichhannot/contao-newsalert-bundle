@@ -65,11 +65,13 @@ Tag                                   | Description
 ##hh_newsalert_news_title##           | Title of the news for which newsalert is triggered
 ##hh_newsalert_news_teaser##          | Teaser text of the news article
 ##hh_newsalert_news_content##         | Article content
+##hh_newsalert_news_url##             | Relative url to the article
 ##hh_newsalert_recipient_topics##     | The intersection of news topics and subscribed topics of the receiver
 ##hh_newsalert_recipient_topic_count##| The the number of topics from ##hh_newsalert_recipient_topics##
 ##hh_newsalert_opt_out_html##         | A list of all recipients topics and the corresponding unsubscribe links in html format (Topic: Link)
 ##hh_newsalert_opt_out_text##         | Same list as above, but textonly
 ##hh_newsalert_year##                 | The current year
+##hh_newsalert_root_url##             | Root url
 
 ### Hooks
 

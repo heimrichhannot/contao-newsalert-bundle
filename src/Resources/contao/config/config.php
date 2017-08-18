@@ -35,6 +35,7 @@ $arrTokens = [
     'hh_newsalert_opt_out_html',
     'hh_newsalert_opt_out_text',
     'hh_newsalert_year',
+    'hh_newsalert_root_url',
 ];
 
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE'][\HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener::NOTIFICATION_TYPE_NEWSALERT] = [

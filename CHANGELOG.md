@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.4] - 2017-08-17
+## [1.1.0] - 2017-08-18
 
 ### Added 
 * hh_newsalert_customToken Hook to manipulte notification center tokens

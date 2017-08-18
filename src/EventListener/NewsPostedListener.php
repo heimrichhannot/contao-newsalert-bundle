@@ -11,6 +11,7 @@
 namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
 use Contao\ContentModel;
+use Contao\Controller;
 use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\DC_Table;
 use Contao\Email;
@@ -130,7 +131,7 @@ class NewsPostedListener
             $objNewsPage = \PageModel::findByPk(NewsArchiveModel::findById($objArticle->pid)->jumpTo);
 
             $strUrl = $this->container->get('contao.routing.url_generator')->generate($objNewsPage->alias).$objArticle->alias;
-
+            $strRootUrl = Environment::get('url');
             $arrTokens = [
                 'hh_newsalert_topic_recipient' => $email,
                 'hh_newsalert_recipient_topics' => $strTopics,
@@ -142,6 +143,7 @@ class NewsPostedListener
                 'hh_newsalert_opt_out_html' => $strOptOutLinksHtml,
                 'hh_newsalert_opt_out_text' => $strOptOutLinksText,
                 'hh_newsalert_year' => date('Y'),
+                'hh_newsalert_root_url' => $strRootUrl,
                 'raw_data' => $strContent
             ];
 
