@@ -1,0 +1,77 @@
+hh.newsalert:
+    tl_news:
+        newsalert_recipients: Newsalert
+        newsalert_activate:
+            0: Activate newsalert
+            1: Active newsalert for this article (will be send when published).
+        newsalert_send:
+            0: Newsalert sent
+            1: Newsalert for this article was already sent (uncheck this to send again).
+    tl_newsalert_recipients:
+        label: Newsalert subscribers
+        email:
+            0: Email
+            1: Emailadress of the subscriber.
+        topic:
+            0: Topic
+            1: Subscribed topic.
+        confirmed:
+            0: Confirmed
+            1: The subscription has to be confiremt by the user.
+        captcha:
+            0: Security check
+            1: Please solve the security check.
+    tl_newsalert_sent:
+        label: Sent newsalerts
+        pid:
+            0: Article
+            1: Newsalert news article Newsartikel.
+        topics:
+            0: Topics
+            1: Newsalert topics
+        senddate:
+            0: Send date
+            1: The send date of the newsalert.
+        count_messages:
+            0: message count
+            1: The number of sent messages for the newsalert.
+        user:
+            0: Author
+            1: The author who triggered the newsalert.
+    module_redirect:
+            optin:
+                success:
+                    head: Newsalert subscription successful
+                    message: The subscription to the topic %topic% was successfull.
+                error:
+                    head: Newsalert subscription not successful
+                    message: The subscription was not successfull. Maybe you already used the link or habe an mistake in the link address. If the problem persists, please call the technical support.
+            optout:
+                success:
+                    head: Newsalert unsubscription successful
+                    message: The cancellation of your subscription was successfull.
+                error:
+                    head: Newsalert unsubscription not successful
+                    message: The cancellation of your subscription could not be accomplished. Maybe you already unsubscribed or have an error in the link address. If the problem persists, please call the technical support.
+            optnone:
+                error:
+                    head: Error
+                    message: This page is not intended to be called direct. If this is a an error and you expected an confirmation page, please try again or call the technical support.
+    notifications:
+        unsubscribe: Unsubscribe
+    operations:
+        edit:
+            0: Edit
+            1: Edit
+        copy:
+            0: Copy
+            1: Copy
+        delete:
+            0: Delete
+            1: Delete
+        show:
+            0: Details
+            1: Details
+        parent:
+            0: News article
+            1: News article

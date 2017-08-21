@@ -1,5 +1,55 @@
 # Changelog
 
+<<<<<<< Updated upstream
+=======
+## [2.0-dev] - 2017-08-18
+
+### Added
+* `hh:newsalert:send` console command to check for unsend news alerts
+
+### Changed
+* set tl_news sql default newsalert_sent value to 1 (to avoid all send newsalert for all existing news)
+* set dca default value for newsalert_sent to 0 (to send newsalert for new news entries)
+* removed $dc from Hook (**api change!**)
+
+## [1.1.0] - 2017-08-18
+
+### Added 
+* hh_newsalert_customToken Hook to manipulte notification center tokens
+* new notification center tokens
+
+### Changed
+* unsubscribe link list contains now all subscribed topics
+* content token don't include teaser anymore
+
+### Fixed
+* dateAdded not set
+
+## [1.0.3] - 2017-08-16
+
+### Added
+* nc tokens now added to file name and file content
+* translation for notification center types
+
+### Fixed
+* recipient topics token array instead of string
+
+## [1.0.2] - 2017-08-16
+
+### Added 
+* bundles topic source for news archive
+
+### Changed
+* removed unused service
+* fixed NewsTopicSourceInterface file name not resampled class name (renamed file)
+
+## [1.0.1] - 2017-08-16
+
+### Added
+* english translation
+* updated readme
+
+>>>>>>> Stashed changes
 ## [1.0.0] - 2017-08-15
 
 ### Added

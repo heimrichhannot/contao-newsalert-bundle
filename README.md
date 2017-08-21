@@ -66,8 +66,18 @@ ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tok
 We recommend [Chosen](https://harvesthq.github.io/chosen/) to add a search field to the topic select element. It's already used by Contao in the backend.
 
 ## Todo
+<<<<<<< Updated upstream
 
 * bundled topic source?
 * translation (currently only german)
 * evaluate the best callback for calling the listener
 * use caching for speed improvement?
+=======
+* evaluate the best callback for calling the listener (currently called by onsubmit_callback)
+* use caching for speed improvements?
+* serverside validation
+* cleanup function
+    * find duplicated
+    * find non-available topics
+* Module selection for newsalert onsubmit
+>>>>>>> Stashed changes

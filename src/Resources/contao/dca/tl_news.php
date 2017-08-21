@@ -12,11 +12,6 @@ $dc = &$GLOBALS['TL_DCA']['tl_news'];
 $translator = System::getContainer()->get('translator');
 
 /*
- * Callbacks
- */
-$dc['config']['onsubmit_callback'][] = ['hh.contao-newsalert.listener.newspostedlistener','newsPosted'];
-
-/*
  * Palettes
  */
 
@@ -50,7 +45,8 @@ $fields = [
         ],
         'inputType' => 'checkbox',
         'exclude'   => true,
-        'sql'       => "int(1) NOT NULL default 0",
+        'default'   => 0,
+        'sql'       => "int(1) NOT NULL default 1",
         'eval'      => ['tl_class' => 'w50'],
     ]
 ];

@@ -10,10 +10,12 @@
 
 namespace HeimrichHannot\ContaoNewsAlertBundle\Forms;
 
+use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel;
 use HeimrichHannot\FormHybrid\Form;
 use HeimrichHannot\NewsBundle\NewsModel;
 use HeimrichHannot\StatusMessages\StatusMessage;
+use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 
 class NewsAlertSubscriptionForm extends Form
 {
@@ -23,6 +25,7 @@ class NewsAlertSubscriptionForm extends Form
     protected $strTable = 'tl_newsalert_recipients';
     protected $strModelClass = NewsalertRecipientsModel::class;
     protected $isDuplicateEntityError = false;
+    protected $strTopic;
 
 
     protected function compile()
@@ -73,4 +76,30 @@ class NewsAlertSubscriptionForm extends Form
         $strModelClass = $this->strModelClass;
         return parent::createSubmission($this->strModelClass);
     }
+
+    /**
+     * @param \DataContainer $dc
+     * @param NewsalertRecipientsModel $objModel
+     */
+    protected function afterActivationCallback(\DataContainer $dc)
+    {
+        $this->setSessionVariables(true, $this->objActiveRecord->topic, 'in');
+        StatusMessage::reset($dc->moduleId);
+    }
+
+    protected function afterUnsubscribeCallback(\DataContainer $dc)
+    {
+        $this->setSessionVariables(true, $this->objActiveRecord->topic, 'out');
+        StatusMessage::reset($dc->moduleId);
+    }
+
+    protected function setSessionVariables($status, $topic, $opt)
+    {
+        $session = System::getContainer()->get('session');
+        $session->set('contao_newsalert_success', $status);
+        $session->set('contao_newsalert_topic', $topic);
+        $session->set('contao_newsalert_opt', $opt);
+    }
+
+
 }
