@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autoconfigure: true
+    hh.newsalert.newsalertsendcommand:
+        class: HeimrichHannot\ContaoNewsAlertBundle\Command\NewsalertSendCommand
+        arguments:
+            - '@contao.framework'
+            - '@service_container'

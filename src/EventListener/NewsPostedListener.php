@@ -10,8 +10,10 @@
 
 namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
+use Contao\ContentModel;
 use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\DC_Table;
+use Contao\Email;
 use Contao\Environment;
 use Contao\NewsArchiveModel;
 use Contao\System;
@@ -20,10 +22,12 @@ use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertSendModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
 use HeimrichHannot\FormHybrid\TokenGenerator;
+use HeimrichHannot\Modal\PageModel;
 use Model\Collection;
 use NotificationCenter\Model\Notification;
 use Psr\Log\LogLevel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use HeimrichHannot\Haste\Util\Url;
 
 class NewsPostedListener
 {
@@ -119,9 +123,26 @@ class NewsPostedListener
             $this->container->get('monolog.logger.contao')->addNotice('Multiple notifications by type '.static::NOTIFICATION_TYPE_NEW_ARTICLE . ' found. Can lead to multiple notifications for the same person.');
         }
 
+//        $strContentRaw = '';
+//        $strContentHtml = '';
+
         $strContent = '';
         $strTeaser = empty($objArticle->teaser) ? '' : $objArticle->teaser;
 
+        if ($objContents !== null)
+        {
+            while ($objContents->next())
+            {
+                $item = $objContents->current();
+                if (!empty($item->headline))
+                {
+                    $title = deserialize($item->headline);
+                    $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
+                    $strContent .= $headline;
+                }
+                $strContent .= $item->text;
+            }
+        }
 
 //        $objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
 //        if ($objContents !== null)
@@ -198,7 +219,16 @@ class NewsPostedListener
                 $objNotification = $objNotificationCollection->current();
                 $objNotification->send($arrTokens);
                 $intCountMails++;
+
             }
+
+            $objNewsalertSend = new NewsalertSendModel();
+            $objNewsalertSend->pid = $objArticle->id;
+            $objNewsalertSend->topics = $topics;
+            $objNewsalertSend->senddate = time();
+            $objNewsalertSend->count_messages = $intCountMails;
+            $objNewsalertSend->user = \BackendUser::getInstance()->id;
+            $objNewsalertSend->save();
 
             $objNotificationCollection->reset();
 
