@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.1] - 2017-08-22
+
+###Added
+* multiple language strings
+* complete english translation
+
 ## [2.0.0] - 2017-08-22
 
 ### Added
