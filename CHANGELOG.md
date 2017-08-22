@@ -1,11 +1,13 @@
 # Changelog
 
-## [2.0] - 2017-08-22
+## [2.0.0] - 2017-08-22
 
 ### Added
 * `hh:newsalert:send` console command to check for unsend news alerts
 * newsalert trigger select in module
 * added sendtype and poormanhookIntervall to tl_module (**update database needed**)
+* redirect after opt in and opt out
+* module for redirect page
 
 ### Changed
 * set tl_news sql default newsalert_sent value to 1 (to avoid all send newsalert for all existing news)
