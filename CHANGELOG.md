@@ -4,6 +4,7 @@
 
 ### Added
 * `hh:newsalert:send` console command to check for unsend news alerts
+* newsalert trigger select in module
 
 ### Changed
 * set tl_news sql default newsalert_sent value to 1 (to avoid all send newsalert for all existing news)

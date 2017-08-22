@@ -8,6 +8,7 @@ The bundle comes with an interface to add custom news topic, for example categor
 * subscribe form module
 * add custom topic sources
 * send notifications to user subscribed to topics with notification center
+* trigger send event via cronjob, poormancron or callback
 * security features
     * captcha in form field
     * opt-in process after subscribe
@@ -42,6 +43,7 @@ Afterwards call the Contao install procedure to update the database.
     * `hh_newsalert` for newsalert messages
     * `formhybrid-opt-in` for opt-in mails
 * add frontend module and configure it
+* optional: setup cronjob
 
 ## Usage
 
@@ -79,9 +81,14 @@ Name                     | Arguments                                            
 -------------------------|------------------------------------------------------|-----------------------|------------
 hh_newsalert_customToken |NewsModel $objArticle, array $arrTokens, DC_Table $dc | $arrTokens            | Hook to add custom tokens or manipulate existing ones. Don't forget to register them via your config.php file.
 
-
 ### Frontend autocompletion
 We recommend [Chosen](https://harvesthq.github.io/chosen/) to add a search field to the topic select element. It's already used by Contao in the backend.
+
+### Commands
+
+Name | Arguments | Description | Example
+-----|-----------|-------------|--------
+hh:newsalert:send|int module|Checks for unsend newsalert. Optional argument: module id. If not given, it searches automatical for first compatible module. Must be newsalert recipient module.|`php ./venter/bin/contao-console hh:newsalert:send 75`
 
 ## Todo
 * evaluate the best callback for calling the listener (currently called by onsubmit_callback)

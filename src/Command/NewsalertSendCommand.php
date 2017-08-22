@@ -6,6 +6,7 @@ use Contao\CoreBundle\Command\AbstractLockedCommand;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Container;
@@ -47,7 +48,9 @@ class NewsalertSendCommand extends AbstractLockedCommand
     {
         $this->setName('hh:newsalert:send')
             ->setDescription('Checks for unsend newsalerts and send found items.')
-            ->setHelp('This commands checks news entities, if there are non sent newsalert. If so, the newsalert send event is triggered.');
+            ->setHelp('This commands checks news entities, if there are non sent newsalert. If so, the newsalert send event is triggered.')
+            ->addArgument('module',InputArgument::OPTIONAL,'The module id, which contains the settings for the newsalert.')
+        ;
     }
 
     /**
@@ -68,7 +71,25 @@ class NewsalertSendCommand extends AbstractLockedCommand
         if ($objNews)
         {
             $output->writeln('Found '.$objNews->count().' unsend news entries.');
-            $objModule = \ModuleModel::findByType(NewsalertSubscribeModule::MODULE_NAME)->first();
+            if ($input->hasArgument('module'))
+            {
+                $intModule = $input->getArgument('module');
+                $objModule = \ModuleModel::findById($intModule);
+                $output->writeln("Try to use module ".$intModule);
+                if (!$objModule)
+                {
+                    $output->writeln("Module $intModule not found. Try to find an existing module.");
+                }
+            }
+            if (!$objModule || $objModule->type != NewsalertSubscribeModule::MODULE_NAME)
+            {
+                $objModule = \ModuleModel::findByType(NewsalertSubscribeModule::MODULE_NAME)->first();
+            }
+            if (!$objModule)
+            {
+                $output->writeln('No module found. Stopping execution.');
+            }
+            $output->writeln('Using module '.$objModule->id);
             $intSentCount = 0;
 
             while ($objNews->next())
@@ -91,7 +112,7 @@ class NewsalertSendCommand extends AbstractLockedCommand
         }
         else
         {
-            $output->writeln('Found no unsend news entries');
+            $output->writeln('Found no unsend news entries.');
         }
     }
 
