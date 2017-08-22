@@ -16,3 +16,5 @@ $arrLang = &$GLOBALS['TL_LANG']['tl_module'];
 
 $arrLang['optin_legend'] = "Opt-In Handling";
 $arrLang['optout_legend'] = "Opt-Out Handling";
+$arrLang['trigger_legend'] = "Sendeevent";
+$arrLang['misc_legend'] = "Verschiedenes";

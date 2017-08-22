@@ -38,6 +38,13 @@ hh.newsalert:
         user:
             0: Author
             1: The author who triggered the newsalert.
+    tl_module:
+            newsalertSendType:
+                0: Send trigger
+                1: Choose the trigger for the send event
+            newsalertPoorManCronIntervall:
+                0: Interval
+                1: Interval for the contao poor man cron.
     module_subscribe:
             newsalertCronjobExplanation: "To setup a custom cronjob, following command has to be executed: 'hh:newsalert:send'. Example: */10 * * * * %contao-server-path%/vendor/bin/contao-console hh:newsalert:send 75 (Check every 10 minutes for unsend newsalert and send (using module 75 configuration.)"
     module_redirect:

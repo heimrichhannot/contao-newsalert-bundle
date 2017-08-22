@@ -37,6 +37,13 @@ hh.newsalert:
             1: Die Anzahl der versendeten Nachrichten für den Newsalert.
             0: Autor
             1: Der Autor, welcher die Neuigkeit geschrieben und den Newsalert ausgelöst hat.
+    tl_module:
+        newsalertSendType:
+            0: Sendungsauslöser
+            1: Wählen Sie den Auslösung für den Sendeevent
+        newsalertPoorManCronIntervall:
+            0: Intervall
+            1: Intervall für dem PoorManCron von Contao
     module_subscribe:
         newsalertCronjobExplanation: "Der Custom Cronjob muss selbst eingerichtet werden. Folgender Befehl muss regelmäßig ausgeführt werden: 'hh:newsalert:send'. Beispiel: */10 * * * * %contao-server-path%/vendor/bin/contao-console hh:newsalert:send 75 (Befehl alle 10 Minuten ausführen (Modulkonfiguration 75 nutzen)"
     module_redirect:

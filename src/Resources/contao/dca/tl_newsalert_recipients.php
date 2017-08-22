@@ -16,6 +16,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
         'dataContainer'    => 'Table',
         'switchToEdit'     => true,
         'enableVersioning' => false,
+        'closed'           => true,
         'backlink'         => 'do=news',
         'label'            => $translator->trans('hh.newsalert.tl_newsalert_recipients.label'),
         'sql'              => [

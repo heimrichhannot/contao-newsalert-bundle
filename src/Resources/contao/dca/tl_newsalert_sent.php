@@ -37,7 +37,6 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'fields'      => ['senddate', 'pid:tl_news.headline', 'topics', 'user:tl_user.name', 'count_messages'],
             'showColumns' => true,
         ],
-        'global_operations' => [],
         'operations'        => [
             'show'   => [
                 'label'     => [

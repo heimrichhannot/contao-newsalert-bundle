@@ -9,6 +9,7 @@
  */
 
 $arrDca = &$GLOBALS['TL_DCA']['tl_module'];
+$translator = System::getContainer()->get('translator');
 
 $arrDca['palettes'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule::MODULE_NAME] =
     '{title_legend},name,headline,type;'
@@ -40,7 +41,10 @@ $arrFields = [
         'sql'       => "char(1) NOT NULL default ''",
     ],
     'newsalertSendType'                         => [
-        'label'     => &$GLOBALS['TL_LANG']['tl_module']['newsalertSendType'],
+        'label'     => [
+            $translator->trans('hh.newsalert.tl_module.newsalertSendType.0'),
+            $translator->trans('hh.newsalert.tl_module.newsalertSendType.1')
+        ],
         'exclude'   => true,
         'inputType' => 'select',
         'options'   => ['onSubmit', 'poormancron', 'customCron'],
@@ -48,7 +52,10 @@ $arrFields = [
         'sql'       => "varchar(12) NOT NULL default ''",
     ],
     'newsalertPoorManCronIntervall'                         => [
-        'label'     => &$GLOBALS['TL_LANG']['tl_module']['newsalertPoorManCronIntervall'],
+        'label'     => [
+            $translator->trans('hh.newsalert.tl_module.newsalertPoorManCronIntervall.0'),
+            $translator->trans('hh.newsalert.tl_module.newsalertPoorManCronIntervall.1')
+        ],
         'exclude'   => true,
         'inputType' => 'select',
         'options'   => ['minutely','hourly','daily','weekly','monthly'],
