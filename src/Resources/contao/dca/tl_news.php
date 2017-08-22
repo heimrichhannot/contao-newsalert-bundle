@@ -12,6 +12,11 @@ $dc = &$GLOBALS['TL_DCA']['tl_news'];
 $translator = System::getContainer()->get('translator');
 
 /*
+ * Callbacks
+ */
+$dc['config']['onsubmit_callback'][] = ['hh.contao-newsalert.listener.newspostedlistener','onSubmitCallback'];
+
+/*
  * Palettes
  */
 

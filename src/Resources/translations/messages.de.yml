@@ -38,7 +38,7 @@ hh.newsalert:
             0: Autor
             1: Der Autor, welcher die Neuigkeit geschrieben und den Newsalert ausgelöst hat.
     module_subscribe:
-        newsalertCronjobExplanation: "Der Custom Cronjob muss selbst eingerichtet werden. Folgender Befehl muss regelmäßig ausgeführt werden: 'hh:newsalert:send'. Beispiel: */10 * * * * %contao-server-path%/vendor/bin/contao-console hh:newsalert:send (Befehl alle 10 Minuten ausführen)"
+        newsalertCronjobExplanation: "Der Custom Cronjob muss selbst eingerichtet werden. Folgender Befehl muss regelmäßig ausgeführt werden: 'hh:newsalert:send'. Beispiel: */10 * * * * %contao-server-path%/vendor/bin/contao-console hh:newsalert:send 75 (Befehl alle 10 Minuten ausführen (Modulkonfiguration 75 nutzen)"
     module_redirect:
         optin:
             success:

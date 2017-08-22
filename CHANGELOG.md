@@ -1,15 +1,17 @@
 # Changelog
 
-## [2.0-dev] - 2017-08-18
+## [2.0] - 2017-08-22
 
 ### Added
 * `hh:newsalert:send` console command to check for unsend news alerts
 * newsalert trigger select in module
+* added sendtype and poormanhookIntervall to tl_module (**update database needed**)
 
 ### Changed
 * set tl_news sql default newsalert_sent value to 1 (to avoid all send newsalert for all existing news)
 * set dca default value for newsalert_sent to 0 (to send newsalert for new news entries)
 * removed $dc from Hook (**api change!**)
+* onSubmitEvent only triggered if onSubmit is selected as newsalertSendType (**breaking change**)
 
 ## [1.1.0] - 2017-08-18
 

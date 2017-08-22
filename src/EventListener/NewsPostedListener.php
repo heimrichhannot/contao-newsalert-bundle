@@ -54,7 +54,14 @@ class NewsPostedListener
      */
     public function onSubmitCallback(DC_Table $dc)
     {
-        $objModule = \ModuleModel::findByType(NewsalertSubscribeModule::MODULE_NAME)->first();
+        $t = \ModuleModel::getTable();
+        $objModule = \ModuleModel::findBy(
+            ["$t.type=?","newsalertSendType=?"],
+            [NewsalertSubscribeModule::MODULE_NAME,'onSubmit']);
+        if (!$objModule)
+        {
+            return;
+        }
         $objArticle = \NewsModel::findPublishedByParentAndIdOrAlias($dc->activeRecord->id, [$dc->activeRecord->pid]);
 
         if (
@@ -65,7 +72,10 @@ class NewsPostedListener
         {
             return;
         }
-        $this->sendNewsalert($objArticle, $objModule->current());
+        while ($objModule->next())
+        {
+            $this->sendNewsalert($objArticle, $objModule->current());
+        }
     }
 
     /**

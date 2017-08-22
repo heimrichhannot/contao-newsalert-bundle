@@ -43,7 +43,7 @@ $arrFields = [
         'label'     => &$GLOBALS['TL_LANG']['tl_module']['newsalertSendType'],
         'exclude'   => true,
         'inputType' => 'select',
-        'options'   => ['onsubmit', 'poormancron', 'customCron'],
+        'options'   => ['onSubmit', 'poormancron', 'customCron'],
         'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true,'includeBlankOption'=>true],
         'sql'       => "varchar(12) NOT NULL default ''",
     ],
