@@ -16,8 +16,12 @@ use Contao\ModuleModel;
 
 class PoorManCron
 {
+
+    public function minutely() { $this->sendNewsalerts('minutely'); }
     public function hourly()   { $this->sendNewsalerts('hourly');   }
     public function daily()    { $this->sendNewsalerts('daily');    }
+    public function weekly()   { $this->sendNewsalerts('weekly');   }
+    public function monthly()  { $this->sendNewsalerts('monthly');  }
 
     private function sendNewsalerts($strInterval)
     {
