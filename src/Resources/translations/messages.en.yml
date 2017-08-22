@@ -38,6 +38,25 @@ hh.newsalert:
         user:
             0: Author
             1: The author who triggered the newsalert.
+    module_redirect:
+            optin:
+                success:
+                    head: Newsalert subscription successful
+                    message: The subscription to the topic %topic% was successfull.
+                error:
+                    head: Newsalert subscription not successful
+                    message: The subscription was not successfull. Maybe you already used the link or habe an mistake in the link address. If the problem persists, please call the technical support.
+            optout:
+                success:
+                    head: Newsalert unsubscription successful
+                    message: The cancellation of your subscription was successfull.
+                error:
+                    head: Newsalert unsubscription not successful
+                    message: The cancellation of your subscription could not be accomplished. Maybe you already unsubscribed or have an error in the link address. If the problem persists, please call the technical support.
+            optnone:
+                error:
+                    head: Error
+                    message: This page is not intended to be called direct. If this is a an error and you expected an confirmation page, please try again or call the technical support.
     notifications:
         unsubscribe: Unsubscribe
     operations:

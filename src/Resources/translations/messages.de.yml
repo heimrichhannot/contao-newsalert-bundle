@@ -24,8 +24,8 @@ hh.newsalert:
     tl_newsalert_sent:
         label: Gesendete Newsalerts
         pid:
-            0: Newsartikel
-            1: Newsartikel, für welchen der Newsalert verschickt wurde.
+            0: Nachricht
+            1: Nachrichtenartikel, für welchen der Newsalert verschickt wurde.
         topics:
             0: Themen
             1: Die Themengebiete des Newsalert
@@ -35,9 +35,30 @@ hh.newsalert:
         count_messages:
             0: Anzahl Nachrichten
             1: Die Anzahl der versendeten Nachrichten für den Newsalert.
-        user:
             0: Autor
             1: Der Autor, welcher die Neuigkeit geschrieben und den Newsalert ausgelöst hat.
+    module_redirect:
+        optin:
+            success:
+                head: Newsalert-Anmeldung erfolgreich
+                message: Die Anmeldung Ihres Newsalert zum Thema %topic% war erfolgreich.
+            error:
+                head: Newsalert-Anmeldung nicht erfolgreich
+                message: Die Anmeldung für den Newsalert konnte nicht durchgeführt werden. Möglicherweise haben Sie die Anmeldung bereits durchgeführt oder Ihr Link enthält einen Fehler. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an unseren Kundendienst.
+        optout:
+            success:
+                head: Newsalert-Abmeldung erfolgreich
+                message: Die Abmeldung Ihres Newsalert zum Thema %topic% wurde erfolgreich durchgeführt.
+            error:
+                head: Ihre Newsalert-Abmeldung war nicht erfolgreich
+                message: Die Abmeldung Ihres Newsalerts konnte nicht durchgeführt werden. Möglicherweise haben Sie diese bereits durchgeführt oder Ihr Link hat einen Fehler. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an unseren Kundendienst.
+        optnone:
+            success:
+                head: Newsalert-Abmeldung erfolgreich
+                message: Die Abmeldung Ihres Newsalert zum Thema %topic% wurde erfolgreich durchgeführt.
+            error:
+                head: Fehler
+                message: Diese Seite ist eine Bestätigungsseite und nicht für den direkten Aufruf gedacht. Haben Sie hier eine Bestätigung erwartet, gab es eventuell einen Fehler. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an unseren Kundendienst.
     notifications:
         unsubscribe: Abmelden
     operations:

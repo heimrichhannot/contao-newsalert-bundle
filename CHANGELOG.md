@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.0-dev] - 2017-08-18
+
+### Added
+* `hh:newsalert:send` console command to check for unsend news alerts
+
+### Changed
+* set tl_news sql default newsalert_sent value to 1 (to avoid all send newsalert for all existing news)
+* set dca default value for newsalert_sent to 0 (to send newsalert for new news entries)
+* removed $dc from Hook (**api change!**)
+
 ## [1.1.0] - 2017-08-18
 
 ### Added 

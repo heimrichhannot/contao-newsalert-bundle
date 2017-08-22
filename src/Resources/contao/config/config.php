@@ -16,6 +16,7 @@ $GLOBALS['BE_MOD']['content']['news']['tables'][] = 'tl_newsalert_recipients';
 $GLOBALS['BE_MOD']['content']['news']['tables'][] = 'tl_newsalert_sent';
 
 $GLOBALS['FE_MOD']['miscellaneous'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule::MODULE_NAME] = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule';
+$GLOBALS['FE_MOD']['miscellaneous'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule::MODULE_NAME] = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule';
 
 /*
  * Models
@@ -23,6 +24,16 @@ $GLOBALS['FE_MOD']['miscellaneous'][\HeimrichHannot\ContaoNewsAlertBundle\Module
 
 $GLOBALS['TL_MODELS']['tl_newsalert_recipients'] = 'HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel';
 
+/*
+ * Cron
+ */
+
+$GLOBALS['TL_CRON']['daily'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'daily'];
+$GLOBALS['TL_CRON']['hourly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'hourly'];
+
+/*
+ * Notification Center
+ */
 
 $arrTokens = [
     'hh_newsalert_topic_recipient',

@@ -14,13 +14,19 @@ $arrDca['palettes'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubsc
     '{title_legend},name,headline,type;'
     .'{optin_legend},newsalertOptIn;'
     .'{optout_legend},formHybridAddOptOut;'
+    .'{trigger_legend},newsalertSendType;'
     .'{misc_legend},formHybridCustomSubmit;';
+
+$arrDca['palettes'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule::MODULE_NAME] =
+    '{title_legend},name,headline,type;';
 
 $arrDca['palettes']['__selector__'][] = 'newsalertOptIn';
 $arrDca['palettes']['__selector__'][] = 'formHybridCustomSubmit';
+$arrDca['palettes']['__selector__'][] = 'newsalertSendType';
 
-$arrDca['subpalettes']['newsalertOptIn'] = 'formHybridOptInSuccessMessage,formHybridOptInNotification';
+$arrDca['subpalettes']['newsalertOptIn'] = 'formHybridOptInSuccessMessage,formHybridOptInNotification,formHybridOptInJumpTo';
 $arrDca['subpalettes']['formHybridCustomSubmit'] = 'formHybridSubmitLabel,formHybridSubmitClass';
+$arrDca['subpalettes']['newsalertSendType_poormancron'] = 'newsalertPoorManCronIntervall';
 
 
 
@@ -31,6 +37,22 @@ $arrFields = [
         'inputType' => 'checkbox',
         'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
         'sql'       => "char(1) NOT NULL default ''",
+    ],
+    'newsalertSendType'                         => [
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['newsalertSendType'],
+        'exclude'   => true,
+        'inputType' => 'select',
+        'options'   => ['onsubmit', 'poormancron', 'cron'],
+        'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true,'includeBlankOption'=>true],
+        'sql'       => "varchar(12) NOT NULL default ''",
+    ],
+    'newsalertPoorManCronIntervall'                         => [
+        'label'     => &$GLOBALS['TL_LANG']['tl_module']['newsalertPoorManCronIntervall'],
+        'exclude'   => true,
+        'inputType' => 'select',
+        'options'   => ['hourly','daily'],
+        'eval'      => ['tl_class' => 'w50', 'includeBlankOption'=>true],
+        'sql'       => "varchar(12) NOT NULL default ''",
     ],
 ];
 
