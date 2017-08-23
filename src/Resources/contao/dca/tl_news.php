@@ -40,7 +40,7 @@ $fields = [
         ],
         'inputType' => 'checkbox',
         'exclude'   => true,
-        'sql'       => "int(1) NOT NULL default 1",
+        'sql'       => "int(1) NOT NULL default '1'",
         'eval'      => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
     ],
     'newsalert_send' => [
@@ -51,7 +51,7 @@ $fields = [
         'inputType' => 'checkbox',
         'exclude'   => true,
         'default'   => 0,
-        'sql'       => "int(1) NOT NULL default 1",
+        'sql'       => "int(1) NOT NULL default '1'",
         'eval'      => ['tl_class' => 'w50'],
     ]
 ];
