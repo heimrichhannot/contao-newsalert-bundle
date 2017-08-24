@@ -1,12 +1,17 @@
 # Changelog
 
-## [2.0.2] - 2017-08-24
+## [2.0.3] - 2017-08-24
 
 ### Fixed
 * news article url generation
 
 ### Changed
 * tl_news row newsalert_send to newsalert_sent (including corresponding language strings)
+
+## [2.0.2] - 2017-08-22
+
+### Fixed
+* composer.json formhybrid dependency from dev-master to 2.9
 
 ## [2.0.1] - 2017-08-22
 
