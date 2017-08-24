@@ -154,21 +154,21 @@ class NewsPostedListener
             }
         }
 
-//        $objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
-//        if ($objContents !== null)
-//        {
-//            while ($objContents->next())
-//            {
-//                $item = $objContents->current();
-//                if (!empty($item->headline))
-//                {
-//                    $title = deserialize($item->headline);
-//                    $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
-//                    $strContent .= $headline;
-//                }
-//                $strContent .= $item->text;
-//            }
-//        }
+        $objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
+        if ($objContents !== null)
+        {
+            while ($objContents->next())
+            {
+                $item = $objContents->current();
+                if (!empty($item->headline))
+                {
+                    $title = deserialize($item->headline);
+                    $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
+                    $strContent .= $headline;
+                }
+                $strContent .= $item->text;
+            }
+        }
         $intCountMails = 0;
 
         foreach ($arrRecipients as $email => $data)

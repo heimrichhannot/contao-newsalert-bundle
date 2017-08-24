@@ -1,12 +1,17 @@
 # Changelog
 
+## [2.0.4] - 2017-08-24
+
+### Fixed
+* token hh_newsalert_news_content working again
+
 ## [2.0.3] - 2017-08-24
 
 ### Fixed
 * news article url generation
 
 ### Changed
-* tl_news row newsalert_send to newsalert_sent (including corresponding language strings)
+* renamed tl_news row newsalert_send to newsalert_sent (including corresponding language strings)
 
 ## [2.0.2] - 2017-08-22
 
