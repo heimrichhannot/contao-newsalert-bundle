@@ -4,7 +4,7 @@ hh.newsalert:
         newsalert_activate:
             0: Activate newsalert
             1: Active newsalert for this article (will be send when published).
-        newsalert_send:
+        newsalert_sent:
             0: Newsalert sent
             1: Newsalert for this article was already sent (uncheck this to send again).
     tl_newsalert_recipients:

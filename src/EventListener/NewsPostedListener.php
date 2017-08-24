@@ -67,7 +67,7 @@ class NewsPostedListener
         if (
             $objArticle === null or
             $objArticle->newsalert_activate == 0 or
-            $objArticle->newsalert_send == 1
+            $objArticle->newsalert_sent == 1
         )
         {
             return;
@@ -109,7 +109,7 @@ class NewsPostedListener
 
         if (count($arrRecipients) == 0)
         {
-            $objArticle->newsalert_send = 1;
+            $objArticle->newsalert_sent = 1;
             $objArticle->save();
             $this->createSendModel($objArticle, $topics, 0);
             return 0;
@@ -188,7 +188,7 @@ class NewsPostedListener
 
             $objNewsPage = \PageModel::findByPk(NewsArchiveModel::findById($objArticle->pid)->jumpTo);
 
-            $strUrl = $this->container->get('contao.routing.url_generator')->generate($objNewsPage->alias).$objArticle->alias;
+            $strUrl = $this->container->get('contao.routing.url_generator')->generate($objNewsPage->alias).'/'.$objArticle->alias;
             $strRootUrl = Environment::get('url');
             $arrTokens = [
                 'hh_newsalert_topic_recipient' => $email,
@@ -232,17 +232,11 @@ class NewsPostedListener
 
             }
 
-            $objNewsalertSend = new NewsalertSendModel();
-            $objNewsalertSend->pid = $objArticle->id;
-            $objNewsalertSend->topics = $topics;
-            $objNewsalertSend->senddate = time();
-            $objNewsalertSend->count_messages = $intCountMails;
-            $objNewsalertSend->user = \BackendUser::getInstance()->id;
-            $objNewsalertSend->save();
+            $this->createSendModel($objArticle, $topics, $intCountMails);
 
             $objNotificationCollection->reset();
 
-            $objArticle->newsalert_send = 1;
+            $objArticle->newsalert_sent = 1;
             $objArticle->save();
         }
 

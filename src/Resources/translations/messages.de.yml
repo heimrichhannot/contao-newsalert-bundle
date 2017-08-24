@@ -4,7 +4,7 @@ hh.newsalert:
         newsalert_activate:
             0: Newsalert aktivieren
             1: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesendet).
-        newsalert_send:
+        newsalert_sent:
             0: Newsalert gesendet
             1: Der Newsalert für diesen Beitrag wurde bereits gesendet (kann durch abwählen dieser Option erneut gesendet werden).
     tl_newsalert_recipients:

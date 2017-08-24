@@ -26,7 +26,7 @@ $palette = \Contao\CoreBundle\DataContainer\PaletteManipulator::create();
 $palette->addField('newsalert_activate', 'publish_legend')
     ->applyToPalette('default', 'tl_news');
 
-$dc['subpalettes']['newsalert_activate'] = 'newsalert_send';
+$dc['subpalettes']['newsalert_activate'] = 'newsalert_sent';
 
 /*
  * Fields
@@ -43,10 +43,10 @@ $fields = [
         'sql'       => "int(1) NOT NULL default '1'",
         'eval'      => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
     ],
-    'newsalert_send' => [
+    'newsalert_sent' => [
         'label'     => [
-            $translator->trans('hh.newsalert.tl_news.newsalert_send.0'),
-            $translator->trans('hh.newsalert.tl_news.newsalert_send.1')
+            $translator->trans('hh.newsalert.tl_news.newsalert_sent.0'),
+            $translator->trans('hh.newsalert.tl_news.newsalert_sent.1')
         ],
         'inputType' => 'checkbox',
         'exclude'   => true,

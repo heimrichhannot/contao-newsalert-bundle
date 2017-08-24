@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.2] - 2017-08-24
+
+### Fixed
+* news article url generation
+
+### Changed
+* tl_news row newsalert_send to newsalert_sent (including corresponding language strings)
+
 ## [2.0.1] - 2017-08-22
 
 ###Added

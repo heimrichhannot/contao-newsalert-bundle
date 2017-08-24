@@ -167,7 +167,7 @@ class NewsModel extends \Contao\NewsModel
     {
         $t = static::$strTable;
 
-        $arrColumns = ["$t.newsalert_activate = 1 AND $t.newsalert_send = 0"];
+        $arrColumns = ["$t.newsalert_activate = 1 AND $t.newsalert_sent = 0"];
 
         if (isset($arrOptions['ignoreFePreview']) || !BE_USER_LOGGED_IN)
         {
