@@ -16,7 +16,7 @@ $GLOBALS['BE_MOD']['content']['news']['tables'][] = 'tl_newsalert_recipients';
 $GLOBALS['BE_MOD']['content']['news']['tables'][] = 'tl_newsalert_sent';
 
 $GLOBALS['FE_MOD']['miscellaneous'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule::MODULE_NAME] = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule';
-$GLOBALS['FE_MOD']['miscellaneous'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule::MODULE_NAME] = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule';
+$GLOBALS['FE_MOD']['miscellaneous'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule::MODULE_NAME]  = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule';
 
 /*
  * Models
@@ -28,8 +28,8 @@ $GLOBALS['TL_MODELS']['tl_newsalert_recipients'] = 'HeimrichHannot\ContaoNewsAle
  * Cron
  */
 
-$GLOBALS['TL_CRON']['daily'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'daily'];
-$GLOBALS['TL_CRON']['hourly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'hourly'];
+$GLOBALS['TL_CRON']['daily'][]  = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'daily'];
+$GLOBALS['TL_CRON']['hourly'][] = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'hourly'];
 
 /*
  * Notification Center
@@ -57,11 +57,11 @@ $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE'][\HeimrichHannot\ContaoNewsA
         'email_html'           => array_merge($arrTokens, ['form_*', 'formconfig_*', 'formlabel_*', 'raw_data', 'admin_email']),
         'file_name'            => array_merge($arrTokens, ['form_*', 'formconfig_*', 'admin_email']),
         'file_content'         => array_merge($arrTokens, ['form_*', 'formconfig_*', 'admin_email']),
-        'email_sender_name'    => array('admin_email', 'form_*', 'formconfig_*'),
-        'email_sender_address' => array('admin_email', 'form_*', 'formconfig_*'),
-        'email_recipient_cc'   => array('admin_email', 'form_*', 'formconfig_*'),
-        'email_recipient_bcc'  => array('admin_email', 'form_*', 'formconfig_*'),
-        'email_replyTo'        => array('admin_email', 'form_*', 'formconfig_*'),
-        'attachment_tokens'    => array('form_*', 'formconfig_*'),
+        'email_sender_name'    => ['admin_email', 'form_*', 'formconfig_*'],
+        'email_sender_address' => ['admin_email', 'form_*', 'formconfig_*'],
+        'email_recipient_cc'   => ['admin_email', 'form_*', 'formconfig_*'],
+        'email_recipient_bcc'  => ['admin_email', 'form_*', 'formconfig_*'],
+        'email_replyTo'        => ['admin_email', 'form_*', 'formconfig_*'],
+        'attachment_tokens'    => ['form_*', 'formconfig_*'],
     ]
 ];

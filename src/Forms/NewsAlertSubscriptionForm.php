@@ -15,7 +15,6 @@ use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel;
 use HeimrichHannot\FormHybrid\Form;
 use HeimrichHannot\NewsBundle\NewsModel;
 use HeimrichHannot\StatusMessages\StatusMessage;
-use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 
 class NewsAlertSubscriptionForm extends Form
 {
@@ -30,8 +29,7 @@ class NewsAlertSubscriptionForm extends Form
 
     protected function compile()
     {
-        if (!$this->Template->message)
-        {
+        if (!$this->Template->message) {
             $this->Template->message = StatusMessage::generate($this->objModule->id);
         }
     }
@@ -47,20 +45,15 @@ class NewsAlertSubscriptionForm extends Form
             [$strEmail, $strTopic]
         );
 
-        if (!$objRecipients)
-        {
-            $this->objActiveRecord->email = $dc->getFieldValue('email');
-            $this->objActiveRecord->topic = $dc->getFieldValue('topic');
+        if (!$objRecipients) {
+            $this->objActiveRecord->email     = $dc->getFieldValue('email');
+            $this->objActiveRecord->topic     = $dc->getFieldValue('topic');
             $this->objActiveRecord->dateAdded = time();
             $this->objActiveRecord->confirmed = 0;
             $this->objActiveRecord->save();
-        }
-        else
-        {
-            while ($objRecipients->next())
-            {
-                if (!$objRecipients->confirmed)
-                {
+        } else {
+            while ($objRecipients->next()) {
+                if (!$objRecipients->confirmed) {
                     $this->objActiveRecord = $objRecipients->current();
                     return;
                 }
@@ -85,18 +78,18 @@ class NewsAlertSubscriptionForm extends Form
         StatusMessage::reset($dc->moduleId);
     }
 
-    protected function afterUnsubscribeCallback(\DataContainer $dc)
-    {
-        $this->setSessionVariables(true, $this->objActiveRecord->topic, 'out');
-        StatusMessage::reset($dc->moduleId);
-    }
-
     protected function setSessionVariables($status, $topic, $opt)
     {
         $session = System::getContainer()->get('session');
         $session->set('contao_newsalert_success', $status);
         $session->set('contao_newsalert_topic', $topic);
         $session->set('contao_newsalert_opt', $opt);
+    }
+
+    protected function afterUnsubscribeCallback(\DataContainer $dc)
+    {
+        $this->setSessionVariables(true, $this->objActiveRecord->topic, 'out');
+        StatusMessage::reset($dc->moduleId);
     }
 
 

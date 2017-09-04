@@ -24,16 +24,14 @@ class NewsAlertPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has('hh.contao-newsalert.newstopiccollection'))
-        {
+        if (!$container->has('hh.contao-newsalert.newstopiccollection')) {
             return;
         }
-        $definition = $container->findDefinition('hh.contao-newsalert.newstopiccollection');
+        $definition     = $container->findDefinition('hh.contao-newsalert.newstopiccollection');
         $taggedServices = $container->findTaggedServiceIds('hh.newsalert.topic_source');
 
-        foreach ($taggedServices as $id => $tags)
-        {
-            $definition->addMethodCall('addTopicSource', array(new Reference($id)));
+        foreach ($taggedServices as $id => $tags) {
+            $definition->addMethodCall('addTopicSource', [new Reference($id)]);
         }
     }
 }

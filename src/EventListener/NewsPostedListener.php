@@ -10,10 +10,8 @@
 
 namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
-use Contao\ContentModel;
 use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\DC_Table;
-use Contao\Email;
 use Contao\Environment;
 use Contao\NewsArchiveModel;
 use Contao\System;
@@ -22,24 +20,22 @@ use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertSendModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
 use HeimrichHannot\FormHybrid\TokenGenerator;
-use HeimrichHannot\Modal\PageModel;
 use Model\Collection;
 use NotificationCenter\Model\Notification;
 use Psr\Log\LogLevel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use HeimrichHannot\Haste\Util\Url;
 
 class NewsPostedListener
 {
 
-    const NOTIFICATION_TYPE_NEWSALERT = 'hh_newsalert';
+    const NOTIFICATION_TYPE_NEWSALERT   = 'hh_newsalert';
     const NOTIFICATION_TYPE_NEW_ARTICLE = 'news_posted';
 
     protected $container;
 
     public function __construct(ContainerInterface $container)
     {
-        $this->container = $container;
+        $this->container  = $container;
         $this->translator = $container->get('translator');
         $container->get('contao.framework')->initialize();
     }
@@ -54,12 +50,11 @@ class NewsPostedListener
      */
     public function onSubmitCallback(DC_Table $dc)
     {
-        $t = \ModuleModel::getTable();
+        $t         = \ModuleModel::getTable();
         $objModule = \ModuleModel::findBy(
-            ["$t.type=?","newsalertSendType=?"],
-            [NewsalertSubscribeModule::MODULE_NAME,'onSubmit']);
-        if (!$objModule)
-        {
+            ["$t.type=?", "newsalertSendType=?"],
+            [NewsalertSubscribeModule::MODULE_NAME, 'onSubmit']);
+        if (!$objModule) {
             return;
         }
         $objArticle = \NewsModel::findPublishedByParentAndIdOrAlias($dc->activeRecord->id, [$dc->activeRecord->pid]);
@@ -68,31 +63,11 @@ class NewsPostedListener
             $objArticle === null or
             $objArticle->newsalert_activate == 0 or
             $objArticle->newsalert_sent == 1
-        )
-        {
+        ) {
             return;
         }
-        while ($objModule->next())
-        {
+        while ($objModule->next()) {
             $this->sendNewsalert($objArticle, $objModule->current());
-        }
-    }
-
-    /**
-     * Trigger the send mechanism by model
-     *
-     * @param $objModel
-     */
-    public function callByModel($objModel)
-    {
-        $objArticles = NewsModel::findUnsentPublished();
-        if (!$objArticles)
-        {
-            return;
-        }
-        while ($objArticles->next())
-        {
-            $this->sendNewsalert($objArticles->current(), $objModel);
         }
     }
 
@@ -102,13 +77,12 @@ class NewsPostedListener
      *
      * @return bool|int False on failure, number of send messages on success
      */
-    public function sendNewsalert ($objArticle, \ModuleModel $objModule)
+    public function sendNewsalert($objArticle, \ModuleModel $objModule)
     {
-        $topics = $this->container->get('hh.contao-newsalert.newstopiccollection')->getTopicsByItem($objArticle);
+        $topics        = $this->container->get('hh.contao-newsalert.newstopiccollection')->getTopicsByItem($objArticle);
         $arrRecipients = $this->getRecipientsByTopic($topics);
 
-        if (count($arrRecipients) == 0)
-        {
+        if (count($arrRecipients) == 0) {
             $objArticle->newsalert_sent = 1;
             $objArticle->save();
             $this->createSendModel($objArticle, $topics, 0);
@@ -119,35 +93,30 @@ class NewsPostedListener
          * @var Collection|Notification $objNotificationCollection
          */
         $objNotificationCollection = Notification::findByType(static::NOTIFICATION_TYPE_NEW_ARTICLE);
-        if ($objNotificationCollection === null)
-        {
+        if ($objNotificationCollection === null) {
             $this->container->get('monolog.logger.contao')->log(
                 LogLevel::NOTICE,
-                "No notification by type ".static::NOTIFICATION_TYPE_NEW_ARTICLE . " was found. No newsalert send.",
-                ['contao' => new ContaoContext(__CLASS__.'::'.__FUNCTION__, TL_GENERAL)]
+                "No notification by type " . static::NOTIFICATION_TYPE_NEW_ARTICLE . " was found. No newsalert send.",
+                ['contao' => new ContaoContext(__CLASS__ . '::' . __FUNCTION__, TL_GENERAL)]
             );
             return false;
         }
-        if ($objNotificationCollection->count() > 1)
-        {
-            $this->container->get('monolog.logger.contao')->addNotice('Multiple notifications by type '.static::NOTIFICATION_TYPE_NEW_ARTICLE . ' found. Can lead to multiple notifications for the same person.');
+        if ($objNotificationCollection->count() > 1) {
+            $this->container->get('monolog.logger.contao')->addNotice('Multiple notifications by type ' . static::NOTIFICATION_TYPE_NEW_ARTICLE . ' found. Can lead to multiple notifications for the same person.');
         }
 
 //        $strContentRaw = '';
 //        $strContentHtml = '';
 
         $strContent = '';
-        $strTeaser = empty($objArticle->teaser) ? '' : $objArticle->teaser;
+        $strTeaser  = empty($objArticle->teaser) ? '' : $objArticle->teaser;
 
-        if ($objContents !== null)
-        {
-            while ($objContents->next())
-            {
+        if ($objContents !== null) {
+            while ($objContents->next()) {
                 $item = $objContents->current();
-                if (!empty($item->headline))
-                {
-                    $title = deserialize($item->headline);
-                    $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
+                if (!empty($item->headline)) {
+                    $title      = deserialize($item->headline);
+                    $headline   = '<' . $title['unit'] . '>' . $title['value'] . '</' . $title['unit'] . '>';
                     $strContent .= $headline;
                 }
                 $strContent .= $item->text;
@@ -155,15 +124,12 @@ class NewsPostedListener
         }
 
         $objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
-        if ($objContents !== null)
-        {
-            while ($objContents->next())
-            {
+        if ($objContents !== null) {
+            while ($objContents->next()) {
                 $item = $objContents->current();
-                if (!empty($item->headline))
-                {
-                    $title = deserialize($item->headline);
-                    $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
+                if (!empty($item->headline)) {
+                    $title      = deserialize($item->headline);
+                    $headline   = '<' . $title['unit'] . '>' . $title['value'] . '</' . $title['unit'] . '>';
                     $strContent .= $headline;
                 }
                 $strContent .= $item->text;
@@ -171,58 +137,52 @@ class NewsPostedListener
         }
         $intCountMails = 0;
 
-        foreach ($arrRecipients as $email => $data)
-        {
+        foreach ($arrRecipients as $email => $data) {
             $arrAllTopics = $this->getAllTopicsByRecipient($email);
 
             $strOptOutLinksHtml = '';
             $strOptOutLinksText = '';
-            foreach ($arrAllTopics as $strTopic=>$strOptOutToken)
-            {
-                $strLink = Environment::get('url').$strOptOutToken;
-                $strOptOutLinksHtml .= $strTopic.': <a href="'.$strLink.'">'.$this->translator->trans('hh.newsalert.notifications.unsubscribe').'</a><br />';
-                $strOptOutLinksText .= $strTopic.' '.$this->translator->trans('hh.newsalert.notifications.unsubscribe').': '.$strLink.'\n';
+            foreach ($arrAllTopics as $strTopic => $strOptOutToken) {
+                $strLink            = Environment::get('url') . $strOptOutToken;
+                $strOptOutLinksHtml .= $strTopic . ': <a href="' . $strLink . '">' . $this->translator->trans('hh.newsalert.notifications.unsubscribe') . '</a><br />';
+                $strOptOutLinksText .= $strTopic . ' ' . $this->translator->trans('hh.newsalert.notifications.unsubscribe') . ': ' . $strLink . '\n';
             }
 
             $strTopics = implode(",", $data['topics']);
 
             $objNewsPage = \PageModel::findByPk(NewsArchiveModel::findById($objArticle->pid)->jumpTo);
 
-            $strUrl = $this->container->get('contao.routing.url_generator')->generate($objNewsPage->alias).'/'.$objArticle->alias;
+            $strUrl     = $this->container->get('contao.routing.url_generator')->generate($objNewsPage->alias) . '/' . $objArticle->alias;
             $strRootUrl = Environment::get('url');
-            $arrTokens = [
-                'hh_newsalert_topic_recipient' => $email,
-                'hh_newsalert_recipient_topics' => $strTopics,
+            $arrTokens  = [
+                'hh_newsalert_topic_recipient'       => $email,
+                'hh_newsalert_recipient_topics'      => $strTopics,
                 'hh_newsalert_recipient_topic_count' => count($data['topics']),
-                'hh_newsalert_news_title' => $objArticle->headline,
-                'hh_newsalert_news_teaser' => $strTeaser,
-                'hh_newsalert_news_content' => $strContent,
-                'hh_newsalert_news_url' => $strUrl,
-                'hh_newsalert_opt_out_html' => $strOptOutLinksHtml,
-                'hh_newsalert_opt_out_text' => $strOptOutLinksText,
-                'hh_newsalert_year' => date('Y'),
-                'hh_newsalert_root_url' => $strRootUrl,
-                'raw_data' => $strContent,
+                'hh_newsalert_news_title'            => $objArticle->headline,
+                'hh_newsalert_news_teaser'           => $strTeaser,
+                'hh_newsalert_news_content'          => $strContent,
+                'hh_newsalert_news_url'              => $strUrl,
+                'hh_newsalert_opt_out_html'          => $strOptOutLinksHtml,
+                'hh_newsalert_opt_out_text'          => $strOptOutLinksText,
+                'hh_newsalert_year'                  => date('Y'),
+                'hh_newsalert_root_url'              => $strRootUrl,
+                'raw_data'                           => $strContent,
                 // Fix cli error
-                'salutation_user' => '',
-                'salutation_form' => ''
+                'salutation_user'                    => '',
+                'salutation_form'                    => ''
             ];
 
-            if (isset($GLOBALS['TL_HOOKS']['hh_newsalert_customToken']) && is_array($GLOBALS['TL_HOOKS']['hh_newsalert_customToken']))
-            {
-                foreach ($GLOBALS['TL_HOOKS']['hh_newsalert_customToken'] as $callback)
-                {
+            if (isset($GLOBALS['TL_HOOKS']['hh_newsalert_customToken']) && is_array($GLOBALS['TL_HOOKS']['hh_newsalert_customToken'])) {
+                foreach ($GLOBALS['TL_HOOKS']['hh_newsalert_customToken'] as $callback) {
                     $arrTokens = System::importStatic($callback[0])->{$callback[1]}($objArticle, $arrTokens);
                 }
             }
 
-            if (php_sapi_name() == 'cli')
-            {
+            if (php_sapi_name() == 'cli') {
                 unset($GLOBALS['TL_HOOKS']['sendNotificationMessage']);
             }
 
-            while ($objNotificationCollection->next())
-            {
+            while ($objNotificationCollection->next()) {
                 /**
                  * @var $objNotification Notification
                  */
@@ -244,17 +204,6 @@ class NewsPostedListener
         return $intCountMails;
     }
 
-    protected function createSendModel($objArticle, $arrTopics, $intCountMails)
-    {
-        $objNewsalertSend = new NewsalertSendModel();
-        $objNewsalertSend->pid = $objArticle->id;
-        $objNewsalertSend->topics = $arrTopics;
-        $objNewsalertSend->senddate = time();
-        $objNewsalertSend->count_messages = $intCountMails;
-        $objNewsalertSend->user = $objArticle->author;
-        $objNewsalertSend->save();
-    }
-
     /**
      * Return recipients list with emails, topics and unsubscribe links
      * List is filtered, so every recipient is only once included in the list
@@ -269,23 +218,30 @@ class NewsPostedListener
     protected function getRecipientsByTopic($arrTopics = [])
     {
         $arrRecipients = [];
-        foreach ($arrTopics as $strTopic)
-        {
+        foreach ($arrTopics as $strTopic) {
             $recipients = NewsalertRecipientsModel::findByTopic($strTopic);
-            if (!$recipients)
-            {
+            if (!$recipients) {
                 continue;
             }
-            while ($recipients->next())
-            {
-                if (!$recipients->confirmed)
-                {
+            while ($recipients->next()) {
+                if (!$recipients->confirmed) {
                     continue;
                 }
                 $arrRecipients[$recipients->email]['topics'][] = $strTopic;
             }
         }
         return $arrRecipients;
+    }
+
+    protected function createSendModel($objArticle, $arrTopics, $intCountMails)
+    {
+        $objNewsalertSend                 = new NewsalertSendModel();
+        $objNewsalertSend->pid            = $objArticle->id;
+        $objNewsalertSend->topics         = $arrTopics;
+        $objNewsalertSend->senddate       = time();
+        $objNewsalertSend->count_messages = $intCountMails;
+        $objNewsalertSend->user           = $objArticle->author;
+        $objNewsalertSend->save();
     }
 
     /**
@@ -299,8 +255,7 @@ class NewsPostedListener
     {
         $objAllRecipientsTopics = NewsalertRecipientsModel::findByEmail($recipient);
         $arrAllRecipientsTopics = [];
-        while ($objAllRecipientsTopics->next())
-        {
+        while ($objAllRecipientsTopics->next()) {
             $arrAllRecipientsTopics[$objAllRecipientsTopics->topic] = TokenGenerator::optOutTokens(
                 NewsalertSubscribeModule::TABLE,
                 $objAllRecipientsTopics->optOutToken
@@ -309,5 +264,21 @@ class NewsPostedListener
 
         ksort($arrAllRecipientsTopics);
         return $arrAllRecipientsTopics;
+    }
+
+    /**
+     * Trigger the send mechanism by model
+     *
+     * @param $objModel
+     */
+    public function callByModel($objModel)
+    {
+        $objArticles = NewsModel::findUnsentPublished();
+        if (!$objArticles) {
+            return;
+        }
+        while ($objArticles->next()) {
+            $this->sendNewsalert($objArticles->current(), $objModel);
+        }
     }
 }

@@ -34,6 +34,7 @@ class NewsalertRedirectModule extends Module
     protected $success = 'error';
     protected $opt = 'none';
     protected $strTemplate = 'mod_newsalert_redirect';
+
     /**
      * Parse the template
      *
@@ -41,10 +42,9 @@ class NewsalertRedirectModule extends Module
      */
     public function generate()
     {
-        if (TL_MODE == 'BE')
-        {
+        if (TL_MODE == 'BE') {
             /** @var BackendTemplate|object $objTemplate */
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate           = new \BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD'][static::MODULE_NAME][0]) . ' ###';
 //            $objTemplate->title = 'Newsalert Redirect';
             $objTemplate->id = $this->id;
@@ -54,10 +54,9 @@ class NewsalertRedirectModule extends Module
         }
 
         $this->container = System::getContainer();
-        $session = $this->container->get('session');
-        if ($session->has('contao_newsalert_success'))
-        {
-            $this->success = $session->get('contao_newsalert_success')? 'success' : 'error';
+        $session         = $this->container->get('session');
+        if ($session->has('contao_newsalert_success')) {
+            $this->success = $session->get('contao_newsalert_success') ? 'success' : 'error';
         }
         $this->topic = $session->get('contao_newsalert_topic');
         $session->has('contao_newsalert_opt') ? $this->opt = $session->get('contao_newsalert_opt') : true;
@@ -78,13 +77,13 @@ class NewsalertRedirectModule extends Module
      */
     protected function compile()
     {
-        $translator = $this->container->get('translator');
-        $strMessageId = 'hh.newsalert.module_redirect.opt'.$this->opt.'.'.$this->success.'.';
-        $this->Template->headline     = $translator->trans($strMessageId.'head');
+        $translator                   = $this->container->get('translator');
+        $strMessageId                 = 'hh.newsalert.module_redirect.opt' . $this->opt . '.' . $this->success . '.';
+        $this->Template->headline     = $translator->trans($strMessageId . 'head');
         $this->Template->wrapperClass = $this->strWrapperClass;
         $this->Template->wrapperId    = $this->strWrapperId;
 
-        $this->Template->strMessage = $translator->trans($strMessageId.'message', [
+        $this->Template->strMessage = $translator->trans($strMessageId . 'message', [
             '%topic%' => $this->topic
         ]);
     }

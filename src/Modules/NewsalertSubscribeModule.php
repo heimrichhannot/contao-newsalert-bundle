@@ -20,10 +20,10 @@ use Patchwork\Utf8;
 class NewsalertSubscribeModule extends \Module
 {
     const MODULE_NAME = 'contao-newsalert-subscribe';
-    const TABLE = 'tl_newsalert_recipients';
+    const TABLE       = 'tl_newsalert_recipients';
 
     protected $strTemplate = 'mod_newsalert_subscribe';
-    protected $strWrapperId    = 'newsalert_subscribe_';
+    protected $strWrapperId = 'newsalert_subscribe_';
     protected $strWrapperClass = 'newsalert_subscribe';
     protected $arrSubmitCallbacks = [];
 
@@ -34,15 +34,14 @@ class NewsalertSubscribeModule extends \Module
      */
     public function generate()
     {
-        if (TL_MODE == 'BE')
-        {
+        if (TL_MODE == 'BE') {
             /** @var BackendTemplate|object $objTemplate */
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate           = new \BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD'][static::MODULE_NAME][0]) . ' ###';
-            $objTemplate->title = $this->headline;
-            $objTemplate->id = $this->id;
-            $objTemplate->link = $this->name;
-            $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
+            $objTemplate->title    = $this->headline;
+            $objTemplate->id       = $this->id;
+            $objTemplate->link     = $this->name;
+            $objTemplate->href     = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
             return $objTemplate->parse();
         }
 
@@ -67,37 +66,33 @@ class NewsalertSubscribeModule extends \Module
 
         $this->Template->inColumn = $this->strColumn;
 
-        if ($this->Template->headline == '')
-        {
+        if ($this->Template->headline == '') {
             $this->Template->headline = $this->headline;
         }
 
-        if ($this->Template->hl == '')
-        {
+        if ($this->Template->hl == '') {
             $this->Template->hl = $this->hl;
         }
 
-        if (!empty($this->classes) && is_array($this->classes))
-        {
+        if (!empty($this->classes) && is_array($this->classes)) {
             $this->Template->class .= ' ' . implode(' ', $this->classes);
         }
 
         $this->formHybridDataContainer = static::TABLE;
-        $this->formHybridAsync = "1";
+        $this->formHybridAsync         = "1";
 
 
 //        'formHybridOptInSuccessMessage,formHybridOptInNotification,formHybridOptInConfirmedProperty'
 
 
-        if ($this->newsalertOptIn && $this->newsalertOptIn == 1)
-        {
-            $this->formHybridAddOptIn = 1;
+        if ($this->newsalertOptIn && $this->newsalertOptIn == 1) {
+            $this->formHybridAddOptIn               = 1;
             $this->formHybridOptInConfirmedProperty = 'confirmed';
         }
 
-        $this->formHybridEditable = ['email', 'topic','captcha'];
+        $this->formHybridEditable = ['email', 'topic', 'captcha'];
 
-        $objForm = new NewsAlertSubscriptionForm($this);
+        $objForm              = new NewsAlertSubscriptionForm($this);
         $this->Template->form = $objForm->generate();
     }
 }

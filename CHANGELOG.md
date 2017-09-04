@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.6] - 2017-09-04
+
+### Fixed
+- removed unused classes
+- NewsModel fix
+
 ## [2.0.5] - 2017-09-04
 
 ### Fixed

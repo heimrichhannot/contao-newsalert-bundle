@@ -1,44 +1,44 @@
 {
-    "name": "heimrichhannot/contao-newsalert-bundle",
-    "description": "A contao bundle to subscribe to news topics",
-    "type": "contao-bundle",
-    "license": "LGPL-3.0+",
-    "homepage": "https://github.com/heimrichhannot/contao-newsalert-bundle",
-    "require": {
-        "php": "~7.0",
-        "contao/core-bundle": "~4.4.0",
-        "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
-        "terminal42/notification_center": "~1.4.1",
-        "heimrichhannot/contao-formhybrid": "^2.9.0"
+  "name": "heimrichhannot/contao-newsalert-bundle",
+  "description": "A contao bundle to subscribe to news topics",
+  "type": "contao-bundle",
+  "license": "LGPL-3.0+",
+  "homepage": "https://github.com/heimrichhannot/contao-newsalert-bundle",
+  "require": {
+    "php": "~7.0",
+    "contao/core-bundle": "~4.4.0",
+    "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
+    "terminal42/notification_center": "~1.4.1",
+    "heimrichhannot/contao-formhybrid": "^2.9.0"
+  },
+  "require-dev": {
+    "contao/manager-plugin": "^2.0"
+  },
+  "authors": [
+    {
+      "name": "Thomas Körner",
+      "email": "t.koerner@heimrich-hannot.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "HeimrichHannot\\ContaoNewsAlertBundle\\": "src/"
     },
-    "require-dev": {
-        "contao/manager-plugin": "^2.0"
-    },
-    "authors": [
-        {
-            "name": "Thomas Körner",
-            "email": "t.koerner@heimrich-hannot.de"
-        }
+    "classmap": [
+      "src/"
     ],
-    "autoload": {
-        "psr-4": {
-            "HeimrichHannot\\ContaoNewsAlertBundle\\": "src/"
-        },
-        "classmap": [
-            "src/"
-        ],
-        "exclude-from-classmap": [
-            "src/Resources/contao/config/",
-            "src/Resources/contao/dca/",
-            "src/Resources/contao/languages/",
-            "src/Resources/contao/templates/"
-        ]
-    },
-    "config": {
-        "preferred-install": "dist"
-    },
-    "extra": {
-        "contao-manager-plugin": "HeimrichHannot\\ContaoNewsAlertBundle\\ContaoManager\\Plugin"
-    },
-    "minimum-stability": "dev"
+    "exclude-from-classmap": [
+      "src/Resources/contao/config/",
+      "src/Resources/contao/dca/",
+      "src/Resources/contao/languages/",
+      "src/Resources/contao/templates/"
+    ]
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "extra": {
+    "contao-manager-plugin": "HeimrichHannot\\ContaoNewsAlertBundle\\ContaoManager\\Plugin"
+  },
+  "minimum-stability": "dev"
 }

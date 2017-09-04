@@ -8,13 +8,13 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
-$dc = &$GLOBALS['TL_DCA']['tl_news'];
+$dc         = &$GLOBALS['TL_DCA']['tl_news'];
 $translator = System::getContainer()->get('translator');
 
 /*
  * Callbacks
  */
-$dc['config']['onsubmit_callback'][] = ['hh.contao-newsalert.listener.newspostedlistener','onSubmitCallback'];
+$dc['config']['onsubmit_callback'][] = ['hh.contao-newsalert.listener.newspostedlistener', 'onSubmitCallback'];
 
 /*
  * Palettes
@@ -43,7 +43,7 @@ $fields = [
         'sql'       => "int(1) NOT NULL default '1'",
         'eval'      => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
     ],
-    'newsalert_sent' => [
+    'newsalert_sent'     => [
         'label'     => [
             $translator->trans('hh.newsalert.tl_news.newsalert_sent.0'),
             $translator->trans('hh.newsalert.tl_news.newsalert_sent.1')

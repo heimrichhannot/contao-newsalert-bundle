@@ -20,29 +20,13 @@ class NewsTopicCollection
     private $topicSources = [];
     private $topicCache;
 
-    protected function createTopicCache ()
-    {
-        $topics = [];
-        /**
-         * @var $source NewsTopicSourceInterface
-         */
-        foreach ($this->topicSources as $source)
-        {
-            $srcTopics = $source->getTopics();
-            $topics = array_merge($srcTopics, $topics);
-        }
-        $topics = array_unique($topics, SORT_REGULAR);
-        sort($topics);
-        $this->topicCache = $topics;
-    }
-
     /**
      * @param NewsTopicSourceInterface $topicSource
      */
-    public function addTopicSource (NewsTopicSourceInterface $topicSource)
+    public function addTopicSource(NewsTopicSourceInterface $topicSource)
     {
         $this->topicSources[$topicSource->getAlias()] = $topicSource;
-        $this->topicCache = [];
+        $this->topicCache                             = [];
     }
 
     /**
@@ -53,8 +37,7 @@ class NewsTopicCollection
      */
     public function getTopicSource(string $strAlias)
     {
-        if(isset($this->topicSources[$strAlias]))
-        {
+        if (isset($this->topicSources[$strAlias])) {
             return $this->topicSources[$strAlias];
         }
         return null;
@@ -73,8 +56,7 @@ class NewsTopicCollection
         /**
          * @var NewsTopicSourceInterface $source
          */
-        foreach ($this->topicSources as $source)
-        {
+        foreach ($this->topicSources as $source) {
             $arrTopics = array_merge($arrTopics, $source->getTopicsByItem($objItem));
         }
         $arrTopics = array_unique($arrTopics, SORT_REGULAR);
@@ -88,10 +70,24 @@ class NewsTopicCollection
      */
     public function getAllTopics()
     {
-        if (empty($this->topicCache))
-        {
+        if (empty($this->topicCache)) {
             $this->createTopicCache();
         }
         return $this->topicCache;
+    }
+
+    protected function createTopicCache()
+    {
+        $topics = [];
+        /**
+         * @var $source NewsTopicSourceInterface
+         */
+        foreach ($this->topicSources as $source) {
+            $srcTopics = $source->getTopics();
+            $topics    = array_merge($srcTopics, $topics);
+        }
+        $topics = array_unique($topics, SORT_REGULAR);
+        sort($topics);
+        $this->topicCache = $topics;
     }
 }

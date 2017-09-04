@@ -9,11 +9,11 @@
  * // */
 
 $translator = System::getContainer()->get('translator');
-$strTable = 'tl_newsalert_sent';
+$strTable   = 'tl_newsalert_sent';
 
 //
 $GLOBALS['TL_DCA'][$strTable] = [
-    'config'   => [
+    'config' => [
         'dataContainer'    => 'Table',
         'switchToEdit'     => false,
         'enableVersioning' => false,
@@ -26,20 +26,20 @@ $GLOBALS['TL_DCA'][$strTable] = [
             ]
         ]
     ],
-    'list'     => [
-        'sorting'           => [
-            'mode'         => 2,
-            'fields'       => ['senddate DESC'],
-            'flag'         => 8,
-            'panelLayout'  => 'debug;filter;sort,search,limit',
+    'list'   => [
+        'sorting'    => [
+            'mode'        => 2,
+            'fields'      => ['senddate DESC'],
+            'flag'        => 8,
+            'panelLayout' => 'debug;filter;sort,search,limit',
         ],
-        'label'             => [
+        'label'      => [
             'fields'      => ['senddate', 'pid:tl_news.headline', 'topics', 'user:tl_user.name', 'count_messages'],
             'showColumns' => true,
         ],
-        'operations'        => [
-            'show'   => [
-                'label'     => [
+        'operations' => [
+            'show' => [
+                'label' => [
                     $translator->trans('hh.newsalert.operations.show.0'),
                     $translator->trans('hh.newsalert.operations.show.1')
                 ],
@@ -51,24 +51,23 @@ $GLOBALS['TL_DCA'][$strTable] = [
 //    'palettes' => [
 //        'default' => '{abonnement_legend},email,topic,confirmed'
 //    ],
-    'fields'   => [
-        'id'        => [
+    'fields' => [
+        'id'             => [
             'sql' => "int(10) unsigned NOT NULL auto_increment"
         ],
-        'pid' => array
-        (
-            'label'     => [
+        'pid'            => [
+            'label'      => [
                 $translator->trans('hh.newsalert.tl_newsalert_sent.pid.0'),
                 $translator->trans('hh.newsalert.tl_newsalert_sent.pid.1')
             ],
-            'foreignKey'              => 'tl_news.id',
-            'sql'                     => "int(10) unsigned NOT NULL default '0'",
-            'relation'                => array('type'=>'belongsTo', 'load'=>'eager')
-        ),
-        'tstamp'    => [
+            'foreignKey' => 'tl_news.id',
+            'sql'        => "int(10) unsigned NOT NULL default '0'",
+            'relation'   => ['type' => 'belongsTo', 'load' => 'eager']
+        ],
+        'tstamp'         => [
             'sql' => "int(10) unsigned NOT NULL default '0'"
         ],
-        'topics'     => [
+        'topics'         => [
             'label'     => [
                 $translator->trans('hh.newsalert.tl_newsalert_sent.topics.0'),
                 $translator->trans('hh.newsalert.tl_newsalert_sent.topics.1')
@@ -78,35 +77,35 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'search'    => true,
             'sql'       => "varchar(255) NOT NULL default ''"
         ],
-        'senddate' => [
+        'senddate'       => [
             'label'     => [
                 $translator->trans('hh.newsalert.tl_newsalert_sent.senddate.0'),
                 $translator->trans('hh.newsalert.tl_newsalert_sent.senddate.1')
             ],
             'inputType' => 'text',
-            'exclude' => true,
-            'sorting' => true,
-            'flag'    => 6,
-            'eval'    => ['rgxp' => 'datim', 'datepicker' => true, 'doNotCopy' => true, 'sort' => 12],
-            'sql'     => "int(10) unsigned NOT NULL default '0'",
+            'exclude'   => true,
+            'sorting'   => true,
+            'flag'      => 6,
+            'eval'      => ['rgxp' => 'datim', 'datepicker' => true, 'doNotCopy' => true, 'sort' => 12],
+            'sql'       => "int(10) unsigned NOT NULL default '0'",
         ],
-        'user' => [
-            'label'     => [
+        'user'           => [
+            'label'      => [
                 $translator->trans('hh.newsalert.tl_newsalert_sent.user.0'),
                 $translator->trans('hh.newsalert.tl_newsalert_sent.user.1')
             ],
-            'inputType'   => 'select',
-            'sorting'     => true,
-            'exclude'     => true,
-            'foreignKey'  => 'tl_user.name',
-            'sql'         => "int(10) NOT NULL default 0",
-            'eval'        => [
+            'inputType'  => 'select',
+            'sorting'    => true,
+            'exclude'    => true,
+            'foreignKey' => 'tl_user.name',
+            'sql'        => "int(10) NOT NULL default 0",
+            'eval'       => [
                 'tl_class' => 'w50',
-                'chosen' => true
+                'chosen'   => true
             ],
         ],
         'count_messages' => [
-            'label'     => [
+            'label'   => [
                 $translator->trans('hh.newsalert.tl_newsalert_sent.count_messages.0'),
                 $translator->trans('hh.newsalert.tl_newsalert_sent.count_messages.1')
             ],

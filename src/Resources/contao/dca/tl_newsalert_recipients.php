@@ -9,7 +9,7 @@
  * // */
 
 $translator = System::getContainer()->get('translator');
-$strTable = 'tl_newsalert_recipients';
+$strTable   = 'tl_newsalert_recipients';
 //
 $GLOBALS['TL_DCA'][$strTable] = [
     'config'   => [
@@ -27,10 +27,10 @@ $GLOBALS['TL_DCA'][$strTable] = [
     ],
     'list'     => [
         'sorting'           => [
-            'mode'         => 2,
-            'fields'       => ['email', 'topic', 'confirmed'],
-            'flag'         => 1,
-            'panelLayout'  => 'debug;filter;sort,search,limit',
+            'mode'        => 2,
+            'fields'      => ['email', 'topic', 'confirmed'],
+            'flag'        => 1,
+            'panelLayout' => 'debug;filter;sort,search,limit',
         ],
         'label'             => [
             'fields'      => ['email', 'topic', 'confirmed'],
@@ -39,22 +39,22 @@ $GLOBALS['TL_DCA'][$strTable] = [
         ],
         'global_operations' => [
             'newsalert_sent' => [
-                'label'               => $translator->trans('hh.newsalert.tl_newsalert_sent.label'),
-                'href'                => 'table=tl_newsalert_sent',
-                'icon'                => 'db.svg',
+                'label' => $translator->trans('hh.newsalert.tl_newsalert_sent.label'),
+                'href'  => 'table=tl_newsalert_sent',
+                'icon'  => 'db.svg',
             ]
         ],
         'operations'        => [
             'edit'   => [
-                'label'     => [
+                'label' => [
                     $translator->trans('hh.newsalert.operations.edit.0'),
                     $translator->trans('hh.newsalert.operations.edit.1')
                 ],
-                'href' => 'act=edit',
-                'icon' => 'edit.gif',
+                'href'  => 'act=edit',
+                'icon'  => 'edit.gif',
             ],
             'copy'   => [
-                'label'     => [
+                'label' => [
                     $translator->trans('hh.newsalert.operations.copy.0'),
                     $translator->trans('hh.newsalert.operations.copy.1')
                 ],
@@ -62,17 +62,17 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 'icon'  => 'copy.gif',
             ],
             'delete' => [
-                'label'     => [
+                'label'      => [
                     $translator->trans('hh.newsalert.operations.delete.0'),
                     $translator->trans('hh.newsalert.operations.delete.1')
                 ],
                 'href'       => 'act=delete',
                 'icon'       => 'delete.gif',
                 'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
-                                . '\'))return false;Backend.getScrollOffset()"',
+                    . '\'))return false;Backend.getScrollOffset()"',
             ],
             'show'   => [
-                'label'     => [
+                'label' => [
                     $translator->trans('hh.newsalert.operations.show.0'),
                     $translator->trans('hh.newsalert.operations.show.1')
                 ],
@@ -111,36 +111,36 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'sql'       => "varchar(255) NOT NULL default ''"
         ],
         'topic'     => [
-            'label'     => [
+            'label'            => [
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.topic.0'),
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.topic.1')
             ],
-            'sorting'   => true,
-            'inputType' => 'select',
-            'options_callback' => ['hh.contao-newsalert.newstopiccollection','getAllTopics'],
-            'search'    => true,
-            'eval'      => [
+            'sorting'          => true,
+            'inputType'        => 'select',
+            'options_callback' => ['hh.contao-newsalert.newstopiccollection', 'getAllTopics'],
+            'search'           => true,
+            'eval'             => [
                 'chosen'    => true,
                 'maxlength' => 128,
                 'mandatory' => true,
                 'nospace'   => true,
                 'tl_class'  => 'w50'
             ],
-            'sql'       => "varchar(255) NOT NULL default ''"
+            'sql'              => "varchar(255) NOT NULL default ''"
         ],
         'confirmed' => [
-            'label'       => [
+            'label'     => [
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.confirmed.0'),
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.confirmed.1')
             ],
-            'inputType'   => 'checkbox',
-            'sorting'     => true,
-            'default'     => 0,
-            'sql'         => "int(1) NOT NULL default 0",
-            'eval'        => ['tl_class' => 'w50'],
+            'inputType' => 'checkbox',
+            'sorting'   => true,
+            'default'   => 0,
+            'sql'       => "int(1) NOT NULL default 0",
+            'eval'      => ['tl_class' => 'w50'],
         ],
-        'captcha' => [
-            'label'       => [
+        'captcha'   => [
+            'label'     => [
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.captcha.0'),
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.captcha.1')
             ],

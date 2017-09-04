@@ -38,8 +38,7 @@ class NewsArchiveTopics implements NewsTopicSourceInterface
     {
         $objArchives = NewsArchiveModel::findAll();
         $arrArchives = [];
-        while ($objArchives->next())
-        {
+        while ($objArchives->next()) {
             $arrArchives[] = $objArchives->title;
         }
         return $arrArchives;

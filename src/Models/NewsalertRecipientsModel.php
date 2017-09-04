@@ -19,14 +19,13 @@ use HeimrichHannot\Haste\Model\Model;
  *
  * @property integer $id
  * @property integer $tstamp
- * @property string  $email
- * @property string  $topic
+ * @property string $email
+ * @property string $topic
  * @property boolean $confirmed
- * @property string  $optInToken
- * @property string  $optOutToken
- * @property string  $dateAdded
+ * @property string $optInToken
+ * @property string $optOutToken
+ * @property string $dateAdded
  */
-
 class NewsalertRecipientsModel extends Model
 {
     protected static $strTable = 'tl_newsalert_recipients';

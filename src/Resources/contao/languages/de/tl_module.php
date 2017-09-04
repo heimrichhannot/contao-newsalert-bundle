@@ -9,12 +9,12 @@
  */
 
 
-$GLOBALS['TL_LANG']['FMD']['contao-newsalert-subscribe'] = array('Newsalert Anmeldung', 'Anmeldung für Newsalert-Topics');
-$GLOBALS['TL_LANG']['FMD']['contao-newsalert-redirect'] = array('Newsalert Redirect', 'Bestätigungsseitenmodul für Opt-in und Opt-out');
+$GLOBALS['TL_LANG']['FMD']['contao-newsalert-subscribe'] = ['Newsalert Anmeldung', 'Anmeldung für Newsalert-Topics'];
+$GLOBALS['TL_LANG']['FMD']['contao-newsalert-redirect']  = ['Newsalert Redirect', 'Bestätigungsseitenmodul für Opt-in und Opt-out'];
 
 $arrLang = &$GLOBALS['TL_LANG']['tl_module'];
 
-$arrLang['optin_legend'] = "Opt-In Handling";
-$arrLang['optout_legend'] = "Opt-Out Handling";
+$arrLang['optin_legend']   = "Opt-In Handling";
+$arrLang['optout_legend']  = "Opt-Out Handling";
 $arrLang['trigger_legend'] = "Sendeevent";
-$arrLang['misc_legend'] = "Verschiedenes";
+$arrLang['misc_legend']    = "Verschiedenes";

@@ -19,8 +19,6 @@ use Symfony\Component\DependencyInjection\Container;
  * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
-
-
 class NewsalertSendCommand extends AbstractLockedCommand
 {
     /**
@@ -49,14 +47,13 @@ class NewsalertSendCommand extends AbstractLockedCommand
         $this->setName('hh:newsalert:send')
             ->setDescription('Checks for unsend newsalerts and send found items.')
             ->setHelp('This commands checks news entities, if there are non sent newsalert. If so, the newsalert send event is triggered.')
-            ->addArgument('module',InputArgument::OPTIONAL,'The module id, which contains the settings for the newsalert.')
-        ;
+            ->addArgument('module', InputArgument::OPTIONAL, 'The module id, which contains the settings for the newsalert.');
     }
 
     /**
      * Executes the command.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      *
      * @return int|null
@@ -68,50 +65,39 @@ class NewsalertSendCommand extends AbstractLockedCommand
 
         $objNews = NewsModel::findUnsentPublished();
 
-        if ($objNews)
-        {
-            $output->writeln('Found '.$objNews->count().' unsend news entries.');
-            if ($input->hasArgument('module'))
-            {
+        if ($objNews) {
+            $output->writeln('Found ' . $objNews->count() . ' unsend news entries.');
+            if ($input->hasArgument('module')) {
                 $intModule = $input->getArgument('module');
                 $objModule = \ModuleModel::findById($intModule);
-                $output->writeln("Try to use module ".$intModule);
-                if (!$objModule)
-                {
+                $output->writeln("Try to use module " . $intModule);
+                if (!$objModule) {
                     $output->writeln("Module $intModule not found. Try to find an existing module.");
                 }
             }
-            if (!$objModule || $objModule->type != NewsalertSubscribeModule::MODULE_NAME)
-            {
+            if (!$objModule || $objModule->type != NewsalertSubscribeModule::MODULE_NAME) {
                 $objModule = \ModuleModel::findByType(NewsalertSubscribeModule::MODULE_NAME)->first();
             }
-            if (!$objModule)
-            {
+            if (!$objModule) {
                 $output->writeln('No module found. Stopping execution.');
             }
-            $output->writeln('Using module '.$objModule->id);
+            $output->writeln('Using module ' . $objModule->id);
             $intSentCount = 0;
 
-            while ($objNews->next())
-            {
+            while ($objNews->next()) {
                 if ($intSentAlerts = $this->container->get('hh.contao-newsalert.listener.newspostedlistener')
-                    ->sendNewsalert($objNews->current(), $objModule->current(), $output) >= false
-                )
-                {
+                        ->sendNewsalert($objNews->current(), $objModule->current(), $output) >= false
+                ) {
 
                     $intSentCount += $intSentAlerts;
-                    $output->writeln('Newsalert sent for news article '.$objNews->id." ($intSentAlerts messages)");
-                }
-                else
-                {
-                    $output->writeln('Could not send newsalert for news article '.$objNews->id);
+                    $output->writeln('Newsalert sent for news article ' . $objNews->id . " ($intSentAlerts messages)");
+                } else {
+                    $output->writeln('Could not send newsalert for news article ' . $objNews->id);
                 }
             }
 
             $output->writeln("Finished. Sent $intSentCount notifications.");
-        }
-        else
-        {
+        } else {
             $output->writeln('Found no unsend news entries.');
         }
     }

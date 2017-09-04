@@ -20,8 +20,8 @@ use HeimrichHannot\Haste\Model\Model;
  * @property integer $id
  * @property integer $pid
  * @property integer $tstamp
- * @property string  $topics
- * @property string  $senddate
+ * @property string $topics
+ * @property string $senddate
  * @property integer $count_messages
  *
  * @package HeimrichHannot\ContaoNewsAlertBundle\Models
