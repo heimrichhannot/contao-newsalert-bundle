@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.5] - 2017-09-04
+
+### Fixed
+* missing german author translation
+* visible button to add news entries to newsalert_sent (results in also removing backlink due contao core bug (already reported as [issue](https://github.com/contao/core-bundle/issues/1035)))
+
+
 ## [2.0.4] - 2017-08-24
 
 ### Fixed
