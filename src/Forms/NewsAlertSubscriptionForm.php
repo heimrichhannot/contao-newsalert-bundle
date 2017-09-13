@@ -13,9 +13,7 @@ namespace HeimrichHannot\ContaoNewsAlertBundle\Forms;
 use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel;
 use HeimrichHannot\FormHybrid\Form;
-use HeimrichHannot\NewsBundle\NewsModel;
 use HeimrichHannot\StatusMessages\StatusMessage;
-use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 
 class NewsAlertSubscriptionForm extends Form
 {
@@ -30,8 +28,7 @@ class NewsAlertSubscriptionForm extends Form
 
     protected function compile()
     {
-        if (!$this->Template->message)
-        {
+        if (!$this->Template->message) {
             $this->Template->message = StatusMessage::generate($this->objModule->id);
         }
     }
@@ -47,20 +44,15 @@ class NewsAlertSubscriptionForm extends Form
             [$strEmail, $strTopic]
         );
 
-        if (!$objRecipients)
-        {
-            $this->objActiveRecord->email = $dc->getFieldValue('email');
-            $this->objActiveRecord->topic = $dc->getFieldValue('topic');
+        if (!$objRecipients) {
+            $this->objActiveRecord->email     = $dc->getFieldValue('email');
+            $this->objActiveRecord->topic     = $dc->getFieldValue('topic');
             $this->objActiveRecord->dateAdded = time();
             $this->objActiveRecord->confirmed = 0;
             $this->objActiveRecord->save();
-        }
-        else
-        {
-            while ($objRecipients->next())
-            {
-                if (!$objRecipients->confirmed)
-                {
+        } else {
+            while ($objRecipients->next()) {
+                if (!$objRecipients->confirmed) {
                     $this->objActiveRecord = $objRecipients->current();
                     return;
                 }

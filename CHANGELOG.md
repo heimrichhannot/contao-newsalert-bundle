@@ -11,6 +11,10 @@
 * hh_newsalert_news_subheadline token
 * color to console output
 
+## [2.0.6] - 2017-09-05
+
+### Fixed
+* NewsModel
 
 ## [2.0.5] - 2017-09-04
 

@@ -10,10 +10,8 @@
 
 namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
-use Contao\ContentModel;
 use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\DC_Table;
-use Contao\Email;
 use Contao\Environment;
 use Contao\NewsArchiveModel;
 use Contao\System;
@@ -22,24 +20,22 @@ use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertSendModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
 use HeimrichHannot\FormHybrid\TokenGenerator;
-use HeimrichHannot\Modal\PageModel;
 use Model\Collection;
 use NotificationCenter\Model\Notification;
 use Psr\Log\LogLevel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use HeimrichHannot\Haste\Util\Url;
 
 class NewsPostedListener
 {
 
-    const NOTIFICATION_TYPE_NEWSALERT = 'hh_newsalert';
+    const NOTIFICATION_TYPE_NEWSALERT   = 'hh_newsalert';
     const NOTIFICATION_TYPE_NEW_ARTICLE = 'news_posted';
 
     protected $container;
 
     public function __construct(ContainerInterface $container)
     {
-        $this->container = $container;
+        $this->container  = $container;
         $this->translator = $container->get('translator');
         $container->get('contao.framework')->initialize();
     }
@@ -54,12 +50,11 @@ class NewsPostedListener
      */
     public function onSubmitCallback(DC_Table $dc)
     {
-        $t = \ModuleModel::getTable();
+        $t         = \ModuleModel::getTable();
         $objModule = \ModuleModel::findBy(
-            ["$t.type=?","newsalertSendType=?"],
-            [NewsalertSubscribeModule::MODULE_NAME,'onSubmit']);
-        if (!$objModule)
-        {
+            ["$t.type=?", "newsalertSendType=?"],
+            [NewsalertSubscribeModule::MODULE_NAME, 'onSubmit']);
+        if (!$objModule) {
             return;
         }
         $objArticle = \NewsModel::findPublishedByParentAndIdOrAlias($dc->activeRecord->id, [$dc->activeRecord->pid]);
@@ -68,12 +63,10 @@ class NewsPostedListener
             $objArticle === null or
             $objArticle->newsalert_activate == 0 or
             $objArticle->newsalert_sent == 1
-        )
-        {
+        ) {
             return;
         }
-        while ($objModule->next())
-        {
+        while ($objModule->next()) {
             $this->sendNewsalert($objArticle, $objModule->current());
         }
     }
@@ -104,7 +97,7 @@ class NewsPostedListener
      */
     public function sendNewsalert ($objArticle, \ModuleModel $objModule)
     {
-        $topics = $this->container->get('hh.contao-newsalert.newstopiccollection')->getTopicsByItem($objArticle);
+        $topics        = $this->container->get('hh.contao-newsalert.newstopiccollection')->getTopicsByItem($objArticle);
         $arrRecipients = $this->getRecipientsByTopic($topics);
 
         if (count($arrRecipients) == 0)
@@ -123,8 +116,8 @@ class NewsPostedListener
         {
             $this->container->get('monolog.logger.contao')->log(
                 LogLevel::NOTICE,
-                "No notification by type ".static::NOTIFICATION_TYPE_NEW_ARTICLE . " was found. No newsalert send.",
-                ['contao' => new ContaoContext(__CLASS__.'::'.__FUNCTION__, TL_GENERAL)]
+                "No notification by type " . static::NOTIFICATION_TYPE_NEW_ARTICLE . " was found. No newsalert send.",
+                ['contao' => new ContaoContext(__CLASS__ . '::' . __FUNCTION__, TL_GENERAL)]
             );
             return false;
         }
@@ -137,18 +130,27 @@ class NewsPostedListener
 //        $strContentHtml = '';
 
         $strContent = '';
-        $strTeaser = empty($objArticle->teaser) ? '' : $objArticle->teaser;
+        $strTeaser  = empty($objArticle->teaser) ? '' : $objArticle->teaser;
+
+        if ($objContents !== null) {
+            while ($objContents->next()) {
+                $item = $objContents->current();
+                if (!empty($item->headline)) {
+                    $title      = deserialize($item->headline);
+                    $headline   = '<' . $title['unit'] . '>' . $title['value'] . '</' . $title['unit'] . '>';
+                    $strContent .= $headline;
+                }
+                $strContent .= $item->text;
+            }
+        }
 
         $objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
-        if ($objContents !== null)
-        {
-            while ($objContents->next())
-            {
+        if ($objContents !== null) {
+            while ($objContents->next()) {
                 $item = $objContents->current();
-                if (!empty($item->headline))
-                {
-                    $title = deserialize($item->headline);
-                    $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
+                if (!empty($item->headline)) {
+                    $title      = deserialize($item->headline);
+                    $headline   = '<' . $title['unit'] . '>' . $title['value'] . '</' . $title['unit'] . '>';
                     $strContent .= $headline;
                 }
                 $strContent .= $item->text;
@@ -156,17 +158,15 @@ class NewsPostedListener
         }
         $intCountMails = 0;
 
-        foreach ($arrRecipients as $email => $data)
-        {
+        foreach ($arrRecipients as $email => $data) {
             $arrAllTopics = $this->getAllTopicsByRecipient($email);
 
             $strOptOutLinksHtml = '';
             $strOptOutLinksText = '';
-            foreach ($arrAllTopics as $strTopic=>$strOptOutToken)
-            {
-                $strLink = Environment::get('url').$strOptOutToken;
-                $strOptOutLinksHtml .= $strTopic.': <a href="'.$strLink.'">'.$this->translator->trans('hh.newsalert.notifications.unsubscribe').'</a><br />';
-                $strOptOutLinksText .= $strTopic.' '.$this->translator->trans('hh.newsalert.notifications.unsubscribe').': '.$strLink.'\n';
+            foreach ($arrAllTopics as $strTopic => $strOptOutToken) {
+                $strLink            = Environment::get('url') . $strOptOutToken;
+                $strOptOutLinksHtml .= $strTopic . ': <a href="' . $strLink . '">' . $this->translator->trans('hh.newsalert.notifications.unsubscribe') . '</a><br />';
+                $strOptOutLinksText .= $strTopic . ' ' . $this->translator->trans('hh.newsalert.notifications.unsubscribe') . ': ' . $strLink . '\n';
             }
 
             $strTopics = implode(",", $data['topics']);
@@ -190,8 +190,8 @@ class NewsPostedListener
                 'hh_newsalert_root_url' => $strRootUrl,
                 'raw_data' => $strContent,
                 // Fix cli error
-                'salutation_user' => '',
-                'salutation_form' => ''
+                'salutation_user'                    => '',
+                'salutation_form'                    => ''
             ];
 
             if (isset($GLOBALS['TL_HOOKS']['hh_newsalert_customToken']) && is_array($GLOBALS['TL_HOOKS']['hh_newsalert_customToken']))
@@ -202,13 +202,11 @@ class NewsPostedListener
                 }
             }
 
-            if (php_sapi_name() == 'cli')
-            {
+            if (php_sapi_name() == 'cli') {
                 unset($GLOBALS['TL_HOOKS']['sendNotificationMessage']);
             }
 
-            while ($objNotificationCollection->next())
-            {
+            while ($objNotificationCollection->next()) {
                 /**
                  * @var $objNotification Notification
                  */
@@ -232,12 +230,12 @@ class NewsPostedListener
 
     protected function createSendModel($objArticle, $arrTopics, $intCountMails)
     {
-        $objNewsalertSend = new NewsalertSendModel();
-        $objNewsalertSend->pid = $objArticle->id;
-        $objNewsalertSend->topics = $arrTopics;
-        $objNewsalertSend->senddate = time();
+        $objNewsalertSend                 = new NewsalertSendModel();
+        $objNewsalertSend->pid            = $objArticle->id;
+        $objNewsalertSend->topics         = $arrTopics;
+        $objNewsalertSend->senddate       = time();
         $objNewsalertSend->count_messages = $intCountMails;
-        $objNewsalertSend->user = $objArticle->author;
+        $objNewsalertSend->user           = $objArticle->author;
         $objNewsalertSend->save();
     }
 
