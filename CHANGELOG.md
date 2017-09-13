@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.0.2] - 2017-09-13
+
+### Fix
+* use correct model and model function
+
 ## [3.0.1] - 2017-09-13
 
 ### Fix

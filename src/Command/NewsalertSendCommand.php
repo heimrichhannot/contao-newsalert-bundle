@@ -6,6 +6,7 @@ use Contao\CoreBundle\Command\AbstractLockedCommand;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\ModuleModel;
 use HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener;
+use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -90,7 +91,7 @@ class NewsalertSendCommand extends AbstractLockedCommand
                 $output->writeln('<fg=red>No news archives for current module. Continue...</>');
                 continue;
             }
-            $news = \Contao\NewsModel::findPublishedByPids($archives, null, $input->getOption('limit'));
+            $news = NewsModel::findUnsentPublished($input->getOption('limit'), $archives);
             if (!$news)
             {
                 $output->writeln('<fg=red>No news found for current module. Continue...</>');
@@ -98,7 +99,7 @@ class NewsalertSendCommand extends AbstractLockedCommand
             }
             while ($news->next())
             {
-                if ($news->newsalert_sent == 1)
+                if ($news->newsalert_sent)
                 {
                     continue;
                 }
