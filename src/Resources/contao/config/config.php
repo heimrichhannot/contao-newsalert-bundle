@@ -40,18 +40,18 @@ $GLOBALS['TL_CRON']['minutely'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Co
  */
 
 $arrTokens = [
-    'hh_newsalert_topic_recipient',
-    'hh_newsalert_news_headline',
-    'hh_newsalert_news_subheadline',
-    'hh_newsalert_news_teaser',
-    'hh_newsalert_news_content',
-    'hh_newsalert_news_url',
-    'hh_newsalert_recipient_topics',
-    'hh_newsalert_recipient_topic_count',
-    'hh_newsalert_opt_out_html',
-    'hh_newsalert_opt_out_text',
-    'hh_newsalert_year',
-    'hh_newsalert_root_url',
+    'huh_newsalert_topic_recipient',
+    'huh_newsalert_news_headline',
+    'huh_newsalert_news_subheadline',
+    'huh_newsalert_news_teaser',
+    'huh_newsalert_news_content',
+    'huh_newsalert_news_url',
+    'huh_newsalert_recipient_topics',
+    'huh_newsalert_recipient_topic_count',
+    'huh_newsalert_opt_out_html',
+    'huh_newsalert_opt_out_text',
+    'huh_newsalert_year',
+    'huh_newsalert_root_url',
 ];
 
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE'][\HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener::NOTIFICATION_TYPE_NEWSALERT] = [
