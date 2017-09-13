@@ -20,16 +20,10 @@ $dc['config']['onsubmit_callback'][] = ['hh.contao-newsalert.listener.newsposted
  * Palettes
  */
 
-$currentArticle = \NewsModel::findByPk(\Contao\Input::get('id'));
-if ($currentArticle && $archive = \NewsArchiveModel::findByPk($currentArticle->pid))
-{
-    if ($archive->newsalert_activate)
-    {
-        $palette = \Contao\CoreBundle\DataContainer\PaletteManipulator::create();
-        $palette->addField('newsalert_sent', 'publish_legend')
-            ->applyToPalette('default', 'tl_news');
-    }
-}
+
+$palette = \Contao\CoreBundle\DataContainer\PaletteManipulator::create();
+$palette->addField('newsalert_sent', 'publish_legend')
+    ->applyToPalette('default', 'tl_news');
 
 /*
  * Fields
