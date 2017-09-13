@@ -8,6 +8,7 @@ use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -50,6 +51,8 @@ class NewsalertSendCommand extends AbstractLockedCommand
             ->setDescription('Checks for unsend newsalerts and send found items.')
             ->setHelp('This commands checks news entities, if there are non sent newsalert. If so, the newsalert send event is triggered.')
             ->addArgument('module',InputArgument::OPTIONAL,'The module id, which contains the settings for the newsalert.')
+            ->addOption('limit', 'l', InputOption::VALUE_REQUIRED, 'The max number of news to sent newsalert for.', 0)
+
         ;
     }
 
@@ -64,9 +67,8 @@ class NewsalertSendCommand extends AbstractLockedCommand
     protected function executeLocked(InputInterface $input, OutputInterface $output)
     {
         $this->framework->initialize();
-        $output->writeln('Starting checking for unsend newsalert...');
-
-        $objNews = NewsModel::findUnsentPublished();
+        $output->writeln('<fg=green>Starting checking for unsend newsalert...</>');
+        $objNews = NewsModel::findUnsentPublished($input->getOption('limit'));
 
         if ($objNews)
         {
@@ -78,7 +80,7 @@ class NewsalertSendCommand extends AbstractLockedCommand
                 $output->writeln("Try to use module ".$intModule);
                 if (!$objModule)
                 {
-                    $output->writeln("Module $intModule not found. Try to find an existing module.");
+                    $output->writeln("<fg=red>Module $intModule not found. Try to find an existing module.</>");
                 }
             }
             if (!$objModule || $objModule->type != NewsalertSubscribeModule::MODULE_NAME)
@@ -87,7 +89,7 @@ class NewsalertSendCommand extends AbstractLockedCommand
             }
             if (!$objModule)
             {
-                $output->writeln('No module found. Stopping execution.');
+                $output->writeln('<bg=red>No module found. Stopping execution.</>');
             }
             $output->writeln('Using module '.$objModule->id);
             $intSentCount = 0;
@@ -104,11 +106,11 @@ class NewsalertSendCommand extends AbstractLockedCommand
                 }
                 else
                 {
-                    $output->writeln('Could not send newsalert for news article '.$objNews->id);
+                    $output->writeln('<bg=red>Could not send newsalert for news article '.$objNews->id.'</>');
                 }
             }
 
-            $output->writeln("Finished. Sent $intSentCount notifications.");
+            $output->writeln("<fg=green>Finished. Sent $intSentCount notifications.</>");
         }
         else
         {

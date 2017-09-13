@@ -139,21 +139,6 @@ class NewsPostedListener
         $strContent = '';
         $strTeaser = empty($objArticle->teaser) ? '' : $objArticle->teaser;
 
-        if ($objContents !== null)
-        {
-            while ($objContents->next())
-            {
-                $item = $objContents->current();
-                if (!empty($item->headline))
-                {
-                    $title = deserialize($item->headline);
-                    $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
-                    $strContent .= $headline;
-                }
-                $strContent .= $item->text;
-            }
-        }
-
         $objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
         if ($objContents !== null)
         {
@@ -195,6 +180,7 @@ class NewsPostedListener
                 'hh_newsalert_recipient_topics' => $strTopics,
                 'hh_newsalert_recipient_topic_count' => count($data['topics']),
                 'hh_newsalert_news_title' => $objArticle->headline,
+                'hh_newsalert_news_subheadline' => $objArticle->subheadline,
                 'hh_newsalert_news_teaser' => $strTeaser,
                 'hh_newsalert_news_content' => $strContent,
                 'hh_newsalert_news_url' => $strUrl,

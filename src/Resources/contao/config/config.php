@@ -38,6 +38,7 @@ $GLOBALS['TL_CRON']['hourly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Comp
 $arrTokens = [
     'hh_newsalert_topic_recipient',
     'hh_newsalert_news_title',
+    'hh_newsalert_news_subheadline',
     'hh_newsalert_news_teaser',
     'hh_newsalert_news_content',
     'hh_newsalert_news_url',

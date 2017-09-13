@@ -20,29 +20,22 @@ $dc['config']['onsubmit_callback'][] = ['hh.contao-newsalert.listener.newsposted
  * Palettes
  */
 
-$dc['palettes']['__selector__'][] = 'newsalert_activate';
-
-$palette = \Contao\CoreBundle\DataContainer\PaletteManipulator::create();
-$palette->addField('newsalert_activate', 'publish_legend')
-    ->applyToPalette('default', 'tl_news');
-
-$dc['subpalettes']['newsalert_activate'] = 'newsalert_sent';
+$currentArticle = \NewsModel::findByPk(\Contao\Input::get('id'));
+if ($currentArticle && $archive = \NewsArchiveModel::findByPk($currentArticle->pid))
+{
+    if ($archive->newsalert_activate)
+    {
+        $palette = \Contao\CoreBundle\DataContainer\PaletteManipulator::create();
+        $palette->addField('newsalert_sent', 'publish_legend')
+            ->applyToPalette('default', 'tl_news');
+    }
+}
 
 /*
  * Fields
  */
 
 $fields = [
-    'newsalert_activate' => [
-        'label'     => [
-            $translator->trans('hh.newsalert.tl_news.newsalert_activate.0'),
-            $translator->trans('hh.newsalert.tl_news.newsalert_activate.1')
-        ],
-        'inputType' => 'checkbox',
-        'exclude'   => true,
-        'sql'       => "int(1) NOT NULL default '1'",
-        'eval'      => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
-    ],
     'newsalert_sent' => [
         'label'     => [
             $translator->trans('hh.newsalert.tl_news.newsalert_sent.0'),

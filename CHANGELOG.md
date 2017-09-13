@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0-dev] - 2017-09-13
+
+### Changed
+* moved active newsalert from news to archive
+
+### Added 
+* option to limit number of news (Console command)
+* option to select newsalert module in news archive
+* hh_newsalert_news_subheadline token
+* color to console output
+
+
 ## [2.0.5] - 2017-09-04
 
 ### Fixed

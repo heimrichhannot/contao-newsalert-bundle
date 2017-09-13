@@ -91,9 +91,8 @@ Name | Arguments | Description | Example
 hh:newsalert:send|int module|Checks for unsend newsalert. Optional argument: module id. If not given, it searches automatical for first compatible module. Must be newsalert recipient module.|`php ./venter/bin/contao-console hh:newsalert:send 75`
 
 ## Todo
-* evaluate the best callback for calling the listener (currently called by onsubmit_callback)
 * use caching for speed improvements?
-* serverside validation
+* serverside topic validation
 * cleanup function
     * find duplicated
     * find non-available topics
