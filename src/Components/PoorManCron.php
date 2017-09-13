@@ -33,12 +33,11 @@ class PoorManCron
         {
             return;
         }
-
         $listener = \System::getContainer()->get('hh.contao-newsalert.listener.newspostedlistener');
 
         while($objModules->next())
         {
-            $listener->callByModel($objModules->current());
+            $listener->callByModule($objModules->current());
         }
     }
 }

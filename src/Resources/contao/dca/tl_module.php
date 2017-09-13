@@ -47,7 +47,11 @@ $arrFields = [
         ],
         'exclude'   => true,
         'inputType' => 'select',
-        'options'   => ['onSubmit', 'poormancron', 'customCron'],
+        'options'   => [
+            \HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener::TRIGGER_ONSUBMIT,
+            'poormancron',
+            'customCron'
+        ],
         'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true,'includeBlankOption'=>true],
         'sql'       => "varchar(12) NOT NULL default ''",
     ],

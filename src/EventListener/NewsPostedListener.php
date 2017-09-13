@@ -21,6 +21,7 @@ use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
 use HeimrichHannot\FormHybrid\TokenGenerator;
 use Model\Collection;
+use Contao\ModuleModel;
 use NotificationCenter\Model\Notification;
 use Psr\Log\LogLevel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -30,6 +31,9 @@ class NewsPostedListener
 
     const NOTIFICATION_TYPE_NEWSALERT   = 'hh_newsalert';
     const NOTIFICATION_TYPE_NEW_ARTICLE = 'news_posted';
+
+    const TRIGGER_ONSUBMIT = 'onSubmit';
+    const TRIGGER_CRON = 'customCron';
 
     protected $container;
 
@@ -50,53 +54,84 @@ class NewsPostedListener
      */
     public function onSubmitCallback(DC_Table $dc)
     {
-        $t         = \ModuleModel::getTable();
-        $objModule = \ModuleModel::findBy(
-            ["$t.type=?", "newsalertSendType=?"],
-            [NewsalertSubscribeModule::MODULE_NAME, 'onSubmit']);
-        if (!$objModule) {
+        $archive = \NewsArchiveModel::findByPk($dc->activeRecord->pid);
+        if (!$archive OR !$archive->newsalert_activate)
+        {
+            return;
+        }
+        $module = \ModuleModel::findByPk($archive->newsalert_configuration);
+        if (!$module OR $module->newsalertSendType != static::TRIGGER_ONSUBMIT) {
             return;
         }
         $objArticle = \NewsModel::findPublishedByParentAndIdOrAlias($dc->activeRecord->id, [$dc->activeRecord->pid]);
 
-        if (
-            $objArticle === null or
-            $objArticle->newsalert_activate == 0 or
-            $objArticle->newsalert_sent == 1
+        if ($objArticle === null OR $objArticle->newsalert_sent == 1
         ) {
             return;
         }
-        while ($objModule->next()) {
-            $this->sendNewsalert($objArticle, $objModule->current());
-        }
+        $this->sendNewsalert($objArticle, $module);
     }
 
     /**
      * Trigger the send mechanism by model
      *
-     * @param $objModel
+     * @param ModuleModel $module
      */
-    public function callByModel($objModel)
+    public function callByModule($module)
     {
-        $objArticles = NewsModel::findUnsentPublished();
+        $archives = $this->getArchiveIdsByModule($module);
+        if (empty($archives))
+        {
+            return;
+        }
+        $objArticles = NewsModel::findUnsentPublished(0, $archives);
         if (!$objArticles)
         {
             return;
         }
+        $count = 0;
         while ($objArticles->next())
         {
-            $this->sendNewsalert($objArticles->current(), $objModel);
+            $count += $this->sendNewsalert($objArticles->current(), $module);
         }
     }
 
     /**
+     * Get array with news archive ids which have given module as configuration.
+     *
+     * @param \Contao\ModuleModel $module
+     * @return array|int
+     */
+    public function getArchiveIdsByModule($module)
+    {
+        $archives = \NewsArchiveModel::findBy('newsalert_configuration', $module->id);
+        $archivesIds = [];
+        if ($archives)
+        {
+            while ($archives->next())
+            {
+                if ($archives->newsalert_activate)
+                {
+                    $archivesIds[] = $archives->id;
+                }
+            }
+        }
+        return $archivesIds;
+    }
+
+    /**
      * @param              $objArticle
-     * @param \ModuleModel $objModule
+     * @param ModuleModel $objModule
      *
      * @return bool|int False on failure, number of send messages on success
      */
     public function sendNewsalert ($objArticle, \ModuleModel $objModule)
     {
+        if (!$objArticle OR $objArticle->newsalert_sent)
+        {
+            return false;
+        }
+
         $topics        = $this->container->get('hh.contao-newsalert.newstopiccollection')->getTopicsByItem($objArticle);
         $arrRecipients = $this->getRecipientsByTopic($topics);
 

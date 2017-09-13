@@ -4,8 +4,8 @@ namespace HeimrichHannot\ContaoNewsAlertBundle\Command;
 
 use Contao\CoreBundle\Command\AbstractLockedCommand;
 use Contao\CoreBundle\Framework\ContaoFramework;
-use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
-use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
+use Contao\ModuleModel;
+use HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -67,56 +67,52 @@ class NewsalertSendCommand extends AbstractLockedCommand
     protected function executeLocked(InputInterface $input, OutputInterface $output)
     {
         $this->framework->initialize();
+        $output->writeln('');
         $output->writeln('<fg=green>Starting checking for unsend newsalert...</>');
-        $objNews = NewsModel::findUnsentPublished($input->getOption('limit'));
 
-        if ($objNews)
+        $modules = ModuleModel::findBy('newsalertSendType', NewsPostedListener::TRIGGER_CRON);
+        if (!$modules)
         {
-            $output->writeln('Found '.$objNews->count().' unsend news entries.');
-            if ($input->hasArgument('module'))
-            {
-                $intModule = $input->getArgument('module');
-                $objModule = \ModuleModel::findById($intModule);
-                $output->writeln("Try to use module ".$intModule);
-                if (!$objModule)
-                {
-                    $output->writeln("<fg=red>Module $intModule not found. Try to find an existing module.</>");
-                }
-            }
-            if (!$objModule || $objModule->type != NewsalertSubscribeModule::MODULE_NAME)
-            {
-                $objModule = \ModuleModel::findByType(NewsalertSubscribeModule::MODULE_NAME)->first();
-            }
-            if (!$objModule)
-            {
-                $output->writeln('<bg=red>No module found. Stopping execution.</>');
-            }
-            $output->writeln('Using module '.$objModule->id);
-            $intSentCount = 0;
+            $output->writeln("<fg=red>No Modules to use with cronjob found. Stopping...</>");
+            $output->writeln('');
+            return 1;
+        }
+        $output->writeln('Found '.$modules->count().' modules.');
 
-            while ($objNews->next())
+        $listener = $this->container->get('hh.contao-newsalert.listener.newspostedlistener');
+        $archives = [];
+        $count = 0;
+        while ($modules->next())
+        {
+            $output->writeln('Starting with module '.$modules->id.' ('.$modules->name.')');
+            $archives = $listener->getArchiveIdsByModule($modules->current());
+            if (empty($archives))
             {
-                if ($intSentAlerts = $this->container->get('hh.contao-newsalert.listener.newspostedlistener')
-                    ->sendNewsalert($objNews->current(), $objModule->current(), $output) >= false
-                )
+                $output->writeln('<fg=red>No news archives for current module. Continue...</>');
+                continue;
+            }
+            $news = \Contao\NewsModel::findPublishedByPids($archives, null, $input->getOption('limit'));
+            if (!$news)
+            {
+                $output->writeln('<fg=red>No news found for current module. Continue...</>');
+                continue;
+            }
+            while ($news->next())
+            {
+                if ($countCurrent = $listener->sendNewsalert($news->current(), $modules->current()) >= false)
                 {
 
-                    $intSentCount += $intSentAlerts;
-                    $output->writeln('Newsalert sent for news article '.$objNews->id." ($intSentAlerts messages)");
+                    $count += $countCurrent;
+                    $output->writeln('Newsalert sent for news article '.$news->id." ($countCurrent messages)");
                 }
                 else
                 {
-                    $output->writeln('<bg=red>Could not send newsalert for news article '.$objNews->id.'</>');
+                    $output->writeln('<bg=red>Could not send newsalert for news article '.$news->id.'</>');
                 }
             }
-
-            $output->writeln("<fg=green>Finished. Sent $intSentCount notifications.</>");
         }
-        else
-        {
-            $output->writeln('Found no unsend news entries.');
-        }
+        $output->writeln("<fg=green>Finished. Sent $count notifications.</>");
+        $output->writeln('');
+        return 0;
     }
-
-
 }

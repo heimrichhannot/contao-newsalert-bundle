@@ -38,8 +38,8 @@ $dc['subpalettes']['newsalert_activate'] = 'newsalert_configuration';
 $fields = [
     'newsalert_activate' => [
         'label'     => [
-            $translator->trans('hh.newsalert.tl_news.newsalert_activate.0'),
-            $translator->trans('hh.newsalert.tl_news.newsalert_activate.1')
+            $translator->trans('hh.newsalert.tl_news_archive.newsalert_activate.0'),
+            $translator->trans('hh.newsalert.tl_news_archive.newsalert_activate.1')
         ],
         'inputType' => 'checkbox',
         'exclude'   => true,
@@ -48,8 +48,8 @@ $fields = [
     ],
     'newsalert_configuration' => [
         'label'     => [
-            $translator->trans('hh.newsalert.tl_news.newsalert_configuration.0'),
-            $translator->trans('hh.newsalert.tl_news.newsalert_configuration.1')
+            $translator->trans('hh.newsalert.tl_news_archive.newsalert_configuration.0'),
+            $translator->trans('hh.newsalert.tl_news_archive.newsalert_configuration.1')
         ],
         'inputType' => 'select',
         'exclude' => true,

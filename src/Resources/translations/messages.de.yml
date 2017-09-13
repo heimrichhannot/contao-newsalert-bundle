@@ -1,89 +1,93 @@
 hh.newsalert:
-    tl_news:
-        newsalert_recipients: Newsalert
-        newsalert_activate:
-            0: Newsalert aktivieren
-            1: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesendet).
-        newsalert_sent:
-            0: Newsalert gesendet
-            1: Der Newsalert für diesen Beitrag wurde bereits gesendet (kann durch abwählen dieser Option erneut gesendet werden).
-    tl_newsalert_recipients:
-        label: Newsalert Abonnement
-        email:
-            0: E-Mail
-            1: E-Mailadresse des Abonnenten.
-        topic:
-            0: Thema
-            1: Abonniertes Thema des Abonnenten.
-        confirmed:
-            0: Bestätigt
-            1: Das Abonnement des Newsalert muss durch den Nutzer akzeptiert werden.
-        captcha:
-            0: Sicherheitsabfrage
-            1: Bitte lösen Sie diese Sicherheitsabfrage.
-    tl_newsalert_sent:
-        label: Gesendete Newsalerts
-        pid:
-            0: Nachricht
-            1: Nachrichtenartikel, für welchen der Newsalert verschickt wurde.
-        topics:
-            0: Themen
-            1: Die Themengebiete des Newsalert
-        senddate:
-            0: Sendedatum
-            1: Das Datum, an dem der Newsalert verschickt wurde.
-        count_messages:
-            0: Anzahl Nachrichten
-            1: Die Anzahl der versendeten Nachrichten für den Newsalert.
-        user:
-            0: Autor
-            1: Der Autor, welcher die Neuigkeit geschrieben und den Newsalert ausgelöst hat.
-    tl_module:
-        newsalertSendType:
-            0: Sendungsauslöser
-            1: Wählen Sie den Auslösung für den Sendeevent
-        newsalertPoorManCronIntervall:
-            0: Intervall
-            1: Intervall für dem PoorManCron von Contao
-    module_subscribe:
-        newsalertCronjobExplanation: "Der Custom Cronjob muss selbst eingerichtet werden. Folgender Befehl muss regelmäßig ausgeführt werden: 'hh:newsalert:send'. Beispiel: */10 * * * * %contao-server-path%/vendor/bin/contao-console hh:newsalert:send 75 (Befehl alle 10 Minuten ausführen (Modulkonfiguration 75 nutzen)"
-    module_redirect:
-        optin:
-            success:
-                head: Newsalert-Anmeldung erfolgreich
-                message: Die Anmeldung Ihres Newsalert zum Thema %topic% war erfolgreich.
-            error:
-                head: Newsalert-Anmeldung nicht erfolgreich
-                message: Die Anmeldung für den Newsalert konnte nicht durchgeführt werden. Möglicherweise haben Sie die Anmeldung bereits durchgeführt oder Ihr Link enthält einen Fehler. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an unseren Kundendienst.
-        optout:
-            success:
-                head: Newsalert-Abmeldung erfolgreich
-                message: Die Abmeldung Ihres Newsalert zum Thema %topic% wurde erfolgreich durchgeführt.
-            error:
-                head: Ihre Newsalert-Abmeldung war nicht erfolgreich
-                message: Die Abmeldung Ihres Newsalerts konnte nicht durchgeführt werden. Möglicherweise haben Sie diese bereits durchgeführt oder Ihr Link hat einen Fehler. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an unseren Kundendienst.
-        optnone:
-            success:
-                head: Newsalert-Abmeldung erfolgreich
-                message: Die Abmeldung Ihres Newsalert zum Thema %topic% wurde erfolgreich durchgeführt.
-            error:
-                head: Fehler
-                message: Diese Seite ist eine Bestätigungsseite und nicht für den direkten Aufruf gedacht. Haben Sie hier eine Bestätigung erwartet, gab es eventuell einen Fehler. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an unseren Kundendienst.
-    notifications:
-        unsubscribe: Abmelden
-    operations:
-        edit:
-            0: Edit
-            1: Bearbeiten
-        copy:
-            0: Copy
-            1: Kopieren
-        delete:
-            0: Delete
-            1: Löschen
-        show:
-            0: Details
-            1: Details
-        parent:
-            0: News article
-            1: Newsartikel
+  tl_news:
+    newsalert_recipients: Newsalert
+    newsalert_sent:
+      0: Newsalert gesendet
+      1: Der Newsalert für diesen Beitrag wurde bereits gesendet (kann durch abwählen dieser Option erneut gesendet werden).
+  tl_news_archive:
+    newsalert_activate:
+      0: Newsalert aktivieren
+      1: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesend
+    newsalert_configuration:
+      0: Konfigurationsmodule
+      1: Das Newsalertmodule, welche die Konfiguration für die Newsalert für dieses Archiv enthält.
+  tl_newsalert_recipients:
+    label: Newsalert Abonnement
+    email:
+      0: E-Mail
+      1: E-Mailadresse des Abonnenten.
+    topic:
+      0: Thema
+      1: Abonniertes Thema des Abonnenten.
+    confirmed:
+      0: Bestätigt
+      1: Das Abonnement des Newsalert muss durch den Nutzer akzeptiert werden.
+    captcha:
+        0: Sicherheitsabfrage
+        1: Bitte lösen Sie diese Sicherheitsabfrage.
+  tl_newsalert_sent:
+    label: Gesendete Newsalerts
+    pid:
+      0: Nachricht
+      1: Nachrichtenartikel, für welchen der Newsalert verschickt wurde.
+    topics:
+      0: Themen
+      1: Die Themengebiete des Newsalert
+    senddate:
+      0: Sendedatum
+      1: Das Datum, an dem der Newsalert verschickt wurde.
+    count_messages:
+      0: Anzahl Nachrichten
+      1: Die Anzahl der versendeten Nachrichten für den Newsalert.
+    user:
+      0: Autor
+      1: Der Autor, welcher die Neuigkeit geschrieben und den Newsalert ausgelöst hat.
+  tl_module:
+    newsalertSendType:
+      0: Sendungsauslöser
+      1: Wählen Sie den Auslösung für den Sendeevent
+    newsalertPoorManCronIntervall:
+      0: Intervall
+      1: Intervall für dem PoorManCron von Contao
+  module_subscribe:
+    newsalertCronjobExplanation: "Der Custom Cronjob muss selbst eingerichtet werden. Folgender Befehl muss regelmäßig ausgeführt werden: 'hh:newsalert:send'. Beispiel: */10 * * * * %contao-server-path%/vendor/bin/contao-console hh:newsalert:send 75 (Befehl alle 10 Minuten ausführen (Modulkonfiguration 75 nutzen)"
+  module_redirect:
+    optin:
+      success:
+        head: Newsalert-Anmeldung erfolgreich
+        message: Die Anmeldung Ihres Newsalert zum Thema %topic% war erfolgreich.
+      error:
+        head: Newsalert-Anmeldung nicht erfolgreich
+        message: Die Anmeldung für den Newsalert konnte nicht durchgeführt werden. Möglicherweise haben Sie die Anmeldung bereits durchgeführt oder Ihr Link enthält einen Fehler. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an unseren Kundendienst.
+    optout:
+      success:
+        head: Newsalert-Abmeldung erfolgreich
+        message: Die Abmeldung Ihres Newsalert zum Thema %topic% wurde erfolgreich durchgeführt.
+      error:
+        head: Ihre Newsalert-Abmeldung war nicht erfolgreich
+        message: Die Abmeldung Ihres Newsalerts konnte nicht durchgeführt werden. Möglicherweise haben Sie diese bereits durchgeführt oder Ihr Link hat einen Fehler. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an unseren Kundendienst.
+    optnone:
+      success:
+        head: Newsalert-Abmeldung erfolgreich
+        message: Die Abmeldung Ihres Newsalert zum Thema %topic% wurde erfolgreich durchgeführt.
+      error:
+        head: Fehler
+        message: Diese Seite ist eine Bestätigungsseite und nicht für den direkten Aufruf gedacht. Haben Sie hier eine Bestätigung erwartet, gab es eventuell einen Fehler. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an unseren Kundendienst.
+  notifications:
+    unsubscribe: Abmelden
+  operations:
+    edit:
+      0: Edit
+      1: Bearbeiten
+    copy:
+      0: Copy
+      1: Kopieren
+    delete:
+      0: Delete
+      1: Löschen
+    show:
+      0: Details
+      1: Details
+    parent:
+      0: News article
+      1: Newsartikel
