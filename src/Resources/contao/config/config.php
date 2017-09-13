@@ -28,8 +28,12 @@ $GLOBALS['TL_MODELS']['tl_newsalert_recipients'] = 'HeimrichHannot\ContaoNewsAle
  * Cron
  */
 
+$GLOBALS['TL_CRON']['monthly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'hourly'];
+$GLOBALS['TL_CRON']['weekly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'hourly'];
 $GLOBALS['TL_CRON']['daily'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'daily'];
 $GLOBALS['TL_CRON']['hourly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'hourly'];
+$GLOBALS['TL_CRON']['minutely'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'hourly'];
+
 
 /*
  * Notification Center
@@ -37,7 +41,7 @@ $GLOBALS['TL_CRON']['hourly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Comp
 
 $arrTokens = [
     'hh_newsalert_topic_recipient',
-    'hh_newsalert_news_title',
+    'hh_newsalert_news_headline',
     'hh_newsalert_news_subheadline',
     'hh_newsalert_news_teaser',
     'hh_newsalert_news_content',

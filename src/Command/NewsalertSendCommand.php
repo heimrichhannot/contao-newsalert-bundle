@@ -47,10 +47,9 @@ class NewsalertSendCommand extends AbstractLockedCommand
      */
     protected function configure()
     {
-        $this->setName('hh:newsalert:send')
+        $this->setName('huh:newsalert:send')
             ->setDescription('Checks for unsend newsalerts and send found items.')
             ->setHelp('This commands checks news entities, if there are non sent newsalert. If so, the newsalert send event is triggered.')
-            ->addArgument('module',InputArgument::OPTIONAL,'The module id, which contains the settings for the newsalert.')
             ->addOption('limit', 'l', InputOption::VALUE_REQUIRED, 'The max number of news to sent newsalert for.', 0)
 
         ;
@@ -99,6 +98,10 @@ class NewsalertSendCommand extends AbstractLockedCommand
             }
             while ($news->next())
             {
+                if ($news->newsalert_sent == 1)
+                {
+                    continue;
+                }
                 if ($countCurrent = $listener->sendNewsalert($news->current(), $modules->current()) >= false)
                 {
 

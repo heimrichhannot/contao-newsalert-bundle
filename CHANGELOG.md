@@ -1,15 +1,18 @@
 # Changelog
 
-## [3.0-dev] - 2017-09-13
+## [3.0.0] - 2017-09-13
 
 ### Changed
-* moved active newsalert from news to archive
+* moved activate newsalert from news to archive
+* renamed command and tokens to the new prefix
 
 ### Added 
 * option to limit number of news (Console command)
 * option to select newsalert module in news archive
-* hh_newsalert_news_subheadline token
+* huh_newsalert_news_subheadline token
 * color to console output
+
+You need to call the contao install tools due database changes!
 
 ## [2.0.6] - 2017-09-05
 

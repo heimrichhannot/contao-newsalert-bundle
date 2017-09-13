@@ -211,27 +211,27 @@ class NewsPostedListener
             $strUrl = $this->container->get('contao.routing.url_generator')->generate($objNewsPage->alias).'/'.$objArticle->alias;
             $strRootUrl = Environment::get('url');
             $arrTokens = [
-                'hh_newsalert_topic_recipient' => $email,
-                'hh_newsalert_recipient_topics' => $strTopics,
-                'hh_newsalert_recipient_topic_count' => count($data['topics']),
-                'hh_newsalert_news_title' => $objArticle->headline,
-                'hh_newsalert_news_subheadline' => $objArticle->subheadline,
-                'hh_newsalert_news_teaser' => $strTeaser,
-                'hh_newsalert_news_content' => $strContent,
-                'hh_newsalert_news_url' => $strUrl,
-                'hh_newsalert_opt_out_html' => $strOptOutLinksHtml,
-                'hh_newsalert_opt_out_text' => $strOptOutLinksText,
-                'hh_newsalert_year' => date('Y'),
-                'hh_newsalert_root_url' => $strRootUrl,
+                'huh_newsalert_topic_recipient' => $email,
+                'huh_newsalert_recipient_topics' => $strTopics,
+                'huh_newsalert_recipient_topic_count' => count($data['topics']),
+                'huh_newsalert_news_headline' => $objArticle->headline,
+                'huh_newsalert_news_subheadline' => $objArticle->subheadline,
+                'huh_newsalert_news_teaser' => $strTeaser,
+                'huh_newsalert_news_content' => $strContent,
+                'huh_newsalert_news_url' => $strUrl,
+                'huh_newsalert_opt_out_html' => $strOptOutLinksHtml,
+                'huh_newsalert_opt_out_text' => $strOptOutLinksText,
+                'huh_newsalert_year' => date('Y'),
+                'huh_newsalert_root_url' => $strRootUrl,
                 'raw_data' => $strContent,
                 // Fix cli error
                 'salutation_user'                    => '',
                 'salutation_form'                    => ''
             ];
 
-            if (isset($GLOBALS['TL_HOOKS']['hh_newsalert_customToken']) && is_array($GLOBALS['TL_HOOKS']['hh_newsalert_customToken']))
+            if (isset($GLOBALS['TL_HOOKS']['huh_newsalert_customToken']) && is_array($GLOBALS['TL_HOOKS']['huh_newsalert_customToken']))
             {
-                foreach ($GLOBALS['TL_HOOKS']['hh_newsalert_customToken'] as $callback)
+                foreach ($GLOBALS['TL_HOOKS']['huh_newsalert_customToken'] as $callback)
                 {
                     $arrTokens = System::importStatic($callback[0])->{$callback[1]}($objArticle, $arrTokens);
                 }
