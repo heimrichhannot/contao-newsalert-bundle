@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.0.1] - 2017-09-13
+
+### Fix
+* forget renaming nc tokens in config.php
+
 ## [3.0.0] - 2017-09-13
 
 ### Changed
