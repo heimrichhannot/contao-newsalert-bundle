@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.0.3] - 2017-11-23
+
+### Fixed
+* called unexisting database row in NewsModel
+
 ## [3.0.2] - 2017-09-13
 
 ### Fix

@@ -24,7 +24,7 @@ class NewsModel extends \Contao\NewsModel
     {
         $t = static::$strTable;
 
-        $columns = ["$t.newsalert_activate = 1 AND $t.newsalert_sent = 0"];
+        $columns = ["$t.newsalert_sent = 0"];
 
         if (isset($options['ignoreFePreview']) || !BE_USER_LOGGED_IN) {
             $time         = \Date::floorToMinute();
