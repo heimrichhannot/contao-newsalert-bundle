@@ -12,11 +12,13 @@
 namespace HeimrichHannot\ContaoNewsAlertBundle\Backend;
 
 
+use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
+
 class Modules
 {
     public static function getNewsalertModules()
     {
-        $modules = \ModuleModel::findByType(\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule::MODULE_NAME);
+        $modules = \ModuleModel::findByType(NewsalertSubscribeModule::MODULE_NAME);
         $module_list = [];
         while ($modules->next())
         {
