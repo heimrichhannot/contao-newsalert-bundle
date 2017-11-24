@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright (c) 2017 Heimrich & Hannot GmbH
+ *
+ * @license LGPL-3.0+
+ */
+
 namespace HeimrichHannot\ContaoNewsAlertBundle\Command;
 
 use Contao\CoreBundle\Command\AbstractLockedCommand;
@@ -7,22 +13,19 @@ use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\ModuleModel;
 use HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * Contao Open Source CMS
+ * Contao Open Source CMS.
  *
  * Copyright (c) 2017 Heimrich & Hannot GmbH
  *
  * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
-
-
 class NewsalertSendCommand extends AbstractLockedCommand
 {
     /**
@@ -34,7 +37,6 @@ class NewsalertSendCommand extends AbstractLockedCommand
      * @var Container
      */
     protected $container;
-
 
     public function __construct(ContaoFramework $framework, Container $container)
     {
@@ -71,10 +73,10 @@ class NewsalertSendCommand extends AbstractLockedCommand
         $output->writeln('<fg=green>Starting checking for unsend newsalert...</>');
 
         $modules = ModuleModel::findBy('newsalertSendType', NewsPostedListener::TRIGGER_CRON);
-        if (!$modules)
-        {
-            $output->writeln("<fg=red>No Modules to use with cronjob found. Stopping...</>");
+        if (!$modules) {
+            $output->writeln('<fg=red>No Modules to use with cronjob found. Stopping...</>');
             $output->writeln('');
+
             return 1;
         }
         $output->writeln('Found '.$modules->count().' modules.');
@@ -82,41 +84,33 @@ class NewsalertSendCommand extends AbstractLockedCommand
         $listener = $this->container->get('hh.contao-newsalert.listener.newspostedlistener');
         $archives = [];
         $count = 0;
-        while ($modules->next())
-        {
+        while ($modules->next()) {
             $output->writeln('Starting with module '.$modules->id.' ('.$modules->name.')');
             $archives = $listener->getArchiveIdsByModule($modules->current());
-            if (empty($archives))
-            {
+            if (empty($archives)) {
                 $output->writeln('<fg=red>No news archives for current module. Continue...</>');
                 continue;
             }
             $news = NewsModel::findUnsentPublished($input->getOption('limit'), $archives);
-            if (!$news)
-            {
+            if (!$news) {
                 $output->writeln('<fg=red>No news found for current module. Continue...</>');
                 continue;
             }
-            while ($news->next())
-            {
-                if ($news->newsalert_sent)
-                {
+            while ($news->next()) {
+                if ($news->newsalert_sent) {
                     continue;
                 }
-                if ($countCurrent = $listener->sendNewsalert($news->current(), $modules->current()) >= false)
-                {
-
+                if ($countCurrent = $listener->sendNewsalert($news->current(), $modules->current()) >= false) {
                     $count += $countCurrent;
                     $output->writeln('Newsalert sent for news article '.$news->id." ($countCurrent messages)");
-                }
-                else
-                {
+                } else {
                     $output->writeln('<bg=red>Could not send newsalert for news article '.$news->id.'</>');
                 }
             }
         }
         $output->writeln("<fg=green>Finished. Sent $count notifications.</>");
         $output->writeln('');
+
         return 0;
     }
 }

@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2017 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0+
  */
 
-
 namespace HeimrichHannot\ContaoNewsAlertBundle;
-
 
 use HeimrichHannot\ContaoNewsAlertBundle\DependencyInjection\Compiler\NewsAlertPass;
 use HeimrichHannot\ContaoNewsAlertBundle\DependencyInjection\HeimrichHannotContaoNewsAlertExtension;
@@ -37,14 +33,12 @@ class HeimrichHannotContaoNewsAlertBundle extends Bundle
     /**
      * Returns the bundle's container extension.
      *
-     * @return ExtensionInterface|null The container extension
-     *
      * @throws \LogicException
+     *
+     * @return ExtensionInterface|null The container extension
      */
     public function getContainerExtension()
     {
         return new HeimrichHannotContaoNewsAlertExtension();
     }
-
-
 }

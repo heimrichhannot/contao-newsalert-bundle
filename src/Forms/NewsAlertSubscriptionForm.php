@@ -1,11 +1,9 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2017 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0+
  */
 
 namespace HeimrichHannot\ContaoNewsAlertBundle\Forms;
@@ -25,7 +23,6 @@ class NewsAlertSubscriptionForm extends Form
     protected $isDuplicateEntityError = false;
     protected $strTopic;
 
-
     protected function compile()
     {
         if (!$this->Template->message) {
@@ -35,7 +32,6 @@ class NewsAlertSubscriptionForm extends Form
 
     protected function onSubmitCallback(\DataContainer $dc)
     {
-
         $strEmail = $dc->getFieldValue('email');
         $strTopic = $dc->getFieldValue('topic');
 
@@ -45,8 +41,8 @@ class NewsAlertSubscriptionForm extends Form
         );
 
         if (!$objRecipients) {
-            $this->objActiveRecord->email     = $dc->getFieldValue('email');
-            $this->objActiveRecord->topic     = $dc->getFieldValue('topic');
+            $this->objActiveRecord->email = $dc->getFieldValue('email');
+            $this->objActiveRecord->topic = $dc->getFieldValue('topic');
             $this->objActiveRecord->dateAdded = time();
             $this->objActiveRecord->confirmed = 0;
             $this->objActiveRecord->save();
@@ -54,6 +50,7 @@ class NewsAlertSubscriptionForm extends Form
             while ($objRecipients->next()) {
                 if (!$objRecipients->confirmed) {
                     $this->objActiveRecord = $objRecipients->current();
+
                     return;
                 }
             }
@@ -64,11 +61,12 @@ class NewsAlertSubscriptionForm extends Form
     protected function createSubmission($strModelClass = null)
     {
         $strModelClass = $this->strModelClass;
+
         return parent::createSubmission($this->strModelClass);
     }
 
     /**
-     * @param \DataContainer $dc
+     * @param \DataContainer           $dc
      * @param NewsalertRecipientsModel $objModel
      */
     protected function afterActivationCallback(\DataContainer $dc)
@@ -90,6 +88,4 @@ class NewsAlertSubscriptionForm extends Form
         $session->set('contao_newsalert_topic', $topic);
         $session->set('contao_newsalert_opt', $opt);
     }
-
-
 }

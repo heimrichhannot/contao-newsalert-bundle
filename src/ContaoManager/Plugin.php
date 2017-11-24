@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2017 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0+
  */
 
-
 namespace HeimrichHannot\ContaoNewsAlertBundle\ContaoManager;
-
 
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
@@ -21,7 +17,6 @@ use HeimrichHannot\ContaoNewsAlertBundle\HeimrichHannotContaoNewsAlertBundle;
 
 class Plugin implements BundlePluginInterface
 {
-
     /**
      * Gets a list of autoload configurations for this bundle.
      *
@@ -33,7 +28,7 @@ class Plugin implements BundlePluginInterface
     {
         return [
             BundleConfig::create(HeimrichHannotContaoNewsAlertBundle::class)
-                ->setLoadAfter([ContaoNewsBundle::class])
+                ->setLoadAfter([ContaoNewsBundle::class]),
         ];
     }
 }

@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2017 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0+
  */
 
-
 namespace HeimrichHannot\ContaoNewsAlertBundle\Components;
-
 
 use Contao\NewsArchiveModel;
 
@@ -38,15 +34,15 @@ class NewsArchiveTopics implements NewsTopicSourceInterface
     {
         $objArchives = NewsArchiveModel::findAll();
         $arrArchives = [];
-        while ($objArchives->next())
-        {
+        while ($objArchives->next()) {
             $arrArchives[] = $objArchives->title;
         }
+
         return $arrArchives;
     }
 
     /**
-     * Returns topics by news item
+     * Returns topics by news item.
      *
      * @param $objItem \NewsModel
      *
@@ -55,7 +51,7 @@ class NewsArchiveTopics implements NewsTopicSourceInterface
     public static function getTopicsByItem($objItem)
     {
         $strArchive = NewsArchiveModel::findById($objItem->pid)->title;
+
         return [$strArchive];
     }
-
 }

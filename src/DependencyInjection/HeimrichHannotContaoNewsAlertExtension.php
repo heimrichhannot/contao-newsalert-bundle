@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2017 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0+
  */
 
-
 namespace HeimrichHannot\ContaoNewsAlertBundle\DependencyInjection;
-
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -30,10 +26,9 @@ class HeimrichHannotContaoNewsAlertExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader(
-            $container, new FileLocator(__DIR__ . '/../Resources/config')
+            $container, new FileLocator(__DIR__.'/../Resources/config')
         );
         $loader->load('services.yml');
         $loader->load('commands.yml');
     }
-
 }

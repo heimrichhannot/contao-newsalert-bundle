@@ -1,30 +1,24 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2017 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0+
  */
 
-
 namespace HeimrichHannot\ContaoNewsAlertBundle\Models;
-
 
 use HeimrichHannot\Haste\Model\Model;
 
 /**
- * Class NewsalertSendModel
+ * Class NewsalertSendModel.
  *
- * @property integer $id
- * @property integer $pid
- * @property integer $tstamp
+ * @property int $id
+ * @property int $pid
+ * @property int $tstamp
  * @property string  $topics
  * @property string  $senddate
- * @property integer $count_messages
- *
- * @package HeimrichHannot\ContaoNewsAlertBundle\Models
+ * @property int $count_messages
  */
 class NewsalertSendModel extends Model
 {

@@ -1,13 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tkoerner
- * Date: 03.08.17
- * Time: 15:36
+
+/*
+ * Copyright (c) 2017 Heimrich & Hannot GmbH
+ *
+ * @license LGPL-3.0+
  */
 
 namespace HeimrichHannot\ContaoNewsAlertBundle\Components;
-
 
 interface NewsTopicSourceInterface
 {
@@ -29,12 +28,11 @@ interface NewsTopicSourceInterface
     public static function getTopics();
 
     /**
-     * Returns topics by news item
+     * Returns topics by news item.
      *
      * @param $objItem \NewsModel
      *
      * @return array
      */
     public static function getTopicsByItem($objItem);
-
 }
