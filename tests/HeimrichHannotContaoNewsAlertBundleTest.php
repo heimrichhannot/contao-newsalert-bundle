@@ -13,7 +13,7 @@ use HeimrichHannot\ContaoNewsAlertBundle\HeimrichHannotContaoNewsAlertBundle;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class HeimrichHannotContaoNewsAlertBundle extends TestCase
+class HeimrichHannotContaoNewsAlertBundleTest extends TestCase
 {
     public function testCanBeInstantiated()
     {
