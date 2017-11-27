@@ -1,8 +1,8 @@
 # Contao Newsalert Bundle
 [![Latest Stable Version](https://poser.pugx.org/heimrichhannot/contao-newsalert-bundle/v/stable)](https://packagist.org/packages/heimrichhannot/contao-newsalert-bundle)
 [![Total Downloads](https://poser.pugx.org/heimrichhannot/contao-newsalert-bundle/downloads)](https://packagist.org/packages/heimrichhannot/contao-newsalert-bundle)
-[![Travis](https://img.shields.io/travis/heimrichhannot/contao-newsalert-bundle.svg)]()
-[![Coveralls github](https://img.shields.io/coveralls/github/heimrichhannot/contao-newsalert-bundle.svg)]()
+[![Travis](https://img.shields.io/travis/heimrichhannot/contao-newsalert-bundle.svg)](https://travis-ci.org/heimrichhannot/contao-newsalert-bundle)
+[![Coveralls github](https://img.shields.io/coveralls/github/heimrichhannot/contao-newsalert-bundle.svg)](https://coveralls.io/github/heimrichhannot/contao-newsalert-bundle)
 
 A contao bundle, to let website visitor subscribe to a news topic.
 
