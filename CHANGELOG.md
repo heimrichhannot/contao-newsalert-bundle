@@ -1,9 +1,14 @@
 # Changelog
 
-## [3.0.3] - 2017-11-23
+## [3.0.4] - 2017-11-23
 
 ### Fixed
 * called unexisting database row in NewsModel
+
+## [3.0.3] - 2017-11-23
+
+### Changed
+* updated readme
 
 ## [3.0.2] - 2017-09-13
 
