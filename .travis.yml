@@ -1,27 +1,21 @@
 language: php
-
 php:
-  - 7.0
-  - 7.1
-
+- 7.0
+- 7.1
 sudo: false
-
 notifications:
   email:
     recipients:
-        - digitales@heimrich-hannot.de
-    on_success: never # default: change
-    on_failure: always # default: always
+    - digitales@heimrich-hannot.de
+    on_success: never
+    on_failure: always
   hipchat:
-      rooms:
-        secure: TlNfiDoWjG1zf/JeVKUUbPzByN0lZAgkge+pnVaFsoPhPMsTJ4XiXfGR0tbEaMsRoWf0vxAEvbx4imYD/od6b5xazxI4loAy5ToeDSYVPwu/upypg/bJKd55Xm3duzGIaK1t8byE+XEpntPp0qjx/+OgbTNi4XEEegc0/S8r6NQYGagD7RyOBMqL9lFys4tL354TgSAMsiMf8YsgtVJrdgkpXakACjV3qPsLWvJEZG0Dvym24UCJRvAoo5XNl3DsK0l6p9O287QMDxTpvdA0EK1HVlKNjSzEFlT2Lm7mwv5MFz6P52T/LN+5xv8fMwpFZ+TRbCCXPZxg71CgHD4yiGvNyvRN4Gn7j329KPEZ7+pFltfehvE/YXusR3mMfwW8YWp7uoRhUGu8zmvB9FblygopNyb2VgI0goKwPFvpDQTaPXz/sys8OvGsh4oYPPxj18pLPEX7lrkv4qI2sF3Zb1ZJxg61j2VPvLSt+xBHBdg7IgWK6HTj+vLOo4VALhb9bq7GGmRi/nRkYljrdf+BFkY1vjdcqdz7AWlSuJPmAi7apV/ENaQmRB55ndGisXa2HSaCYyq8/VN0PQI8VgwViZdF/sQ2fcvF5J8X7L3heLuSoDRogFi4WVEyqm7/1uJLO13+F7RWRX2LqZl8jBH2aSO2aWjsaiDQMFYLoC20irM=
-
+    rooms:
+      secure: tXs/gq0FZIKLkbMtdsNyUpjbWVKWru140F4DExJF5w+L1pNuPUSvGtADOrxez2bznY15Gffbx/4YhYkAkb1MVeibNkDa19dXiysDwds5lr2lPsQY1NNd4tb1crZi1rsx4lArIgz/b4GxaFtUOX+VFCHsV6XyXzwo2iiO8JWqIwW4Uvb+HReZ50UrTnuczwfKosXwrRNxdQXVZDXy3QDRyUJDB0hyb8Q4b5cm8UH8FEpmc5coAx6HTLiMTHYgHsl3YW8umUxpQuIgaGLl90w27KURDSTbBpMoaSbhzyNpFfOSMIMjla5n8IV9R+PS9T938BTJGAg/916o+onq1+YCO0n6rwcG/JYOzKpdu8Wbgx63rGAxtplwYQ6zwlfQwVWBTYRQD1yBmSqEhOvpk+CyR+GF+t2HjvwTFgISxpkkEuewgFTav6ON+j3ZezbndjwvJJMx/jb4j2oKq04LqrXVvNkSv5Xgo3hzItz/s0NxvPHE+9irzRt7gFkM3TjeAuQYAK+V6u6M1z2mFqOt1N+7lZRk89uhYYVZJsEaHjWdoiKPrKbJGVMcgDQQGK699NJEm+DXBfPTADnhZE4O2+SSVpXW1rnpmfmIY9J9vTbSTwmlj8HoDf7NZ0KdulBAuvLkrVNQA1gHiIrp2roPegyOnzpNMbXz1SHYcWlGz71IFGU=
 before_script:
-  - travis_wait composer install --no-interaction
-
+- travis_wait composer install --no-interaction
 script:
-  - mkdir -p build/logs
-  - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-
+- mkdir -p build/logs
+- php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 after_script:
-  - php vendor/bin/coveralls
+- php vendor/bin/coveralls
