@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.0.5] - 2018-01-04
+
+### Fixed
+* base url generation
+* news url generation
+
+### Changed 
+* moved module search in command to own method to decouble code
+
 ## [3.0.4] - 2017-11-23
 
 ### Fixed

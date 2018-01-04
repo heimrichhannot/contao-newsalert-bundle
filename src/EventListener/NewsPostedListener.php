@@ -8,6 +8,7 @@
 
 namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
+use Contao\Controller;
 use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\DC_Table;
 use Contao\Environment;
@@ -195,8 +196,9 @@ class NewsPostedListener
 
             $objNewsPage = \PageModel::findByPk(NewsArchiveModel::findById($objArticle->pid)->jumpTo);
 
-            $strUrl = $this->container->get('contao.routing.url_generator')->generate($objNewsPage->alias).'/'.$objArticle->alias;
-            $strRootUrl = Environment::get('url');
+            $strUrl = Controller::replaceInsertTags('{{news_url::' . $objArticle->id . '}}', false);
+            $strRootUrl = $this->getRootUrl();
+
             $arrTokens = [
                 'huh_newsalert_topic_recipient' => $email,
                 'huh_newsalert_recipient_topics' => $strTopics,
@@ -310,5 +312,14 @@ class NewsPostedListener
         ksort($arrAllRecipientsTopics);
 
         return $arrAllRecipientsTopics;
+    }
+
+    /**
+     * @return string Current root url. Example: https://heimrich-hannot.de
+     */
+    protected function getRootUrl()
+    {
+        $route   = System::getContainer()->get('router')->getContext();
+        return $route->getScheme() . $route->getHost();
     }
 }

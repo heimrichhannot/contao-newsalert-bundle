@@ -11,6 +11,7 @@ namespace HeimrichHannot\ContaoNewsAlertBundle\Command;
 use Contao\CoreBundle\Command\AbstractLockedCommand;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\ModuleModel;
+use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
 use Symfony\Component\Console\Input\InputInterface;
@@ -72,7 +73,7 @@ class NewsalertSendCommand extends AbstractLockedCommand
         $output->writeln('');
         $output->writeln('<fg=green>Starting checking for unsend newsalert...</>');
 
-        $modules = ModuleModel::findBy('newsalertSendType', NewsPostedListener::TRIGGER_CRON);
+        $modules = $this->getCronModules();
         if (!$modules) {
             $output->writeln('<fg=red>No Modules to use with cronjob found. Stopping...</>');
             $output->writeln('');
@@ -112,5 +113,15 @@ class NewsalertSendCommand extends AbstractLockedCommand
         $output->writeln('');
 
         return 0;
+    }
+
+    /**
+     * Return cron modules
+     *
+     * @return \Contao\Model\Collection|ModuleModel|ModuleModel[]|null
+     */
+    public function getCronModules()
+    {
+        return ModuleModel::findBy('newsalertSendType', NewsPostedListener::TRIGGER_CRON);
     }
 }
