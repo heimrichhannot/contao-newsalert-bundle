@@ -7,11 +7,11 @@
     "require": {
         "php": "~7.0",
         "contao/core-bundle": "~4.4",
+        "contao/manager-bundle": "~4.4",
         "terminal42/notification_center": "~1.4.1",
         "heimrichhannot/contao-formhybrid": "^2.9.0"
     },
     "require-dev": {
-        "contao/test-case": "^1.0",
         "friendsofphp/php-cs-fixer": "^2.2",
         "phpunit/phpunit": "^6.0",
         "satooshi/php-coveralls": "^1.0"

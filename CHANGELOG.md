@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.0.6] - 2018-01-04
+
+#### Fixed
+* composer error
+
 ## [3.0.5] - 2018-01-04
 
 ### Fixed
