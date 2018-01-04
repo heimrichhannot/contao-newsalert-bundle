@@ -12,9 +12,14 @@
 namespace HeimrichHannot\ContaoNewsAlertBundle\Test\Backend;
 
 
+use HeimrichHannot\ContaoNewsAlertBundle\Backend\Modules;
 use PHPUnit\Framework\TestCase;
 
 class ModulesTest extends TestCase
 {
-
+    public function testCanBeInstantiated()
+    {
+        $module = new Modules();
+        $this->assertInstanceOf(Modules::class, $module);
+    }
 }
