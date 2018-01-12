@@ -1,10 +1,12 @@
 # Changelog
 
-## [3.0-dev] - 2018-01-12
+## [3.1-dev] - 2018-01-12
 
 #### Changed
 * more decoubling
 * added more unit tests
+* updated min requirements to php 7.1
+* added contao test case dependency
 
 ## [3.0.6] - 2018-01-04
 
