@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.0-dev] - 2018-01-12
+
+#### Changed
+* more decoubling
+* added more unit tests
+
 ## [3.0.6] - 2018-01-04
 
 #### Fixed

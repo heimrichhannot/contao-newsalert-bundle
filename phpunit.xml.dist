@@ -17,7 +17,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Contao Newsalert Unit Tests">
+        <testsuite name="Newsalert Unit Tests">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>

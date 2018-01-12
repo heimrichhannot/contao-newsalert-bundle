@@ -6,7 +6,7 @@
  * @license LGPL-3.0+
  */
 
-namespace HeimrichHannot\ContaoNewsAlertBundle\Test\ContaoManager;
+namespace HeimrichHannot\ContaoNewsAlertBundle\Tests\ContaoManager;
 
 use HeimrichHannot\ContaoNewsAlertBundle\ContaoManager\Plugin;
 use PHPUnit\Framework\TestCase;

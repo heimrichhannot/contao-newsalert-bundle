@@ -34,11 +34,14 @@ class NewsPostedListener
     const TRIGGER_CRON = 'customCron';
 
     protected $container;
+    protected $translator;
+    private $tokengenerator;
 
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
         $this->translator = $container->get('translator');
+        $this->tokengenerator = new TokenGenerator();
         $container->get('contao.framework')->initialize();
     }
 
@@ -197,7 +200,6 @@ class NewsPostedListener
             $objNewsPage = \PageModel::findByPk(NewsArchiveModel::findById($objArticle->pid)->jumpTo);
 
             $strUrl = Controller::replaceInsertTags('{{news_url::' . $objArticle->id . '}}', false);
-            $strRootUrl = $this->getRootUrl();
 
             $arrTokens = [
                 'huh_newsalert_topic_recipient' => $email,
@@ -211,7 +213,7 @@ class NewsPostedListener
                 'huh_newsalert_opt_out_html' => $strOptOutLinksHtml,
                 'huh_newsalert_opt_out_text' => $strOptOutLinksText,
                 'huh_newsalert_year' => date('Y'),
-                'huh_newsalert_root_url' => $strRootUrl,
+                'huh_newsalert_root_url' => $this->getRootUrl(),
                 'raw_data' => $strContent,
                 // Fix cli error
                 'salutation_user' => '',
@@ -303,7 +305,7 @@ class NewsPostedListener
         $objAllRecipientsTopics = NewsalertRecipientsModel::findByEmail($recipient);
         $arrAllRecipientsTopics = [];
         while ($objAllRecipientsTopics->next()) {
-            $arrAllRecipientsTopics[$objAllRecipientsTopics->topic] = TokenGenerator::optOutTokens(
+            $arrAllRecipientsTopics[$objAllRecipientsTopics->topic] = $this->tokengenerator::optOutTokens(
                 NewsalertSubscribeModule::TABLE,
                 $objAllRecipientsTopics->optOutToken
             )['opt_out_link'];
@@ -317,9 +319,9 @@ class NewsPostedListener
     /**
      * @return string Current root url. Example: https://heimrich-hannot.de
      */
-    protected function getRootUrl()
+    public function getRootUrl()
     {
-        $route   = System::getContainer()->get('router')->getContext();
+        $route   = $this->container->get('router')->getContext();
         return $route->getScheme() . $route->getHost();
     }
 }

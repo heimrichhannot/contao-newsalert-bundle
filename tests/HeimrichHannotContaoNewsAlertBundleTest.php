@@ -6,7 +6,7 @@
  * @license LGPL-3.0+
  */
 
-namespace HeimrichHannot\ContaoNewsAlertBundle\Test;
+namespace HeimrichHannot\ContaoNewsAlertBundle\Tests;
 
 use HeimrichHannot\ContaoNewsAlertBundle\DependencyInjection\HeimrichHannotContaoNewsAlertExtension;
 use HeimrichHannot\ContaoNewsAlertBundle\HeimrichHannotContaoNewsAlertBundle;
