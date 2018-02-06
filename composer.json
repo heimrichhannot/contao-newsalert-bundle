@@ -2,14 +2,14 @@
     "name": "heimrichhannot/contao-newsalert-bundle",
     "description": "A contao bundle to subscribe to news topics",
     "type": "contao-bundle",
-    "license": "LGPL-3.0+",
+    "license": "LGPL-3.0-or-later",
     "homepage": "https://github.com/heimrichhannot/contao-newsalert-bundle",
     "require": {
         "php": "~7.1",
         "contao/core-bundle": "~4.4",
         "contao/manager-bundle": "~4.4",
         "terminal42/notification_center": "~1.4.1",
-        "heimrichhannot/contao-formhybrid": "^2.9.0"
+        "heimrichhannot/contao-formhybrid": "^3.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.2",
