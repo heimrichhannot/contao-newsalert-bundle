@@ -55,7 +55,7 @@ Afterwards call the Contao install procedure to update the database.
 The bundle adds a checkbox to news archive to activate (or deactivate) newsalert for archives. It also add a checkbox to the news articles form to set (or unset) an article sent (by setting unsent newsalert will be triggered again for said article).
 
 The management of the receivers is placed within the news section (News -> Newsalert).
-The overview about sent messages is fount withing the newsalert section (News -> Newsalert -> Sent Newsalerts)
+The overview about sent messages is found withing the newsalert section (News -> Newsalert -> Sent Newsalerts)
 
 ## Developers
 

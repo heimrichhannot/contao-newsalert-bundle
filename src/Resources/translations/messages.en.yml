@@ -7,7 +7,7 @@ hh.newsalert:
     tl_news_archive:
         newsalert_activate:
             0: Activate newsalert
-            1: Active newsalert for this article (will be send when published).
+            1: Activate newsalert for this article (will be send when published).
         newsalert_configuration:
             0: Configuration module
             1: The news alert module, which contains the configuration for this archive.

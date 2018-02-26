@@ -8,12 +8,14 @@
 
 namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
+use Contao\ContentModel;
 use Contao\Controller;
 use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\DC_Table;
 use Contao\Environment;
 use Contao\ModuleModel;
 use Contao\NewsArchiveModel;
+use Contao\PageModel;
 use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertSendModel;
@@ -52,15 +54,15 @@ class NewsPostedListener
      */
     public function onSubmitCallback(DC_Table $dc)
     {
-        $archive = \NewsArchiveModel::findByPk($dc->activeRecord->pid);
+        $archive = NewsArchiveModel::findByPk($dc->activeRecord->pid);
         if (!$archive or !$archive->newsalert_activate) {
             return;
         }
-        $module = \ModuleModel::findByPk($archive->newsalert_configuration);
+        $module = ModuleModel::findByPk($archive->newsalert_configuration);
         if (!$module or $module->newsalertSendType !== static::TRIGGER_ONSUBMIT) {
             return;
         }
-        $objArticle = \NewsModel::findPublishedByParentAndIdOrAlias($dc->activeRecord->id, [$dc->activeRecord->pid]);
+        $objArticle = NewsModel::findPublishedByParentAndIdOrAlias($dc->activeRecord->id, [$dc->activeRecord->pid]);
 
         if (null === $objArticle or 1 === $objArticle->newsalert_sent
         ) {
@@ -93,13 +95,13 @@ class NewsPostedListener
     /**
      * Get array with news archive ids which have given module as configuration.
      *
-     * @param \Contao\ModuleModel $module
+     * @param ModuleModel $module
      *
      * @return array|int
      */
     public function getArchiveIdsByModule($module)
     {
-        $archives = \NewsArchiveModel::findBy('newsalert_configuration', $module->id);
+        $archives = NewsArchiveModel::findBy('newsalert_configuration', $module->id);
         $archivesIds = [];
         if ($archives) {
             while ($archives->next()) {
@@ -114,7 +116,7 @@ class NewsPostedListener
 
     /**
      * @param             $objArticle
-     * @param ModuleModel $objModule
+     * @param \ModuleModel $objModule
      *
      * @return bool|int False on failure, number of send messages on success
      */
@@ -158,19 +160,7 @@ class NewsPostedListener
         $strContent = '';
         $strTeaser = empty($objArticle->teaser) ? '' : $objArticle->teaser;
 
-        if (null !== $objContents) {
-            while ($objContents->next()) {
-                $item = $objContents->current();
-                if (!empty($item->headline)) {
-                    $title = deserialize($item->headline);
-                    $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
-                    $strContent .= $headline;
-                }
-                $strContent .= $item->text;
-            }
-        }
-
-        $objContents = \ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
+        $objContents = ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
         if (null !== $objContents) {
             while ($objContents->next()) {
                 $item = $objContents->current();
@@ -196,8 +186,6 @@ class NewsPostedListener
             }
 
             $strTopics = implode(',', $data['topics']);
-
-            $objNewsPage = \PageModel::findByPk(NewsArchiveModel::findById($objArticle->pid)->jumpTo);
 
             $strUrl = Controller::replaceInsertTags('{{news_url::' . $objArticle->id . '}}', false);
 

@@ -8,7 +8,7 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
-
+$GLOBALS['TL_LANG']['FMD']['huh_newsalert'] = 'Newsalert';
 $GLOBALS['TL_LANG']['FMD']['contao-newsalert-subscribe'] = array('Newsalert subscription', 'Subscribe for newsalert topic');
 $GLOBALS['TL_LANG']['FMD']['contao-newsalert-redirect'] = array('Newsalert redirect', 'Module for redirect page for opt-in and opt-out');
 

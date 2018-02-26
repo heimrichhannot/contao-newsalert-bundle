@@ -7,7 +7,7 @@ hh.newsalert:
   tl_news_archive:
     newsalert_activate:
       0: Newsalert aktivieren
-      1: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesend
+      1: Newsalert für diesen Beitrag aktivieren (wird bei Veröffentlichung gesendet).
     newsalert_configuration:
       0: Konfigurationsmodule
       1: Das Newsalertmodule, welche die Konfiguration für die Newsalert für dieses Archiv enthält.
@@ -32,7 +32,7 @@ hh.newsalert:
       1: Nachrichtenartikel, für welchen der Newsalert verschickt wurde.
     topics:
       0: Themen
-      1: Die Themengebiete des Newsalert
+      1: Die Themengebiete des Newsalert.
     senddate:
       0: Sendedatum
       1: Das Datum, an dem der Newsalert verschickt wurde.

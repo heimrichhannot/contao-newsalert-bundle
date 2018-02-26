@@ -8,9 +8,9 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
-
-$GLOBALS['TL_LANG']['FMD']['contao-newsalert-subscribe'] = array('Newsalert Anmeldung', 'Anmeldung für Newsalert-Topics');
-$GLOBALS['TL_LANG']['FMD']['contao-newsalert-redirect'] = array('Newsalert Redirect', 'Bestätigungsseitenmodul für Opt-in und Opt-out');
+$GLOBALS['TL_LANG']['FMD']['huh_newsalert'] = 'Newsalert';
+$GLOBALS['TL_LANG']['FMD']['contao-newsalert-subscribe'] = ['Newsalert Anmeldung', 'Anmeldung für Newsalert-Topics'];
+$GLOBALS['TL_LANG']['FMD']['contao-newsalert-redirect'] = ['Newsalert Redirect', 'Bestätigungsseitenmodul für Opt-in und Opt-out'];
 
 $arrLang = &$GLOBALS['TL_LANG']['tl_module'];
 
