@@ -29,7 +29,7 @@ hh.newsalert:
         label: Sent newsalerts
         pid:
             0: Article
-            1: Newsalert news article Newsartikel.
+            1: Newsalert news article.
         topics:
             0: Topics
             1: Newsalert topics

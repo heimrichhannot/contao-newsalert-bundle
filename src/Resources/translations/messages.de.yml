@@ -12,16 +12,16 @@ hh.newsalert:
       0: Konfigurationsmodule
       1: Das Newsalertmodule, welche die Konfiguration für die Newsalert für dieses Archiv enthält.
   tl_newsalert_recipients:
-    label: Newsalert Abonnement
+    label: Newsalert Abonennten
     email:
       0: E-Mail
-      1: E-Mailadresse des Abonnenten.
+      1: E-Mailadresse des Abonennten.
     topic:
       0: Thema
-      1: Abonniertes Thema des Abonnenten.
+      1: Abonniertes Thema des Abonennten.
     confirmed:
       0: Bestätigt
-      1: Das Abonnement des Newsalert muss durch den Nutzer akzeptiert werden.
+      1: Das Abonement des Newsalert muss durch den Nutzer akzeptiert werden.
     captcha:
         0: Sicherheitsabfrage
         1: Bitte lösen Sie diese Sicherheitsabfrage.

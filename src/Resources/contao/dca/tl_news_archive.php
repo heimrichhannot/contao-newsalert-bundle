@@ -8,22 +8,21 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
-$dc = &$GLOBALS['TL_DCA']['tl_news_archive'];
+$dc         = &$GLOBALS['TL_DCA']['tl_news_archive'];
 $translator = System::getContainer()->get('translator');
 
 /*
  * List comments_legend
  */
 
-array_insert($dc['list']['global_operations'], 1, array
-(
-    'newsalert_recipients' => array
-    (
-        'label'               => $translator->trans('hh.newsalert.tl_news.newsalert_recipients'),
-        'href'                => 'table=tl_newsalert_recipients',
-        'icon'                => 'news.svg',
-    )
-));
+array_insert($dc['list']['global_operations'], 1, [
+    'newsalert_recipients' =>
+        [
+            'label' => $translator->trans('hh.newsalert.tl_news.newsalert_recipients'),
+            'href'  => 'table=tl_newsalert_recipients',
+            'icon'  => 'news.svg',
+        ]
+]);
 
 $palette = \Contao\CoreBundle\DataContainer\PaletteManipulator::create();
 $palette
@@ -32,11 +31,11 @@ $palette
     ->applyToPalette('default', 'tl_news_archive');
 
 
-$dc['palettes']['__selector__'][] = 'newsalert_activate';
+$dc['palettes']['__selector__'][]        = 'newsalert_activate';
 $dc['subpalettes']['newsalert_activate'] = 'newsalert_configuration';
 
 $fields = [
-    'newsalert_activate' => [
+    'newsalert_activate'      => [
         'label'     => [
             $translator->trans('hh.newsalert.tl_news_archive.newsalert_activate.0'),
             $translator->trans('hh.newsalert.tl_news_archive.newsalert_activate.1')
@@ -47,15 +46,15 @@ $fields = [
         'eval'      => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
     ],
     'newsalert_configuration' => [
-        'label'     => [
+        'label'            => [
             $translator->trans('hh.newsalert.tl_news_archive.newsalert_configuration.0'),
             $translator->trans('hh.newsalert.tl_news_archive.newsalert_configuration.1')
         ],
-        'inputType' => 'select',
-        'exclude' => true,
-        'sql' => "int(11) NOT NULL default '0'",
-        'eval' => ['tl_class' => 'w50'],
-        'options_callback' => ['HeimrichHannot\ContaoNewsAlertBundle\Backend\Modules','getNewsalertModules']
+        'inputType'        => 'select',
+        'exclude'          => true,
+        'sql'              => "int(11) NOT NULL default '0'",
+        'eval'             => ['tl_class' => 'w50'],
+        'options_callback' => ['HeimrichHannot\ContaoNewsAlertBundle\Backend\Modules', 'getNewsalertModules']
     ]
 ];
 
