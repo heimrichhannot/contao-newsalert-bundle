@@ -1,15 +1,14 @@
 # Changelog
 
-## [4.1.0] - 2018-02-026
+## [4.1.0-dev] - 2018-02-026
 
 #### Changed
-* renamed service `hh.contao-newsalert.listener.newspostedlistener` to `huh.newsalert.listener.newsposted`. Old service name keeped as alias and marked deprecated.
-* renamed service `hh.contao-newsalert.newstopiccollection` to `huh.newsalert.newstopiccollection`. Old service name keeped as alias and marked deprecated.
+* renamed service `hh.contao-newsalert.listener.newspostedlistener` to `huh.newsalert.listener.newsposted`. Old service name kept as alias and marked deprecated.
+* renamed service `hh.contao-newsalert.newstopiccollection` to `huh.newsalert.newstopiccollection`. Old service name kept as alias and marked deprecated.
+* moved modules to own modules group
 
 #### Fixed
 * typo in german translation
-
-TODO: TAG
 
 ## [4.0.0] - 2018-02-06
 
