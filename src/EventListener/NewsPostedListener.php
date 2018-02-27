@@ -54,6 +54,7 @@ class NewsPostedListener
      */
     public function onSubmitCallback(DC_Table $dc)
     {
+        trigger_error('onSubmitCallback for newsalert marked deprecated and will be removed in future version.', E_USER_NOTICE);
         $archive = NewsArchiveModel::findByPk($dc->activeRecord->pid);
         if (!$archive or !$archive->newsalert_activate) {
             return;
@@ -126,7 +127,7 @@ class NewsPostedListener
             return false;
         }
 
-        $topics = $this->container->get('hh.contao-newsalert.newstopiccollection')->getTopicsByItem($objArticle);
+        $topics = $this->container->get('huh.newsalert.topiccollection')->getTopicsByItem($objArticle);
         $arrRecipients = $this->getRecipientsByTopic($topics);
 
         if (0 === count($arrRecipients)) {

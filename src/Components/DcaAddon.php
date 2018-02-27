@@ -14,7 +14,7 @@ class DcaAddon
 {
     public static function addOnSubmitCallback($strTable)
     {
-        $GLOBALS['TL_DCA'][$strTable]['config']['onsubmit_callback'][] = ['hh.contao-newsalert.listener.newspostedlistener', 'onSubmitCallback'];
+        $GLOBALS['TL_DCA'][$strTable]['config']['onsubmit_callback'][] = ['huh.newsalert.listener.newsposted', 'onSubmitCallback'];
     }
 
     public static function addCronExplanation()

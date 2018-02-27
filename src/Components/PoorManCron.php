@@ -9,6 +9,7 @@
 namespace HeimrichHannot\ContaoNewsAlertBundle\Components;
 
 use Contao\ModuleModel;
+use Contao\System;
 
 class PoorManCron
 {
@@ -46,7 +47,7 @@ class PoorManCron
         if (!$objModules) {
             return;
         }
-        $listener = \System::getContainer()->get('hh.contao-newsalert.listener.newspostedlistener');
+        $listener = System::getContainer()->get('huh.newsalert.listener.newsposted');
 
         while ($objModules->next()) {
             $listener->callByModule($objModules->current());

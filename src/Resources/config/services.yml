@@ -1,15 +1,15 @@
 services:
   huh.newsalert.listener.newsposted:
-  class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener
+    class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener
     public: true
-    arguments:
-      - '@service_container'
+    arguments: ['@service_container']
 
-  huh.newsalert.newstopiccollection:
+  huh.newsalert.topiccollection:
+    public: true
     class: HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection
 
   HeimrichHannot\ContaoNewsAlertBundle\Components\NewsArchiveTopics:
-    tags: [hh.newsalert.topic_source, huh.newsalert.topic_source]
+    tags: [huh.newsalert.topic_source]
 
 # Deprecated aliases
 
@@ -18,5 +18,5 @@ services:
     deprecated: The service has beed renamed to huh.newsalert.listener.newsposted and this alias will soon be deleted.
 
   hh.contao-newsalert.newstopiccollection:
-    alias: huh.newsalert.newstopiccollection
+    alias: huh.newsalert.topiccollection
     deprecated: The service has beed renamed to huh.newsalert.newstopiccollection and this alias will soon be deleted.

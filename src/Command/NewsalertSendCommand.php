@@ -82,7 +82,7 @@ class NewsalertSendCommand extends AbstractLockedCommand
         }
         $output->writeln('Found '.$modules->count().' modules.');
 
-        $listener = $this->container->get('hh.contao-newsalert.listener.newspostedlistener');
+        $listener = $this->container->get('huh.newsalert.listener.newsposted');
         $archives = [];
         $count = 0;
         while ($modules->next()) {

@@ -117,7 +117,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             ],
             'sorting'   => true,
             'inputType' => 'select',
-            'options_callback' => ['hh.contao-newsalert.newstopiccollection','getAllTopics'],
+            'options_callback' => ['huh.newsalert.topiccollection','getAllTopics'],
             'search'    => true,
             'eval'      => [
                 'chosen'    => true,

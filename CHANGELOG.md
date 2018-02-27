@@ -4,11 +4,14 @@
 
 #### Changed
 * renamed service `hh.contao-newsalert.listener.newspostedlistener` to `huh.newsalert.listener.newsposted`. Old service name kept as alias and marked deprecated.
-* renamed service `hh.contao-newsalert.newstopiccollection` to `huh.newsalert.newstopiccollection`. Old service name kept as alias and marked deprecated.
+* renamed service `hh.contao-newsalert.newstopiccollection` to `huh.newsalert.topiccollection`. Old service name kept as alias and marked deprecated.
+* renamed `hh.newsalert.topic_source` tag to `huh.newsalert.topic_source` and marked old tag deprecated
 * moved modules to own modules group
+* marked onsubmit callback deprecated
 
 #### Fixed
-* typo in german translation
+* translations
+* contao cronjob config
 
 ## [4.0.0] - 2018-02-06
 
