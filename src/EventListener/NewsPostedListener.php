@@ -190,6 +190,27 @@ class NewsPostedListener
 
             $strUrl = Controller::replaceInsertTags('{{news_url::' . $objArticle->id . '}}', false);
 
+            if ($objArticle->addEnclosure)
+            {
+                $template = new FrontendTemplate();
+                Module::addEnclosuresToTemplate($template, $objArticle->row());
+                $enclosuresList = $template->enclosure;
+                $countEnclosures = count($enclosuresList);
+                $i = 0;
+                foreach ($enclosuresList as $entry)
+                {
+                    ++$i;
+                    $enclosuresText .= Environment::get('url').'/'.$entry['enclosure'];
+                    $enclosuresHtml .= '<a href="'.Environment::get('url').'/'.$entry['enclosure'].'" title="'.$entry['title'].'">'.$entry['name'].'</a> ('.$entry['filesize'].')';
+                    if ($i < $countEnclosures)
+                    {
+                        $enclosuresText .= '\n';
+                        $enclosuresHtml .= '<br />';
+                    }
+
+                }
+            }
+
             $arrTokens = [
                 'huh_newsalert_topic_recipient' => $email,
                 'huh_newsalert_recipient_topics' => $strTopics,
@@ -198,6 +219,8 @@ class NewsPostedListener
                 'huh_newsalert_news_subheadline' => $objArticle->subheadline,
                 'huh_newsalert_news_teaser' => $strTeaser,
                 'huh_newsalert_news_content' => $strContent,
+                'huh_newsalert_news_enclosure_html' => $enclosuresHtml,
+                'huh_newsalert_news_enclosure_text' => $enclosuresText,
                 'huh_newsalert_news_url' => $strUrl,
                 'huh_newsalert_opt_out_html' => $strOptOutLinksHtml,
                 'huh_newsalert_opt_out_text' => $strOptOutLinksText,
@@ -227,8 +250,6 @@ class NewsPostedListener
                 $objNotification->send($arrTokens);
                 ++$intCountMails;
             }
-
-            $this->createSendModel($objArticle, $topics, $intCountMails);
 
             $objNotificationCollection->reset();
 
