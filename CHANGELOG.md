@@ -1,14 +1,22 @@
 # Changelog
 
-## [4.1.0-dev] - 2018-02-026
+## [5.0.0-dev] - 2018-02-28
+
+#### TODO
+* rename `hh.newsalert.topic_source` tag to `huh.newsalert.topic_source`
+* remove deprecated services
+* rename translation strings
+* move config from module to custom config
+* remove onSubmit callback
+
+## [4.1.0-dev] - 2018-02-28
 
 #### Added
-* 
+* `huh_newsalert_news_enclosure_html` and `huh_newsalert_news_enclosure_text` notification center tokens
 
 #### Changed
 * renamed service `hh.contao-newsalert.listener.newspostedlistener` to `huh.newsalert.listener.newsposted`. Old service name kept as alias and marked deprecated.
 * renamed service `hh.contao-newsalert.newstopiccollection` to `huh.newsalert.topiccollection`. Old service name kept as alias and marked deprecated.
-* renamed `hh.newsalert.topic_source` tag to `huh.newsalert.topic_source` and marked old tag deprecated
 * moved modules to own modules group
 * marked onsubmit callback deprecated
 * add newsalert subscribers from the backend

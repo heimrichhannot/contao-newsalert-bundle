@@ -25,19 +25,8 @@ class NewsAlertPass implements CompilerPassInterface
             return;
         }
         $definition = $container->findDefinition('huh.newsalert.topiccollection');
-        
-        $taggedServices = $container->findTaggedServiceIds('huh.newsalert.topic_source');
-
-        foreach ($taggedServices as $id => $tags) {
-            $definition->addMethodCall('addTopicSource', [new Reference($id)]);
-        }
 
         $taggedServices = $container->findTaggedServiceIds('hh.newsalert.topic_source');
-
-        if (count($taggedServices) > 0)
-        {
-            trigger_error("Tag hh.newsalert.topic_source has beed marked deprecated and will be removed in next major newsalert version. Use huh.newsalert.topiccollection instead.", E_USER_NOTICE);
-        }
 
         foreach ($taggedServices as $id => $tags) {
             $definition->addMethodCall('addTopicSource', [new Reference($id)]);

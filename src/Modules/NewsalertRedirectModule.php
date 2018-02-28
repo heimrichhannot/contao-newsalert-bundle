@@ -9,6 +9,7 @@
 namespace HeimrichHannot\ContaoNewsAlertBundle\Modules;
 
 use Contao\Module;
+use Contao\ModuleModel;
 use Contao\System;
 use Patchwork\Utf8;
 use Symfony\Component\DependencyInjection\Container;
@@ -26,6 +27,19 @@ class NewsalertRedirectModule extends Module
     protected $success = 'error';
     protected $opt = 'none';
     protected $strTemplate = 'mod_newsalert_redirect';
+
+    /**
+     * Initialize the object
+     *
+     * @param ModuleModel $objModule
+     * @param string $strColumn
+     */
+    public function __construct(ModuleModel $objModule, string $strColumn = 'main')
+    {
+        $this->container = System::getContainer();
+        parent::__construct($objModule, $strColumn);
+    }
+
 
     /**
      * Parse the template.
@@ -46,7 +60,6 @@ class NewsalertRedirectModule extends Module
             return $objTemplate->parse();
         }
 
-        $this->container = System::getContainer();
         $session = $this->container->get('session');
         if ($session->has('contao_newsalert_success')) {
             $this->success = $session->get('contao_newsalert_success') ? 'success' : 'error';

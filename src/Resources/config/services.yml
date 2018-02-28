@@ -9,7 +9,7 @@ services:
     class: HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection
 
   HeimrichHannot\ContaoNewsAlertBundle\Components\NewsArchiveTopics:
-    tags: [huh.newsalert.topic_source]
+    tags: [hh.newsalert.topic_source]
 
 # Deprecated aliases
 
