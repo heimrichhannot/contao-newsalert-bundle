@@ -22,8 +22,9 @@
 * add newsalert subscribers from the backend
 
 #### Fixed
-* translations
-* contao cronjob config
+* Newsalert Opt-In not correctly checked
+* errors in german and english translations
+* Contao Cronjob timing error
 * doublicate newsalert log
 
 ## [4.0.0] - 2018-02-06

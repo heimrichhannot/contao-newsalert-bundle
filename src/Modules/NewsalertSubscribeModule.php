@@ -77,7 +77,7 @@ class NewsalertSubscribeModule extends \Module
 
 //        'formHybridOptInSuccessMessage,formHybridOptInNotification,formHybridOptInConfirmedProperty'
 
-        if ($this->newsalertOptIn && 1 === $this->newsalertOptIn) {
+        if ($this->newsalertOptIn) {
             $this->formHybridAddOptIn = 1;
             $this->formHybridOptInConfirmedProperty = 'confirmed';
         }
