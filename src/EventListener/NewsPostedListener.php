@@ -13,6 +13,8 @@ use Contao\Controller;
 use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\DC_Table;
 use Contao\Environment;
+use Contao\FrontendTemplate;
+use Contao\Module;
 use Contao\ModuleModel;
 use Contao\NewsArchiveModel;
 use Contao\PageModel;
@@ -177,39 +179,10 @@ class NewsPostedListener
 
         foreach ($arrRecipients as $email => $data) {
             $arrAllTopics = $this->getAllTopicsByRecipient($email);
-
-            $strOptOutLinksHtml = '';
-            $strOptOutLinksText = '';
-            foreach ($arrAllTopics as $strTopic => $strOptOutToken) {
-                $strLink = Environment::get('url').$strOptOutToken;
-                $strOptOutLinksHtml .= $strTopic.': <a href="'.$strLink.'">'.$this->translator->trans('hh.newsalert.notifications.unsubscribe').'</a><br />';
-                $strOptOutLinksText .= $strTopic.' '.$this->translator->trans('hh.newsalert.notifications.unsubscribe').': '.$strLink.'\n';
-            }
-
+            $optOutLinks = $this->generateOptOutLinks($arrAllTopics, $objModule);
             $strTopics = implode(',', $data['topics']);
-
             $strUrl = Controller::replaceInsertTags('{{news_url::' . $objArticle->id . '}}', false);
-
-            if ($objArticle->addEnclosure)
-            {
-                $template = new FrontendTemplate();
-                Module::addEnclosuresToTemplate($template, $objArticle->row());
-                $enclosuresList = $template->enclosure;
-                $countEnclosures = count($enclosuresList);
-                $i = 0;
-                foreach ($enclosuresList as $entry)
-                {
-                    ++$i;
-                    $enclosuresText .= Environment::get('url').'/'.$entry['enclosure'];
-                    $enclosuresHtml .= '<a href="'.Environment::get('url').'/'.$entry['enclosure'].'" title="'.$entry['title'].'">'.$entry['name'].'</a> ('.$entry['filesize'].')';
-                    if ($i < $countEnclosures)
-                    {
-                        $enclosuresText .= '\n';
-                        $enclosuresHtml .= '<br />';
-                    }
-
-                }
-            }
+            $enclosures = $this->addEnclosures($objArticle);
 
             $arrTokens = [
                 'huh_newsalert_topic_recipient' => $email,
@@ -219,11 +192,11 @@ class NewsPostedListener
                 'huh_newsalert_news_subheadline' => $objArticle->subheadline,
                 'huh_newsalert_news_teaser' => $strTeaser,
                 'huh_newsalert_news_content' => $strContent,
-                'huh_newsalert_news_enclosure_html' => $enclosuresHtml,
-                'huh_newsalert_news_enclosure_text' => $enclosuresText,
+                'huh_newsalert_news_enclosure_html' => $enclosures['html'],
+                'huh_newsalert_news_enclosure_text' => $enclosures['text'],
                 'huh_newsalert_news_url' => $strUrl,
-                'huh_newsalert_opt_out_html' => $strOptOutLinksHtml,
-                'huh_newsalert_opt_out_text' => $strOptOutLinksText,
+                'huh_newsalert_opt_out_html' => $optOutLinks['html'],
+                'huh_newsalert_opt_out_text' => $optOutLinks['text'],
                 'huh_newsalert_year' => date('Y'),
                 'huh_newsalert_root_url' => $this->getRootUrl(),
                 'raw_data' => $strContent,
@@ -327,11 +300,73 @@ class NewsPostedListener
     }
 
     /**
+     * @param array $topics
+     * @param ModuleModel $config
+     * @return array
+     */
+    protected function generateOptOutLinks (array $topics, $config)
+    {
+        $links = [
+            'html' => '',
+            'text' => ''
+        ];
+        $url = Environment::get('url');
+        if ($config->newsalertModulePage)
+        {
+            $modulePage = PageModel::findByPk($config->newsalertModulePage);
+            if ($modulePage)
+            {
+                $url .= '/'.Controller::generateFrontendUrl($modulePage->row());
+            }
+        }
+
+        foreach ($topics as $topic => $token)
+        {
+            $strLink            = $url . $token;
+            $links['html'] .= $topic . ': <a href="' . $strLink . '">' . $this->translator->trans('hh.newsalert.notifications.unsubscribe') . '</a><br />';
+            $links['text'] .= $topic . ' ' . $this->translator->trans('hh.newsalert.notifications.unsubscribe') . ': ' . $strLink . '\n';
+        }
+        return $links;
+    }
+
+    /**
      * @return string Current root url. Example: https://heimrich-hannot.de
      */
     public function getRootUrl()
     {
         $route   = $this->container->get('router')->getContext();
         return $route->getScheme() . $route->getHost();
+    }
+
+    /**
+     * @param NewsModel $article
+     * @return array
+     */
+    protected function addEnclosures($article)
+    {
+        $enclosures = [
+            'html' => '',
+            'text' => ''
+        ];
+        if ($article->addEnclosure)
+        {
+            $template = new FrontendTemplate();
+            Module::addEnclosuresToTemplate($template, $article->row());
+            $enclosuresList = $template->enclosure;
+            $countEnclosures = count($enclosuresList);
+            $i = 0;
+            foreach ($enclosuresList as $entry)
+            {
+                ++$i;
+                $enclosures['text'] .= Environment::get('url').'/'.$entry['enclosure'];
+                $enclosures['html'] .= '<a href="'.Environment::get('url').'/'.$entry['enclosure'].'" title="'.$entry['title'].'">'.$entry['name'].'</a> ('.$entry['filesize'].')';
+                if ($i < $countEnclosures)
+                {
+                    $enclosures['text'] .= '\n';
+                    $enclosures['html'] .= '<br />';
+                }
+            }
+        }
+        return $enclosures;
     }
 }
