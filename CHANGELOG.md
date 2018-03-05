@@ -1,15 +1,6 @@
 # Changelog
 
-## [5.0.0-dev] - 2018-02-28
-
-#### TODO
-* rename `hh.newsalert.topic_source` tag to `huh.newsalert.topic_source`
-* remove deprecated services
-* rename translation strings
-* move config from module to custom config
-* remove onSubmit callback
-
-## [4.1.0-dev] - 2018-02-28
+## [4.1.0] - 2018-02-28
 
 #### Added
 * `huh_newsalert_news_enclosure_html` and `huh_newsalert_news_enclosure_text` notification center tokens
@@ -20,6 +11,7 @@
 * moved modules to own modules group
 * marked onsubmit callback deprecated
 * add newsalert subscribers from the backend
+* removed author from sent list
 
 #### Fixed
 * Newsalert Opt-In not correctly checked
