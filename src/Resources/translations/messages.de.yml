@@ -40,7 +40,7 @@ hh.newsalert:
       0: Anzahl Nachrichten
       1: Die Anzahl der versendeten Nachrichten für den Newsalert.
     user:
-      0: Autor
+      0: Nachrichten-Autor
       1: Der Autor, welcher die Neuigkeit geschrieben und den Newsalert ausgelöst hat.
   tl_module:
     newsalertSendType:

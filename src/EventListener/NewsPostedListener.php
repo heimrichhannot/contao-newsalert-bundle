@@ -53,10 +53,11 @@ class NewsPostedListener
      * Used for onSubmitCallback.
      *
      * @param DC_Table $dc
+     *
+     * @deprecated onSubmitCallback for newsalert marked deprecated and will be removed in future version.
      */
     public function onSubmitCallback(DC_Table $dc)
     {
-        trigger_error('onSubmitCallback for newsalert marked deprecated and will be removed in future version.', E_USER_NOTICE);
         $archive = NewsArchiveModel::findByPk($dc->activeRecord->pid);
         if (!$archive or !$archive->newsalert_activate) {
             return;
@@ -157,9 +158,6 @@ class NewsPostedListener
             $this->container->get('monolog.logger.contao')->addNotice('Multiple notifications by type '.static::NOTIFICATION_TYPE_NEW_ARTICLE.' found. Can lead to multiple notifications for the same person.');
         }
 
-//        $strContentRaw = '';
-//        $strContentHtml = '';
-
         $strContent = '';
         $strTeaser = empty($objArticle->teaser) ? '' : $objArticle->teaser;
 
@@ -226,10 +224,10 @@ class NewsPostedListener
 
             $objNotificationCollection->reset();
 
-            $objArticle->newsalert_sent = 1;
-            $objArticle->save();
-        }
 
+        }
+        $objArticle->newsalert_sent = 1;
+        $objArticle->save();
         $this->createSendModel($objArticle, $topics, $intCountMails);
 
         return $intCountMails;
