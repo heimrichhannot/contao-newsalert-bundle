@@ -4,6 +4,10 @@ services:
     public: true
     arguments: ['@service_container']
 
+  huh.newsalert.listener.callback.table.modules:
+    class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\ModulesTableCallbackListener
+    arguments: ['@contao.framework']
+
   huh.newsalert.topiccollection:
     public: true
     class: HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection

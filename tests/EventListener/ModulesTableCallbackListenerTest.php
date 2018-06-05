@@ -9,21 +9,34 @@
  */
 
 
-namespace HeimrichHannot\ContaoNewsAlertBundle\Tests\Backend;
+namespace HeimrichHannot\ContaoNewsAlertBundle\Tests\EventListener;
 
 
 use Contao\Model\Collection;
 use Contao\ModuleModel;
-use Contao\System;
 use Contao\TestCase\ContaoTestCase;
-use HeimrichHannot\ContaoNewsAlertBundle\Backend\Modules;
+use HeimrichHannot\ContaoNewsAlertBundle\EventListener\ModulesTableCallbackListener;
 
-class ModulesTest extends ContaoTestCase
+class ModulesTableCallbackListenerTest extends ContaoTestCase
 {
+    public function getFrameworkMock()
+    {
+        $moduleModelMock = $this->mockAdapter(['findByType']);
+        $moduleModelMock->method('findByType')->willReturnOnConsecutiveCalls([
+            new Collection($this->createModuleModels(), 'tl_module'),
+            null]);
+
+        $framework = $this->mockContaoFramework([
+            ModuleModel::class => $moduleModelMock,
+        ]);
+        return $framework;
+
+    }
+
     public function testCanBeInstantiated()
     {
-        $module = new Modules();
-        $this->assertInstanceOf(Modules::class, $module);
+        $module = new ModulesTableCallbackListener($this->getFrameworkMock());
+        $this->assertInstanceOf(ModulesTableCallbackListener::class, $module);
     }
 
     public function createModuleModels()
@@ -52,15 +65,10 @@ class ModulesTest extends ContaoTestCase
 
     public function testGetNewsalertModules()
     {
-        $adapter = $this->mockAdapter(['findByType']);
-        $adapter->method('findByType')->willReturn(new Collection($this->createModuleModels(), 'tl_module'));
+        $listener = new ModulesTableCallbackListener($this->getFrameworkMock());
 
-        $framework = $this->mockContaoFramework([ModuleModel::class => $adapter]);
-        $container = $this->mockContainer();
-        $container->set('contao.framework', $framework);
-        System::setContainer($container);
-
-        $this->assertEquals(3, count(Modules::getNewsalertModules()));
+        $this->assertEquals(3, count($listener->getNewsalertModules()));
+        $this->assertEmpty($listener->getNewsalertModules());
 
 
     }

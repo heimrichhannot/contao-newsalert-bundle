@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.2.0-dev] - 2018-05-05
+
+#### Changed
+* refactored Modules backend class as service
+
+#### Fixed
+* backend error when no Newsaleret module exist
+
 ## [4.1.0] - 2018-02-28
 
 #### Added
