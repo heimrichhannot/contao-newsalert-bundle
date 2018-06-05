@@ -49,8 +49,11 @@ hh.newsalert:
     newsalertPoorManCronIntervall:
       0: Interval
       1: Interval for the contao poor man cron.
+    newsalertRootPage:
+      0: 'Domain'
+      1: "Please select the domain the newsalert is sent for. The domain can't be read from the url while executing a cronjob, but is needed to generate links like unsubscription."
   module_subscribe:
-    newsalertCronjobExplanation: "To setup a custom cronjob, following command has to be executed: 'hh:newsalert:send'. Example: */10 * * * * %contao-server-path%/vendor/bin/contao-console hh:newsalert:send 75 (Check every 10 minutes for unsend newsalert and send (using module 75 configuration.)"
+    newsalertCronjobExplanation: "To setup a custom cronjob, following command has to be executed: 'hh:newsalert:send'. Example: */10 * * * * %contao-server-path%/vendor/bin/contao-console huh:newsalert:send 75 (Check every 10 minutes for unsend newsalert and send (using module 75 configuration.)"
   module_redirect:
     optin:
       success:

@@ -4,9 +4,14 @@
 
 #### Changed
 * refactored Modules backend class as service
+* URL must be selected for Cronjob in Module
+* updated style for command
 
 #### Fixed
 * backend error when no Newsaleret module exist
+* no root url when send from cronjob
+* backend description for cron
+* no token if user created from backend
 
 ## [4.1.0] - 2018-02-28
 

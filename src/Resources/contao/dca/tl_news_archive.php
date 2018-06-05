@@ -54,7 +54,7 @@ $fields = [
         'exclude'          => true,
         'sql'              => "int(11) NOT NULL default '0'",
         'eval'             => ['tl_class' => 'w50'],
-        'options_callback' => ['HeimrichHannot\ContaoNewsAlertBundle\Backend\Modules', 'getNewsalertModules']
+        'options_callback' => ['huh.newsalert.listener.callback.table.modules', 'getNewsalertModules']
     ]
 ];
 

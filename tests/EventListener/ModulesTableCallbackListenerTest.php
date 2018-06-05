@@ -22,9 +22,9 @@ class ModulesTableCallbackListenerTest extends ContaoTestCase
     public function getFrameworkMock()
     {
         $moduleModelMock = $this->mockAdapter(['findByType']);
-        $moduleModelMock->method('findByType')->willReturnOnConsecutiveCalls([
+        $moduleModelMock->method('findByType')->willReturnOnConsecutiveCalls(
             new Collection($this->createModuleModels(), 'tl_module'),
-            null]);
+            null);
 
         $framework = $this->mockContaoFramework([
             ModuleModel::class => $moduleModelMock,

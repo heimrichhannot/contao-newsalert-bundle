@@ -22,7 +22,8 @@ $GLOBALS['TL_DCA'][$strTable] = [
             'keys' => [
                 'id' => 'primary',
             ]
-        ]
+        ],
+        "onsubmit_callback" => [['huh.newsalert.listener.callback.dca','addNewsalertRecipient']],
     ],
     'list'     => [
         'sorting'           => [

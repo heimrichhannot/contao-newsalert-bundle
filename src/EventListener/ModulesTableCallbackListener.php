@@ -14,6 +14,7 @@ namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
 use Contao\CoreBundle\Framework\ContaoFrameworkInterface;
 use Contao\ModuleModel;
+use Contao\PageModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
 
 class ModulesTableCallbackListener
@@ -46,6 +47,35 @@ class ModulesTableCallbackListener
         }
 
         return $module_list;
+    }
+
+    /**
+     * Get dns adresses of root pages
+     *
+     * @return array
+     */
+    public function getRootPagesWithDNS()
+    {
+        $rootPages = [];
+
+        $pageModels = $this->framework->getAdapter(PageModel::class)->findPublishedRootPages();
+
+        if ($pageModels === null)
+        {
+            return $rootPages;
+        }
+
+        while ($pageModels->next())
+        {
+            if (!$pageModels->dns)
+            {
+                continue;
+            }
+
+            $rootPages[$pageModels->id] = $pageModels->dns . ' [ID: ' . $pageModels->id . ']';
+        }
+
+        return $rootPages;
     }
 
 }

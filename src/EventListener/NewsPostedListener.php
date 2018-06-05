@@ -119,24 +119,24 @@ class NewsPostedListener
     }
 
     /**
-     * @param             $objArticle
-     * @param \ModuleModel $objModule
+     * @param             $article
+     * @param ModuleModel $objModule
      *
      * @return bool|int False on failure, number of send messages on success
      */
-    public function sendNewsalert($objArticle, \ModuleModel $objModule)
+    public function sendNewsalert($article, ModuleModel $objModule)
     {
-        if (!$objArticle or $objArticle->newsalert_sent) {
+        if (!$article or $article->newsalert_sent) {
             return false;
         }
 
-        $topics = $this->container->get('huh.newsalert.topiccollection')->getTopicsByItem($objArticle);
+        $topics = $this->container->get('huh.newsalert.topiccollection')->getTopicsByItem($article);
         $arrRecipients = $this->getRecipientsByTopic($topics);
 
         if (0 === count($arrRecipients)) {
-            $objArticle->newsalert_sent = 1;
-            $objArticle->save();
-            $this->createSendModel($objArticle, $topics, 0);
+            $article->newsalert_sent = 1;
+            $article->save();
+            $this->createSendModel($article, $topics, 0);
 
             return 0;
         }
@@ -159,9 +159,9 @@ class NewsPostedListener
         }
 
         $strContent = '';
-        $strTeaser = empty($objArticle->teaser) ? '' : $objArticle->teaser;
+        $strTeaser = empty($article->teaser) ? '' : $article->teaser;
 
-        $objContents = ContentModel::findPublishedByPidAndTable($objArticle->id, 'tl_news');
+        $objContents = ContentModel::findPublishedByPidAndTable($article->id, 'tl_news');
         if (null !== $objContents) {
             while ($objContents->next()) {
                 $item = $objContents->current();
@@ -174,20 +174,21 @@ class NewsPostedListener
             }
         }
         $intCountMails = 0;
+        $rootUrl = $this->getRootUrl($objModule);
 
         foreach ($arrRecipients as $email => $data) {
             $arrAllTopics = $this->getAllTopicsByRecipient($email);
-            $optOutLinks = $this->generateOptOutLinks($arrAllTopics, $objModule);
+            $optOutLinks = $this->generateOptOutLinks($arrAllTopics, $rootUrl, $objModule);
             $strTopics = implode(',', $data['topics']);
-            $strUrl = Controller::replaceInsertTags('{{news_url::' . $objArticle->id . '}}', false);
-            $enclosures = $this->addEnclosures($objArticle);
+            $strUrl = Controller::replaceInsertTags('{{news_url::' . $article->id . '}}', false);
+            $enclosures = $this->addEnclosures($article);
 
             $arrTokens = [
                 'huh_newsalert_topic_recipient' => $email,
                 'huh_newsalert_recipient_topics' => $strTopics,
                 'huh_newsalert_recipient_topic_count' => count($data['topics']),
-                'huh_newsalert_news_headline' => $objArticle->headline,
-                'huh_newsalert_news_subheadline' => $objArticle->subheadline,
+                'huh_newsalert_news_headline' => $article->headline,
+                'huh_newsalert_news_subheadline' => $article->subheadline,
                 'huh_newsalert_news_teaser' => $strTeaser,
                 'huh_newsalert_news_content' => $strContent,
                 'huh_newsalert_news_enclosure_html' => $enclosures['html'],
@@ -196,7 +197,7 @@ class NewsPostedListener
                 'huh_newsalert_opt_out_html' => $optOutLinks['html'],
                 'huh_newsalert_opt_out_text' => $optOutLinks['text'],
                 'huh_newsalert_year' => date('Y'),
-                'huh_newsalert_root_url' => $this->getRootUrl(),
+                'huh_newsalert_root_url' => $rootUrl,
                 'raw_data' => $strContent,
                 // Fix cli error
                 'salutation_user' => '',
@@ -205,7 +206,7 @@ class NewsPostedListener
 
             if (isset($GLOBALS['TL_HOOKS']['huh_newsalert_customToken']) && is_array($GLOBALS['TL_HOOKS']['huh_newsalert_customToken'])) {
                 foreach ($GLOBALS['TL_HOOKS']['huh_newsalert_customToken'] as $callback) {
-                    $arrTokens = System::importStatic($callback[0])->{$callback[1]}($objArticle, $arrTokens);
+                    $arrTokens = System::importStatic($callback[0])->{$callback[1]}($article, $arrTokens);
                 }
             }
 
@@ -226,9 +227,9 @@ class NewsPostedListener
 
 
         }
-        $objArticle->newsalert_sent = 1;
-        $objArticle->save();
-        $this->createSendModel($objArticle, $topics, $intCountMails);
+        $article->newsalert_sent = 1;
+        $article->save();
+        $this->createSendModel($article, $topics, $intCountMails);
 
         return $intCountMails;
     }
@@ -302,16 +303,16 @@ class NewsPostedListener
      * @param ModuleModel $config
      * @return array
      */
-    protected function generateOptOutLinks (array $topics, $config)
+    protected function generateOptOutLinks (array $topics, string $url, ModuleModel $config)
     {
         $links = [
             'html' => '',
             'text' => ''
         ];
-        $url = Environment::get('url');
-        if ($config->newsalertModulePage)
+
+        if ($config->formHybridOptOutJumpTo)
         {
-            $modulePage = PageModel::findByPk($config->newsalertModulePage);
+            $modulePage = PageModel::findByPk($config->formHybridOptOutJumpTo);
             if ($modulePage)
             {
                 $url .= '/'.Controller::generateFrontendUrl($modulePage->row());
@@ -330,10 +331,25 @@ class NewsPostedListener
     /**
      * @return string Current root url. Example: https://heimrich-hannot.de
      */
-    public function getRootUrl()
+    public function getRootUrl(ModuleModel $config)
     {
-        $route   = $this->container->get('router')->getContext();
-        return $route->getScheme() . $route->getHost();
+        switch ($config->newsalertSendType)
+        {
+            case static::TRIGGER_CRON:
+                $page = PageModel::findById($config->newsalertRootPage);
+                if (!$page)
+                {
+                    $page = PageModel::findPublishedRootPages()->first();
+                }
+                if ($page && $page->dns)
+                {
+                    $url = ($page->useSSL ? 'https://' : 'http://') . $page->dns;
+                    break;
+                }
+            default:
+                $url = Environment::get('url');
+        }
+        return $url;
     }
 
     /**

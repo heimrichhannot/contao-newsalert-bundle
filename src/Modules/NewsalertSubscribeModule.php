@@ -8,6 +8,9 @@
 
 namespace HeimrichHannot\ContaoNewsAlertBundle\Modules;
 
+use Contao\BackendTemplate;
+use Contao\DataContainer;
+use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\Forms\NewsAlertSubscriptionForm;
 use Patchwork\Utf8;
 
@@ -30,18 +33,18 @@ class NewsalertSubscribeModule extends \Module
     {
         if (TL_MODE === 'BE') {
             /** @var BackendTemplate|object $objTemplate */
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### '.Utf8::strtoupper($GLOBALS['TL_LANG']['FMD'][static::MODULE_NAME][0]).' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;
-            $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id='.$this->id;
+            $objTemplate->href = 'contao?do=themes&amp;table=tl_module&amp;act=edit&amp;id='.$this->id;
 
             return $objTemplate->parse();
         }
 
-        \DataContainer::loadDataContainer(static::TABLE);
-        \System::loadLanguageFile(static::TABLE);
+        DataContainer::loadDataContainer(static::TABLE);
+        System::loadLanguageFile(static::TABLE);
 
         $this->strWrapperId .= $this->id;
 

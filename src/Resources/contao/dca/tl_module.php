@@ -28,7 +28,7 @@ $arrDca['palettes']['__selector__'][] = 'newsalertSendType';
 $arrDca['subpalettes']['newsalertOptIn'] = 'formHybridOptInSuccessMessage,formHybridOptInNotification,formHybridOptInJumpTo';
 $arrDca['subpalettes']['formHybridCustomSubmit'] = 'formHybridSubmitLabel,formHybridSubmitClass';
 $arrDca['subpalettes']['newsalertSendType_poormancron'] = 'newsalertPoorManCronIntervall';
-$arrDca['subpalettes']['newsalertSendType_customCron'] = 'newsalertCronjobExplanation';
+$arrDca['subpalettes']['newsalertSendType_customCron'] = 'newsalertCronjobExplanation,newsalertRootPage';
 
 
 
@@ -70,6 +70,19 @@ $arrFields = [
         'exclude'                 => true,
         'input_field_callback'    => ['HeimrichHannot\ContaoNewsAlertBundle\Components\DcaAddon', 'addCronExplanation']
     ],
+    'newsalertRootPage' => [
+        'label'      => [
+            $translator->trans('hh.newsalert.tl_module.newsalertRootPage.0'),
+            $translator->trans('hh.newsalert.tl_module.newsalertRootPage.1')
+        ],
+        'exclude'    => true,
+        'inputType'  => 'select',
+        'options_callback' => ['huh.newsalert.listener.callback.table.modules', 'getRootPagesWithDNS'],
+        'foreignKey' => 'tl_page.title',
+        'eval'       => ['mandatory' => true],
+        'sql'        => "int(10) unsigned NOT NULL default '0'"
+    ],
+
 ];
 
 $arrDca['fields'] = array_merge($arrDca['fields'], $arrFields);

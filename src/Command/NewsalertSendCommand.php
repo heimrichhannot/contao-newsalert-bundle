@@ -10,6 +10,7 @@ namespace HeimrichHannot\ContaoNewsAlertBundle\Command;
 
 use Contao\CoreBundle\Command\AbstractLockedCommand;
 use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\Model\Collection;
 use Contao\ModuleModel;
 use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener;
@@ -17,6 +18,7 @@ use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
@@ -69,56 +71,63 @@ class NewsalertSendCommand extends AbstractLockedCommand
      */
     protected function executeLocked(InputInterface $input, OutputInterface $output)
     {
+        $io = new SymfonyStyle($input, $output);
+        $io->title("Checking for unsend newsalerts");
         $this->framework->initialize();
-        $output->writeln('');
-        $output->writeln('<fg=green>Starting checking for unsend newsalert...</>');
 
         $modules = $this->getCronModules();
         if (!$modules) {
-            $output->writeln('<fg=red>No Modules to use with cronjob found. Stopping...</>');
-            $output->writeln('');
-
+            $io->error("No Modules to use with cronjob found. Stopping...");
             return 1;
         }
-        $output->writeln('Found '.$modules->count().' modules.');
+        $io->writeln('Found '.$modules->count().' modules.');
+        $io->newLine();
 
         $listener = $this->container->get('huh.newsalert.listener.newsposted');
-        $archives = [];
         $count = 0;
+        $errorCount = 0;
         while ($modules->next()) {
-            $output->writeln('Starting with module '.$modules->id.' ('.$modules->name.')');
+            $io->section("Sending alerts for module ".$modules->id.' ('.$modules->name.')');
             $archives = $listener->getArchiveIdsByModule($modules->current());
             if (empty($archives)) {
-                $output->writeln('<fg=red>No news archives for current module. Continue...</>');
+                $output->writeln('No news archives for current module.');
+                $io->newLine();
                 continue;
             }
             $news = NewsModel::findUnsentPublished($input->getOption('limit'), $archives);
             if (!$news) {
-                $output->writeln('<fg=red>No news found for current module. Continue...</>');
+                $output->writeln('No news found for current module.');
+                $io->newLine();
                 continue;
             }
             while ($news->next()) {
                 if ($news->newsalert_sent) {
                     continue;
                 }
-                if ($countCurrent = $listener->sendNewsalert($news->current(), $modules->current()) >= false) {
+                if (false !== ($countCurrent = $listener->sendNewsalert($news->current(), $modules->current()))) {
                     $count += $countCurrent;
                     $output->writeln('Newsalert sent for news article '.$news->id." ($countCurrent messages)");
                 } else {
-                    $output->writeln('<bg=red>Could not send newsalert for news article '.$news->id.'</>');
+                    $errorCount++;
+                    $output->writeln('<fg=red>Could not send newsalert for news article '.$news->id.'</>');
                 }
             }
         }
-        $output->writeln("<fg=green>Finished. Sent $count notifications.</>");
-        $output->writeln('');
+        if ($errorCount > 0)
+        {
+            $io->error("Exited with $errorCount errors.");
+            return 1;
+        }
 
+        $io->newLine();
+        $io->success("Finished. Sent $count news alerts.");
         return 0;
     }
 
     /**
      * Return cron modules
      *
-     * @return \Contao\Model\Collection|ModuleModel|ModuleModel[]|null
+     * @return Collection|ModuleModel|ModuleModel[]|null
      */
     public function getCronModules()
     {
