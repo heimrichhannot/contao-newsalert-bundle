@@ -1,6 +1,6 @@
 # Changelog
 
-## [4.2.0-dev] - 2018-05-05
+## [4.2.0] - 2018-05-05
 
 #### Changed
 * refactored Modules backend class as service
