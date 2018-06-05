@@ -48,6 +48,5 @@
     },
     "extra": {
         "contao-manager-plugin": "HeimrichHannot\\ContaoNewsAlertBundle\\ContaoManager\\Plugin"
-    },
-    "minimum-stability": "dev"
+    }
 }
