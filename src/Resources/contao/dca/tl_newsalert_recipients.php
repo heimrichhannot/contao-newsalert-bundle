@@ -117,7 +117,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             ],
             'sorting'   => true,
             'inputType' => 'select',
-            'options_callback' => ['huh.newsalert.topiccollection','getAllTopics'],
+            'options_callback' => ['huh.newsalert.choice.newstopic','getCachedChoices'],
             'search'    => true,
             'eval'      => [
                 'chosen'    => true,

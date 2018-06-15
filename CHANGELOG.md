@@ -1,5 +1,10 @@
 # Changelog
 
+## [4.3.0] - 2018-06-15
+
+#### Changed
+* Added `huh.newsalert.choice.newstopic` for better topic choice performance
+
 ## [4.2.0] - 2018-05-05
 
 #### Changed

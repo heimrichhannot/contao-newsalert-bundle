@@ -11,7 +11,12 @@ services:
     arguments: ['@contao.framework']
   huh.newsalert.listener.callback.dca:
     class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\DcaCallbackListener
-
+# Choices
+  huh.newsalert.choice.newstopic:
+    public: true
+    class: HeimrichHannot\ContaoNewsAlertBundle\Choice\NewsTopicChoice
+    arguments:
+      - "@contao.framework"
 # Others
 
   huh.newsalert.topiccollection:
