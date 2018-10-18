@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2017 Heimrich & Hannot GmbH
+ * Copyright (c) 2018 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0+
  */
@@ -69,7 +69,7 @@ class NewsAlertSubscriptionForm extends Form
      * @param \DataContainer           $dc
      * @param NewsalertRecipientsModel $objModel
      */
-    protected function afterActivationCallback(\DataContainer $dc)
+    protected function afterActivationCallback(\DataContainer $dc, $objModel, $submissionData = null)
     {
         $this->setSessionVariables(true, $this->objActiveRecord->topic, 'in');
         StatusMessage::reset($dc->moduleId);

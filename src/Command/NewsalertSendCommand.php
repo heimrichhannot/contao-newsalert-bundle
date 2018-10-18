@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2017 Heimrich & Hannot GmbH
+ * Copyright (c) 2018 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0+
  */
@@ -12,7 +12,6 @@ use Contao\CoreBundle\Command\AbstractLockedCommand;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\Model\Collection;
 use Contao\ModuleModel;
-use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsModel;
 use Symfony\Component\Console\Input\InputInterface;
@@ -49,6 +48,16 @@ class NewsalertSendCommand extends AbstractLockedCommand
     }
 
     /**
+     * Return cron modules.
+     *
+     * @return Collection|ModuleModel|ModuleModel[]|null
+     */
+    public function getCronModules()
+    {
+        return ModuleModel::findBy('newsalertSendType', NewsPostedListener::TRIGGER_CRON);
+    }
+
+    /**
      * Configures the current command.
      */
     protected function configure()
@@ -72,12 +81,13 @@ class NewsalertSendCommand extends AbstractLockedCommand
     protected function executeLocked(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $io->title("Checking for unsend newsalerts");
+        $io->title('Checking for unsend newsalerts');
         $this->framework->initialize();
 
         $modules = $this->getCronModules();
         if (!$modules) {
-            $io->error("No Modules to use with cronjob found. Stopping...");
+            $io->error('No Modules to use with cronjob found. Stopping...');
+
             return 1;
         }
         $io->writeln('Found '.$modules->count().' modules.');
@@ -87,7 +97,7 @@ class NewsalertSendCommand extends AbstractLockedCommand
         $count = 0;
         $errorCount = 0;
         while ($modules->next()) {
-            $io->section("Sending alerts for module ".$modules->id.' ('.$modules->name.')');
+            $io->section('Sending alerts for module '.$modules->id.' ('.$modules->name.')');
             $archives = $listener->getArchiveIdsByModule($modules->current());
             if (empty($archives)) {
                 $output->writeln('No news archives for current module.');
@@ -108,29 +118,20 @@ class NewsalertSendCommand extends AbstractLockedCommand
                     $count += $countCurrent;
                     $output->writeln('Newsalert sent for news article '.$news->id." ($countCurrent messages)");
                 } else {
-                    $errorCount++;
+                    ++$errorCount;
                     $output->writeln('<fg=red>Could not send newsalert for news article '.$news->id.'</>');
                 }
             }
         }
-        if ($errorCount > 0)
-        {
+        if ($errorCount > 0) {
             $io->error("Exited with $errorCount errors.");
+
             return 1;
         }
 
         $io->newLine();
         $io->success("Finished. Sent $count news alerts.");
-        return 0;
-    }
 
-    /**
-     * Return cron modules
-     *
-     * @return Collection|ModuleModel|ModuleModel[]|null
-     */
-    public function getCronModules()
-    {
-        return ModuleModel::findBy('newsalertSendType', NewsPostedListener::TRIGGER_CRON);
+        return 0;
     }
 }

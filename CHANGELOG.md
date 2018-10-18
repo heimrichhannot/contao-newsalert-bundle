@@ -1,5 +1,10 @@
 # Changelog
 
+## [4.3.1] - 2018-10-18
+
+#### Fixed
+* `NewsAlertSubscriptionForm::afterActivationCallback` to be conform to `HeimrichHannot\FormHybrid\Form::afterActivationCallback` 
+
 ## [4.3.0] - 2018-06-15
 
 #### Changed

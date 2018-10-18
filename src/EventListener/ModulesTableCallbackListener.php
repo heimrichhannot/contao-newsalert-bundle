@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2018 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0+
  */
 
-
 namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
-
 
 use Contao\CoreBundle\Framework\ContaoFrameworkInterface;
 use Contao\ModuleModel;
@@ -30,15 +26,14 @@ class ModulesTableCallbackListener
     }
 
     /**
-     * Returns a list of NewsalertSubscribeModules
+     * Returns a list of NewsalertSubscribeModules.
      *
      * @return array
      */
     public function getNewsalertModules()
     {
         $modules = $this->framework->getAdapter(ModuleModel::class)->findByType(NewsalertSubscribeModule::MODULE_NAME);
-        if (!$modules)
-        {
+        if (!$modules) {
             return [];
         }
         $module_list = [];
@@ -50,7 +45,7 @@ class ModulesTableCallbackListener
     }
 
     /**
-     * Get dns adresses of root pages
+     * Get dns adresses of root pages.
      *
      * @return array
      */
@@ -60,22 +55,18 @@ class ModulesTableCallbackListener
 
         $pageModels = $this->framework->getAdapter(PageModel::class)->findPublishedRootPages();
 
-        if ($pageModels === null)
-        {
+        if (null === $pageModels) {
             return $rootPages;
         }
 
-        while ($pageModels->next())
-        {
-            if (!$pageModels->dns)
-            {
+        while ($pageModels->next()) {
+            if (!$pageModels->dns) {
                 continue;
             }
 
-            $rootPages[$pageModels->id] = $pageModels->dns . ' [ID: ' . $pageModels->id . ']';
+            $rootPages[$pageModels->id] = $pageModels->dns.' [ID: '.$pageModels->id.']';
         }
 
         return $rootPages;
     }
-
 }

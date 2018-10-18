@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2017 Heimrich & Hannot GmbH
+ * Copyright (c) 2018 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0+
  */
@@ -54,7 +54,7 @@ class NewsPostedListener
      *
      * @param DC_Table $dc
      *
-     * @deprecated onSubmitCallback for newsalert marked deprecated and will be removed in future version.
+     * @deprecated onSubmitCallback for newsalert marked deprecated and will be removed in future version
      */
     public function onSubmitCallback(DC_Table $dc)
     {
@@ -180,7 +180,7 @@ class NewsPostedListener
             $arrAllTopics = $this->getAllTopicsByRecipient($email);
             $optOutLinks = $this->generateOptOutLinks($arrAllTopics, $rootUrl, $objModule);
             $strTopics = implode(',', $data['topics']);
-            $strUrl = Controller::replaceInsertTags('{{news_url::' . $article->id . '}}', false);
+            $strUrl = Controller::replaceInsertTags('{{news_url::'.$article->id.'}}', false);
             $enclosures = $this->addEnclosures($article);
 
             $arrTokens = [
@@ -224,14 +224,35 @@ class NewsPostedListener
             }
 
             $objNotificationCollection->reset();
-
-
         }
         $article->newsalert_sent = 1;
         $article->save();
         $this->createSendModel($article, $topics, $intCountMails);
 
         return $intCountMails;
+    }
+
+    /**
+     * @return string Current root url. Example: https://heimrich-hannot.de
+     */
+    public function getRootUrl(ModuleModel $config)
+    {
+        switch ($config->newsalertSendType) {
+            case static::TRIGGER_CRON:
+                $page = PageModel::findById($config->newsalertRootPage);
+                if (!$page) {
+                    $page = PageModel::findPublishedRootPages()->first();
+                }
+                if ($page && $page->dns) {
+                    $url = ($page->useSSL ? 'https://' : 'http://').$page->dns;
+                    break;
+                }
+                // no break
+            default:
+                $url = Environment::get('url');
+        }
+
+        return $url;
     }
 
     protected function createSendModel($objArticle, $arrTopics, $intCountMails)
@@ -299,88 +320,62 @@ class NewsPostedListener
     }
 
     /**
-     * @param array $topics
+     * @param array       $topics
      * @param ModuleModel $config
+     *
      * @return array
      */
-    protected function generateOptOutLinks (array $topics, string $url, ModuleModel $config)
+    protected function generateOptOutLinks(array $topics, string $url, ModuleModel $config)
     {
         $links = [
             'html' => '',
-            'text' => ''
+            'text' => '',
         ];
 
-        if ($config->formHybridOptOutJumpTo)
-        {
+        if ($config->formHybridOptOutJumpTo) {
             $modulePage = PageModel::findByPk($config->formHybridOptOutJumpTo);
-            if ($modulePage)
-            {
+            if ($modulePage) {
                 $url .= '/'.Controller::generateFrontendUrl($modulePage->row());
             }
         }
 
-        foreach ($topics as $topic => $token)
-        {
-            $strLink            = $url . $token;
-            $links['html'] .= $topic . ': <a href="' . $strLink . '">' . $this->translator->trans('hh.newsalert.notifications.unsubscribe') . '</a><br />';
-            $links['text'] .= $topic . ' ' . $this->translator->trans('hh.newsalert.notifications.unsubscribe') . ': ' . $strLink . '\n';
+        foreach ($topics as $topic => $token) {
+            $strLink = $url.$token;
+            $links['html'] .= $topic.': <a href="'.$strLink.'">'.$this->translator->trans('hh.newsalert.notifications.unsubscribe').'</a><br />';
+            $links['text'] .= $topic.' '.$this->translator->trans('hh.newsalert.notifications.unsubscribe').': '.$strLink.'\n';
         }
+
         return $links;
     }
 
     /**
-     * @return string Current root url. Example: https://heimrich-hannot.de
-     */
-    public function getRootUrl(ModuleModel $config)
-    {
-        switch ($config->newsalertSendType)
-        {
-            case static::TRIGGER_CRON:
-                $page = PageModel::findById($config->newsalertRootPage);
-                if (!$page)
-                {
-                    $page = PageModel::findPublishedRootPages()->first();
-                }
-                if ($page && $page->dns)
-                {
-                    $url = ($page->useSSL ? 'https://' : 'http://') . $page->dns;
-                    break;
-                }
-            default:
-                $url = Environment::get('url');
-        }
-        return $url;
-    }
-
-    /**
      * @param NewsModel $article
+     *
      * @return array
      */
     protected function addEnclosures($article)
     {
         $enclosures = [
             'html' => '',
-            'text' => ''
+            'text' => '',
         ];
-        if ($article->addEnclosure)
-        {
+        if ($article->addEnclosure) {
             $template = new FrontendTemplate();
             Module::addEnclosuresToTemplate($template, $article->row());
             $enclosuresList = $template->enclosure;
             $countEnclosures = count($enclosuresList);
             $i = 0;
-            foreach ($enclosuresList as $entry)
-            {
+            foreach ($enclosuresList as $entry) {
                 ++$i;
                 $enclosures['text'] .= Environment::get('url').'/'.$entry['enclosure'];
                 $enclosures['html'] .= '<a href="'.Environment::get('url').'/'.$entry['enclosure'].'" title="'.$entry['title'].'">'.$entry['name'].'</a> ('.$entry['filesize'].')';
-                if ($i < $countEnclosures)
-                {
+                if ($i < $countEnclosures) {
                     $enclosures['text'] .= '\n';
                     $enclosures['html'] .= '<br />';
                 }
             }
         }
+
         return $enclosures;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2017 Heimrich & Hannot GmbH
+ * Copyright (c) 2018 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0+
  */
@@ -13,12 +13,12 @@ use HeimrichHannot\Haste\Model\Model;
 /**
  * Class NewsalertSendModel.
  *
- * @property int $id
- * @property int $pid
- * @property int $tstamp
- * @property string  $topics
- * @property string  $senddate
- * @property int $count_messages
+ * @property int    $id
+ * @property int    $pid
+ * @property int    $tstamp
+ * @property string $topics
+ * @property string $senddate
+ * @property int    $count_messages
  */
 class NewsalertSendModel extends Model
 {

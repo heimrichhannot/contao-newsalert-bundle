@@ -1,16 +1,12 @@
 <?php
-/**
- * Contao Open Source CMS
- *
+
+/*
  * Copyright (c) 2018 Heimrich & Hannot GmbH
  *
- * @author  Thomas Körner <t.koerner@heimrich-hannot.de>
- * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
+ * @license LGPL-3.0+
  */
 
-
 namespace HeimrichHannot\ContaoNewsAlertBundle\Tests\EventListener;
-
 
 use Contao\Model\Collection;
 use Contao\ModuleModel;
@@ -29,8 +25,8 @@ class ModulesTableCallbackListenerTest extends ContaoTestCase
         $framework = $this->mockContaoFramework([
             ModuleModel::class => $moduleModelMock,
         ]);
-        return $framework;
 
+        return $framework;
     }
 
     public function testCanBeInstantiated()
@@ -44,14 +40,13 @@ class ModulesTableCallbackListenerTest extends ContaoTestCase
         $data = [
             0 => 'Test00Module',
             2 => 'Test02Module',
-            '7' => 'TestString7Module'
+            '7' => 'TestString7Module',
         ];
         $models = [];
-        foreach ($data as $key=>$value)
-        {
+        foreach ($data as $key => $value) {
             $model = $this->getMockBuilder(ModuleModel::class)
                 ->disableOriginalConstructor()
-                ->setMethods(['_get','_set'])
+                ->setMethods(['_get', '_set'])
                 ->getMock();
 //            $model = $this->createMock(ModuleModel::class);
 //            $model
@@ -60,6 +55,7 @@ class ModulesTableCallbackListenerTest extends ContaoTestCase
             $model->name = $value;
             $models[] = $model;
         }
+
         return $models;
     }
 
@@ -67,9 +63,7 @@ class ModulesTableCallbackListenerTest extends ContaoTestCase
     {
         $listener = new ModulesTableCallbackListener($this->getFrameworkMock());
 
-        $this->assertEquals(3, count($listener->getNewsalertModules()));
+        $this->assertSame(3, count($listener->getNewsalertModules()));
         $this->assertEmpty($listener->getNewsalertModules());
-
-
     }
 }

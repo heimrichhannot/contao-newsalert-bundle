@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2017 Heimrich & Hannot GmbH
+ * Copyright (c) 2018 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0+
  */
@@ -29,17 +29,16 @@ class NewsalertRedirectModule extends Module
     protected $strTemplate = 'mod_newsalert_redirect';
 
     /**
-     * Initialize the object
+     * Initialize the object.
      *
      * @param ModuleModel $objModule
-     * @param string $strColumn
+     * @param string      $strColumn
      */
     public function __construct(ModuleModel $objModule, string $strColumn = 'main')
     {
         $this->container = System::getContainer();
         parent::__construct($objModule, $strColumn);
     }
-
 
     /**
      * Parse the template.
