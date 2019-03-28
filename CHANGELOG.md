@@ -1,5 +1,10 @@
 # Changelog
 
+## [4.3.2] - 2019-03-28
+
+#### Fixed
+* `heimrichhannot/contao-formhybrid` 3.2 compatibility fix 
+
 ## [4.3.1] - 2018-10-18
 
 #### Fixed

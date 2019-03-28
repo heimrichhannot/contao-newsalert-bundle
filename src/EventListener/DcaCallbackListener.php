@@ -9,17 +9,20 @@
 namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
 use Contao\Database;
-use Contao\DC_Table;
+use Contao\DataContainer;
+use HeimrichHannot\FormHybrid\DC_Hybrid;
 use HeimrichHannot\FormHybrid\Form;
 
 class DcaCallbackListener
 {
-    public function addNewsalertRecipient(DC_Table &$dc)
+    public function addNewsalertRecipient(DataContainer $dc)
     {
+        /* @var $dc DC_Hybrid */
         if ($dc->activeRecord->optOutToken) {
             return;
         }
         $set['optOutToken'] = Form::generateUniqueToken();
         Database::getInstance()->prepare('UPDATE tl_newsalert_recipients %s WHERE id=?')->set($set)->execute($dc->id);
+        $dc->setNoEntity(false);
     }
 }
