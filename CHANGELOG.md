@@ -1,5 +1,8 @@
 # Changelog
 
+## [4.3.3] - 2021-02-09
+- fixed topics with space lead to error in frontend
+
 ## [4.3.2] - 2019-03-28
 
 #### Fixed

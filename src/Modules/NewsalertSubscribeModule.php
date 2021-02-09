@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2018 Heimrich & Hannot GmbH
+ * Copyright (c) 2021 Heimrich & Hannot GmbH
  *
  * @license LGPL-3.0+
  */
@@ -10,11 +10,12 @@ namespace HeimrichHannot\ContaoNewsAlertBundle\Modules;
 
 use Contao\BackendTemplate;
 use Contao\DataContainer;
+use Contao\Module;
 use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\Forms\NewsAlertSubscriptionForm;
 use Patchwork\Utf8;
 
-class NewsalertSubscribeModule extends \Module
+class NewsalertSubscribeModule extends Module
 {
     const MODULE_NAME = 'contao-newsalert-subscribe';
     const TABLE = 'tl_newsalert_recipients';
@@ -71,14 +72,12 @@ class NewsalertSubscribeModule extends \Module
             $this->Template->hl = $this->hl;
         }
 
-        if (!empty($this->classes) && is_array($this->classes)) {
+        if (!empty($this->classes) && \is_array($this->classes)) {
             $this->Template->class .= ' '.implode(' ', $this->classes);
         }
 
         $this->formHybridDataContainer = static::TABLE;
         $this->formHybridAsync = '1';
-
-//        'formHybridOptInSuccessMessage,formHybridOptInNotification,formHybridOptInConfirmedProperty'
 
         if ($this->newsalertOptIn) {
             $this->formHybridAddOptIn = 1;
