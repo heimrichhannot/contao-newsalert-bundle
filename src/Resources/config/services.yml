@@ -30,8 +30,8 @@ services:
 
   hh.contao-newsalert.listener.newspostedlistener:
     alias: huh.newsalert.listener.newsposted
-    deprecated: The service has beed renamed to huh.newsalert.listener.newsposted and this alias will soon be deleted.
+    deprecated: The service %alias_id% has beed renamed to huh.newsalert.listener.newsposted and this alias will soon be deleted.
 
   hh.contao-newsalert.newstopiccollection:
     alias: huh.newsalert.topiccollection
-    deprecated: The service has beed renamed to huh.newsalert.newstopiccollection and this alias will soon be deleted.
+    deprecated: The service %alias_id% has beed renamed to huh.newsalert.newstopiccollection and this alias will soon be deleted.

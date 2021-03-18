@@ -1,5 +1,8 @@
 # Changelog
 
+## [4.3.4] - 2021-03-18
+- fixed missing placeholder in deprecation message
+
 ## [4.3.3] - 2021-02-09
 - fixed topics with space lead to error in frontend
 
