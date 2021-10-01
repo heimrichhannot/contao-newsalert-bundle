@@ -8,7 +8,7 @@
         "php": "~7.1",
         "contao/core-bundle": "~4.4",
         "contao/manager-bundle": "~4.4",
-        "terminal42/notification_center": "~1.4.1",
+        "terminal42/notification_center": "^1.4.1",
         "heimrichhannot/contao-formhybrid": "^3.2",
         "heimrichhannot/contao-utils-bundle": "^2.19.0"
     },
