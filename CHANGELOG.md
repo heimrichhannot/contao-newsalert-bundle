@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.4.1] - 2022-10-13
+- Changed: allow php 8
+- Fixed: non public services
+
 ## [4.4.0] - 2021-10-01
 - allow higher notification center versions ([#3])
 
