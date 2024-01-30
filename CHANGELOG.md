@@ -1,5 +1,8 @@
 # Changelog
 
+## [4.4.2] - 2024-01-30
+- Fixed: PHP8 warning
+
 ## [4.4.1] - 2022-10-13
 - Changed: allow php 8
 - Fixed: non public services
