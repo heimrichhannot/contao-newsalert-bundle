@@ -6,6 +6,8 @@
  * @license LGPL-3.0+
  */
 
+use HeimrichHannot\ContaoNewsAlertBundle\DataContainer\NewsalertRecipientsContainer;
+
 $translator = System::getContainer()->get('translator');
 $strTable = 'tl_newsalert_recipients';
 
@@ -115,7 +117,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
             ],
             'sorting' => true,
             'inputType' => 'select',
-            'options_callback' => ['huh.newsalert.choice.newstopic', 'getCachedChoices'],
+            'options_callback' => [NewsalertRecipientsContainer::class, 'onFieldsTopicOptions'],
             'search' => true,
             'eval' => [
                 'chosen' => true,

@@ -48,13 +48,17 @@ class NewsTopicCollection
      *
      * @return array
      */
-    public function getTopicsByItem($objItem)
+    public function getTopicsByItem(NewsModel $objItem, array $allowedSources = null)
     {
         $arrTopics = [];
         /*
          * @var NewsTopicSourceInterface
          */
-        foreach ($this->topicSources as $source) {
+        foreach ($this->topicSources as $alias => $source) {
+            if ($allowedSources && !in_array($alias, $allowedSources))
+            {
+                continue;
+            }
             $arrTopics = array_merge($arrTopics, $source->getTopicsByItem($objItem));
         }
         $arrTopics = array_unique($arrTopics, SORT_REGULAR);
@@ -72,7 +76,6 @@ class NewsTopicCollection
         if (empty($this->topicCache)) {
             $this->createTopicCache();
         }
-
         return $this->topicCache;
     }
 

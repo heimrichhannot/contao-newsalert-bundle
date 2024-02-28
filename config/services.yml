@@ -2,6 +2,12 @@ services:
   _defaults:
     public: true
 
+  HeimrichHannot\ContaoNewsAlertBundle\:
+    resource: '../src/{DataContainer}/*'
+    public: false
+    autoconfigure: true
+    autowire: true
+
 # EventListener
 
   huh.newsalert.listener.newsposted:
@@ -13,17 +19,22 @@ services:
     arguments: ['@contao.framework']
   huh.newsalert.listener.callback.dca:
     class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\DcaCallbackListener
+
 # Choices
+
   huh.newsalert.choice.newstopic:
     public: true
     class: HeimrichHannot\ContaoNewsAlertBundle\Choice\NewsTopicChoice
     arguments:
       - "@contao.framework"
+    deprecated: The service %service_id% has deprecated and will be removed in next major version.
+
 # Others
 
   huh.newsalert.topiccollection:
     public: true
     class: HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection
+  HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection: '@huh.newsalert.topiccollection'
 
   HeimrichHannot\ContaoNewsAlertBundle\Components\NewsArchiveTopics:
     tags: [hh.newsalert.topic_source]

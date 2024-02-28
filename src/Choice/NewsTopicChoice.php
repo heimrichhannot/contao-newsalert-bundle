@@ -11,6 +11,10 @@ namespace HeimrichHannot\ContaoNewsAlertBundle\Choice;
 use Contao\System;
 use HeimrichHannot\UtilsBundle\Choice\AbstractChoice;
 
+/**
+ * @deprecated
+
+ */
 class NewsTopicChoice extends AbstractChoice
 {
     /**

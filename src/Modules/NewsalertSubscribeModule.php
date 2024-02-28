@@ -84,9 +84,27 @@ class NewsalertSubscribeModule extends Module
             $this->formHybridOptInConfirmedProperty = 'confirmed';
         }
 
-        $this->formHybridEditable = ['email', 'topic', 'captcha'];
+        $this->formHybridEditable = $this->getEditableFields();
 
         $objForm = new NewsAlertSubscriptionForm($this);
         $this->Template->form = $objForm->generate();
+    }
+
+    protected function getEditableFields()
+    {
+        if ("1" == $this->newsalertNoTopicSelection)
+        {
+            return ['email', 'captcha'];
+        }
+        return ['email', 'topic', 'captcha'];
+    }
+
+    public function getOverwriteableFieldValues()
+    {
+        if ("1" == $this->newsalertNoTopicSelection)
+        {
+            return ['topic' => $this->newsalertOverwriteTopic];
+        }
+        return [];
     }
 }

@@ -14,6 +14,16 @@ $GLOBALS['TL_LANG']['FMD']['contao-newsalert-redirect'] = array('Newsalert redir
 
 $arrLang = &$GLOBALS['TL_LANG']['tl_module'];
 
+/*
+ * Fields
+ */
+$arrLang['newsalertSourceSelection'] = ['Source selection', 'Select topic sources for the newsalert.'];
+$lang['newsalertNoTopicSelection'] = ['Disable topic selection', 'Disable topic selection field and set a custom topic.'];
+$lang['newsalertOverwriteTopic'] = ['Specify topic', 'Set topic for the subscription.'];
+
+/*
+ * Legends
+ */
 $arrLang['optin_legend'] = "Opt-in handling";
 $arrLang['optout_legend'] = "Opt-out handling";
 $arrLang['trigger_legend'] = "Send event";

@@ -45,6 +45,8 @@ $arrTokens = [
     'huh_newsalert_news_subheadline',
     'huh_newsalert_news_teaser',
     'huh_newsalert_news_content',
+    'huh_newsalert_news_enclosure_html',
+    'huh_newsalert_news_enclosure_text',
     'huh_newsalert_news_url',
     'huh_newsalert_recipient_topics',
     'huh_newsalert_recipient_topic_count',

@@ -18,6 +18,7 @@ use Contao\Module;
 use Contao\ModuleModel;
 use Contao\NewsArchiveModel;
 use Contao\PageModel;
+use Contao\StringUtil;
 use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel;
 use HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertSendModel;
@@ -130,7 +131,13 @@ class NewsPostedListener
             return false;
         }
 
-        $topics = $this->container->get('huh.newsalert.topiccollection')->getTopicsByItem($article);
+        $sources = null;
+        if ($objModule->newsalertSourceSelection)
+        {
+            $sources = StringUtil::deserialize($objModule->newsalertSourceSelection);
+        }
+
+        $topics = $this->container->get('huh.newsalert.topiccollection')->getTopicsByItem($article, $sources);
         $arrRecipients = $this->getRecipientsByTopic($topics);
 
         if (0 === count($arrRecipients)) {
