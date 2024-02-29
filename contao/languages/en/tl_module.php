@@ -22,6 +22,12 @@ $lang['newsalertNoTopicSelection'] = ['Disable topic selection', 'Disable topic 
 $lang['newsalertOverwriteTopic'] = ['Specify topic', 'Set topic for the subscription.'];
 
 /*
+ * Sources
+ */
+$lang['newsalertSources']['archive'] = 'News archives';
+
+
+/*
  * Legends
  */
 $arrLang['optin_legend'] = "Opt-in handling";

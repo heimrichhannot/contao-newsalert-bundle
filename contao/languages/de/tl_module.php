@@ -21,6 +21,11 @@ $lang['newsalertSourceSelection'] = ['Quellen-Auswahl', 'Geben Sie hier an, welc
 $lang['newsalertNoTopicSelection'] = ['Themenauswahl deaktivieren', 'Hier können Sie die Möglichkeit zur Auswahl eines Newsalert Themas deaktivieren und ein spezifisches Thema vorgeben.'];
 $lang['newsalertOverwriteTopic'] = ['Spezifisches Thema', 'Setzen Sie hier das Thema, für welches die Anmeldung gelten soll.'];
 
+/*
+ * Sources
+ */
+$lang['newsalertSources']['archive'] = 'Neuigkeiten-Archive';
+
 /**
  * Legends
  */

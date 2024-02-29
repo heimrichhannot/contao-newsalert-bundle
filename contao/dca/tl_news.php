@@ -8,20 +8,21 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
-$dc = &$GLOBALS['TL_DCA']['tl_news'];
-$translator = System::getContainer()->get('translator');
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
+
+$dca = &$GLOBALS['TL_DCA']['tl_news'];
 
 /*
  * Callbacks
  */
-$dc['config']['onsubmit_callback'][] = ['huh.newsalert.listener.newsposted','onSubmitCallback'];
+$dca['config']['onsubmit_callback'][] = ['huh.newsalert.listener.newsposted', 'onSubmitCallback'];
 
 /*
  * Palettes
  */
 
 
-$palette = \Contao\CoreBundle\DataContainer\PaletteManipulator::create();
+$palette = PaletteManipulator::create();
 $palette->addField('newsalert_sent', 'publish_legend')
     ->applyToPalette('default', 'tl_news');
 
@@ -29,18 +30,10 @@ $palette->addField('newsalert_sent', 'publish_legend')
  * Fields
  */
 
-$fields = [
-    'newsalert_sent' => [
-        'label'     => [
-            $translator->trans('hh.newsalert.tl_news.newsalert_sent.0'),
-            $translator->trans('hh.newsalert.tl_news.newsalert_sent.1')
-        ],
-        'inputType' => 'checkbox',
-        'exclude'   => true,
-        'default'   => 0,
-        'sql'       => "int(1) NOT NULL default '1'",
-        'eval'      => ['tl_class' => 'w50'],
-    ]
+$dca['fields']['newsalert_sent'] = [
+    'inputType' => 'checkbox',
+    'exclude' => true,
+    'default' => '',
+    'sql' => "char(1) NOT NULL default '1'",
+    'eval' => ['tl_class' => 'w50'],
 ];
-
-$dc['fields'] = array_merge($dc['fields'], $fields);

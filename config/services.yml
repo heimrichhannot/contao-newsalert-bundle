@@ -3,15 +3,16 @@ services:
     public: true
 
   HeimrichHannot\ContaoNewsAlertBundle\:
-    resource: '../src/{Components,DataContainer}/*'
+    resource: '../src/{Components,DataContainer,Migration}/*'
     exclude: '../src/Components/{DcaAddon.php,NewsTopicCollection.php,PoorManCron.php}'
     public: false
     autoconfigure: true
     autowire: true
 
-
-  HeimrichHannot\ContaoNewsAlertBundle\Components\NewsArchiveTopics:
-    tags: [hh.newsalert.topic_source]
+  HeimrichHannot\ContaoNewsAlertBundle\DataContainer\NewsalertRecipientsContainer:
+    public: true
+    autoconfigure: true
+    autowire: true
 
 # EventListener
 

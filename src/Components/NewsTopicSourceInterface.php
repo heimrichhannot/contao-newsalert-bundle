@@ -10,7 +10,7 @@ namespace HeimrichHannot\ContaoNewsAlertBundle\Components;
 
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
-#[AutoconfigureTag('huh.newsalert.topic_source')]
+#[AutoconfigureTag('hh.newsalert.topic_source')]
 interface NewsTopicSourceInterface
 {
     /**
