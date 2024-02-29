@@ -12,18 +12,6 @@
         "heimrichhannot/contao-utils-bundle": "^2.19.0",
         "symfony/dependency-injection": "^5.4 || ^6.0"
     },
-    "require-dev": {
-        "contao/test-case": "^1.1",
-        "contao/manager-plugin": "^2.0",
-        "friendsofphp/php-cs-fixer": "^2.2",
-        "phpunit/phpunit": "^6.5",
-        "phpunit/phpunit-mock-objects": "^4.0|^5.0",
-        "phpunit/php-token-stream": "^1.4|^2.0|^3.0",
-        "php-http/guzzle6-adapter": "^1.1",
-        "php-http/message-factory": "^1.0.2",
-        "satooshi/php-coveralls": "^2.0",
-        "symfony/phpunit-bridge": "^3.2"
-    },
     "authors": [
         {
             "name": "Thomas Körner",
@@ -36,16 +24,10 @@
         },
         "classmap": [
             "src/"
-        ],
-        "exclude-from-classmap": [
-            "src/Resources/contao/config/",
-            "src/Resources/contao/dca/",
-            "src/Resources/contao/languages/",
-            "src/Resources/contao/templates/"
         ]
     },
-    "config": {
-        "preferred-install": "dist"
+    "conflict": {
+        "heimrichhannot/contao-newsalert": "*"
     },
     "extra": {
         "contao-manager-plugin": "HeimrichHannot\\ContaoNewsAlertBundle\\ContaoManager\\Plugin"
