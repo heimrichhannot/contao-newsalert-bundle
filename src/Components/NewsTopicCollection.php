@@ -13,7 +13,13 @@ use HeimrichHannot\NewsBundle\News;
 
 class NewsTopicCollection
 {
+    /**
+     * @var NewsTopicSourceInterface[]
+     */
     private $topicSources = [];
+    /**
+     * @var array
+     */
     private $topicCache;
 
     /**
@@ -45,6 +51,7 @@ class NewsTopicCollection
      * Return all topics by news item.
      *
      * @param NewsModel $objItem
+     * @param array|null $allowedSources Array of source aliases or null
      *
      * @return array
      */
@@ -52,7 +59,7 @@ class NewsTopicCollection
     {
         $arrTopics = [];
         /*
-         * @var NewsTopicSourceInterface
+         * @var NewsTopicSourceInterface $source
          */
         foreach ($this->topicSources as $alias => $source) {
             if ($allowedSources && !in_array($alias, $allowedSources))
@@ -64,6 +71,21 @@ class NewsTopicCollection
         $arrTopics = array_unique($arrTopics, SORT_REGULAR);
 
         return $arrTopics;
+    }
+
+    public function getTopicsBySource(string $alias)
+    {
+        $source = $this->getTopicSource($alias);
+        if (!$source)
+        {
+            return [];
+        }
+        return $source->getTopics();
+    }
+
+    public function getAllSourcesList()
+    {
+        return array_keys($this->topicSources);
     }
 
     /**

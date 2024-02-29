@@ -3,10 +3,15 @@ services:
     public: true
 
   HeimrichHannot\ContaoNewsAlertBundle\:
-    resource: '../src/{DataContainer}/*'
+    resource: '../src/{Components,DataContainer}/*'
+    exclude: '../src/Components/{DcaAddon.php,NewsTopicCollection.php,PoorManCron.php}'
     public: false
     autoconfigure: true
     autowire: true
+
+
+  HeimrichHannot\ContaoNewsAlertBundle\Components\NewsArchiveTopics:
+    tags: [hh.newsalert.topic_source]
 
 # EventListener
 
@@ -35,9 +40,6 @@ services:
     public: true
     class: HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection
   HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection: '@huh.newsalert.topiccollection'
-
-  HeimrichHannot\ContaoNewsAlertBundle\Components\NewsArchiveTopics:
-    tags: [hh.newsalert.topic_source]
 
 # Deprecated aliases
 
