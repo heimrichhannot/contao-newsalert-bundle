@@ -27,4 +27,3 @@ $lang['newsalertOverwriteTopic'] = ['Spezifisches Thema', 'Setzen Sie hier das T
 $lang['optin_legend'] = "Opt-In Handling";
 $lang['optout_legend'] = "Opt-Out Handling";
 $lang['trigger_legend'] = "Sendeevent";
-$lang['misc_legend'] = "Verschiedenes";

@@ -27,4 +27,3 @@ $lang['newsalertOverwriteTopic'] = ['Specify topic', 'Set topic for the subscrip
 $arrLang['optin_legend'] = "Opt-in handling";
 $arrLang['optout_legend'] = "Opt-out handling";
 $arrLang['trigger_legend'] = "Send event";
-$arrLang['misc_legend'] = "Misc";

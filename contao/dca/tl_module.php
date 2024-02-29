@@ -17,19 +17,10 @@ $translator = System::getContainer()->get('translator');
 $arrDca['palettes'][NewsalertSubscribeModule::MODULE_NAME] =
     '{title_legend},name,headline,type;'
     . '{newsalert_topic_legend},newsalertSourceSelection,newsalertNoTopicSelection;'
-    . '{optin_legend},newsalertOptIn;'
-    . '{optout_legend},formHybridAddOptOut;'
+    . '{message_handling_legend},newsalertOptIn,formHybridAddOptOut;'
     . '{trigger_legend},newsalertSendType;'
-    . '{misc_legend},formHybridCustomSubmit;';
-
-$arrDca['palettes'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule::MODULE_NAME] =
-//    '{title_legend},name,headline,type;'
-    .'{newsalert_topic_legend},newsalertSourceSelection,newsalertNoTopicSelection;'
-. '{message_handling_legend},newsalertOptIn,formHybridAddOptOut,newsalertModulePage;'
-. '{misc_legend},newsalertCronIntervall,formHybridCustomSubmit;'
-. '{template_legend:hide},formHybridTemplate,customTpl;'
-. '{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;';
-
+    . '{template_legend:hide},formHybridTemplate,customTpl.formHybridCustomSubmit;'
+    . '{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;';
 
 $arrDca['palettes'][NewsalertRedirectModule::MODULE_NAME] =
     '{title_legend},name,headline,type;';
