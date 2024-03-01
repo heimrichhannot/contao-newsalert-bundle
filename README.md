@@ -25,9 +25,9 @@ The bundle comes with an interface to add custom news topic, for example categor
 
 ## Requirements
 
-* Contao 4.4
-* PHP7
-* [Contao Notification Center](https://github.com/terminal42/contao-notification_center)
+* Contao 4.13
+* PHP 8
+* [Contao Notification Center](https://github.com/terminal42/contao-notification_center) ^1.4
 * [Formhybrid](https://github.com/heimrichhannot/contao-formhybrid)
 
 ## Installation
@@ -61,7 +61,8 @@ The overview about sent messages is found withing the newsalert section (News ->
 
 ### Add topic source
 
-To add a topic source, your topics class needs to implement the `NewsTopicInterface` and has to be registered as service with the `hh.newsalert.topic_source` tag.
+To add a topic source, your topics class needs to implement the `NewsTopicInterface`. With service autoconfiguration the class gets registered automatically.
+Otherwise, has to be registered as service with the `hh.newsalert.topic_source` tag.
 
 ### Notification center tokens
 ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tokens are added to `news_posted` type (in addition to the default ones): 

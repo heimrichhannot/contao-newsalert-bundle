@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.5.0] - 2024-03-01
+- Added: autoconfiguration support for topic sources
+- Added: topic source selection to frontend module (migrated from newsalert module)
+- Added: disable topic selection to frontend module (migrated from newsalert module)
+- Added: github configuration
+- Added: license file
+- Changed: require at least php 8
+- Changed: require at least contao 4.13
+- Changed: partly refactoring
+- Changed: adjust newsalert sent field database type (**run migration after update!**)
+- Deprecated: class NewsTopicChoice
+- Removed: outdated test setup
+
 ## [4.4.2] - 2024-01-30
 - Fixed: PHP8 warning
 
