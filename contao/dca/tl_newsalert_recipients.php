@@ -6,10 +6,15 @@
  * @license LGPL-3.0+
  */
 
+use Contao\System;
 use HeimrichHannot\ContaoNewsAlertBundle\DataContainer\NewsalertRecipientsContainer;
+use HeimrichHannot\FormHybrid\FormHybrid;
+use HeimrichHannot\UtilsBundle\Dca\DateAddedField;
 
 $translator = System::getContainer()->get('translator');
 $strTable = 'tl_newsalert_recipients';
+
+DateAddedField::register($strTable);
 
 $GLOBALS['TL_DCA'][$strTable] = [
     'config' => [
@@ -96,7 +101,6 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.email.0'),
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.email.1'),
             ],
-            'sorting' => true,
             'flag' => 1,
             'inputType' => 'text',
             'search' => true,
@@ -115,10 +119,9 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.topic.0'),
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.topic.1'),
             ],
-            'sorting' => true,
+            'filter' => true,
             'inputType' => 'select',
             'options_callback' => [NewsalertRecipientsContainer::class, 'onFieldsTopicOptions'],
-            'search' => true,
             'eval' => [
                 'chosen' => true,
                 'maxlength' => 128,
@@ -134,7 +137,7 @@ $GLOBALS['TL_DCA'][$strTable] = [
                 $translator->trans('hh.newsalert.tl_newsalert_recipients.confirmed.1'),
             ],
             'inputType' => 'checkbox',
-            'sorting' => true,
+            'filter' => true,
             'default' => 0,
             'sql' => 'int(1) NOT NULL default 0',
             'eval' => ['tl_class' => 'w50'],
@@ -149,6 +152,5 @@ $GLOBALS['TL_DCA'][$strTable] = [
     ],
 ];
 
-\HeimrichHannot\FormHybrid\FormHybrid::addOptInFieldToTable($strTable);
-\HeimrichHannot\FormHybrid\FormHybrid::addOptOutFieldToTable($strTable);
-\HeimrichHannot\Haste\Dca\General::addDateAddedToDca($strTable);
+FormHybrid::addOptInFieldToTable($strTable);
+FormHybrid::addOptOutFieldToTable($strTable);

@@ -1,38 +1,41 @@
 <?php
 
-/*
- * Copyright (c) 2018 Heimrich & Hannot GmbH
- *
- * @license LGPL-3.0+
- */
+namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
-namespace HeimrichHannot\ContaoNewsAlertBundle\Components;
-
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCronJob;
 use Contao\ModuleModel;
-use Contao\System;
 
-class PoorManCron
+class ContaoCronListener
 {
+    public function __construct(private NewsPostedListener $newsPostedListener)
+    {
+    }
+
+    #[AsCronJob('minutely')]
     public function minutely()
     {
         $this->sendNewsalerts('minutely');
     }
 
+    #[AsCronJob('hourly')]
     public function hourly()
     {
         $this->sendNewsalerts('hourly');
     }
 
+    #[AsCronJob('daily')]
     public function daily()
     {
         $this->sendNewsalerts('daily');
     }
 
+    #[AsCronJob('weekly')]
     public function weekly()
     {
         $this->sendNewsalerts('weekly');
     }
 
+    #[AsCronJob('monthly')]
     public function monthly()
     {
         $this->sendNewsalerts('monthly');
@@ -47,10 +50,9 @@ class PoorManCron
         if (!$objModules) {
             return;
         }
-        $listener = System::getContainer()->get('huh.newsalert.listener.newsposted');
 
         while ($objModules->next()) {
-            $listener->callByModule($objModules->current());
+            $this->newsPostedListener->callByModule($objModules->current());
         }
     }
 }

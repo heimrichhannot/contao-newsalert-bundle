@@ -28,17 +28,6 @@ $GLOBALS['FE_MOD']['huh_newsalert'][NewsalertRedirectModule::MODULE_NAME] = 'Hei
 $GLOBALS['TL_MODELS']['tl_newsalert_recipients'] = 'HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel';
 
 /*
- * Cron
- */
-
-$GLOBALS['TL_CRON']['monthly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'monthly'];
-$GLOBALS['TL_CRON']['weekly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'weekly'];
-$GLOBALS['TL_CRON']['daily'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'daily'];
-$GLOBALS['TL_CRON']['hourly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'hourly'];
-$GLOBALS['TL_CRON']['minutely'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'minutely'];
-
-
-/*
  * Notification Center
  */
 
