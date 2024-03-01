@@ -76,6 +76,7 @@ $arrFields = [
             'poormancron',
             'customCron'
         ],
+        'reference' => &$GLOBALS['TL_LANG']['tl_module']['newsalertSendType'],
         'eval' => ['tl_class' => 'w50', 'submitOnChange' => true, 'includeBlankOption' => true],
         'sql' => "varchar(12) NOT NULL default ''",
     ],
@@ -87,6 +88,7 @@ $arrFields = [
         'exclude' => true,
         'inputType' => 'select',
         'options' => ['minutely', 'hourly', 'daily', 'weekly', 'monthly'],
+        'reference' => &$GLOBALS['TL_LANG']['tl_module']['newsalertPoorManCronIntervall'],
         'eval' => ['tl_class' => 'w50', 'includeBlankOption' => true],
         'sql' => "varchar(12) NOT NULL default ''",
     ],
