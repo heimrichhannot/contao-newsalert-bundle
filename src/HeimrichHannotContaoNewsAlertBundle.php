@@ -11,6 +11,7 @@ namespace HeimrichHannot\ContaoNewsAlertBundle;
 use HeimrichHannot\ContaoNewsAlertBundle\DependencyInjection\Compiler\NewsAlertPass;
 use HeimrichHannot\ContaoNewsAlertBundle\DependencyInjection\HeimrichHannotContaoNewsAlertExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class HeimrichHannotContaoNewsAlertBundle extends Bundle
@@ -25,13 +26,18 @@ class HeimrichHannotContaoNewsAlertBundle extends Bundle
      *
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new NewsAlertPass());
     }
 
-    public function getContainerExtension()
+    public function getContainerExtension(): ?ExtensionInterface
     {
         return new HeimrichHannotContaoNewsAlertExtension();
+    }
+
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
     }
 }

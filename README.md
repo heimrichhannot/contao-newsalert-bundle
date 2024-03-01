@@ -61,7 +61,7 @@ The overview about sent messages is found withing the newsalert section (News ->
 
 ### Add topic source
 
-To add a topic source, your topics class needs to implement the `NewsTopicInterface` and has to be registered as service with the `huh.newsalert.topic_source` tag.
+To add a topic source, your topics class needs to implement the `NewsTopicInterface` and has to be registered as service with the `hh.newsalert.topic_source` tag.
 
 ### Notification center tokens
 ContaoNewsalertBundle uses Notification Center for e-mail sending. Following tokens are added to `news_posted` type (in addition to the default ones): 

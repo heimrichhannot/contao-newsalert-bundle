@@ -5,24 +5,12 @@
     "license": "LGPL-3.0-or-later",
     "homepage": "https://github.com/heimrichhannot/contao-newsalert-bundle",
     "require": {
-        "php": "~7.1 || ^8.0",
-        "contao/core-bundle": "~4.4",
-        "contao/manager-bundle": "~4.4",
+        "php": "^8.0",
+        "contao/core-bundle": "^4.13",
         "terminal42/notification_center": "^1.4.1",
         "heimrichhannot/contao-formhybrid": "^3.2",
-        "heimrichhannot/contao-utils-bundle": "^2.19.0"
-    },
-    "require-dev": {
-        "contao/test-case": "^1.1",
-        "contao/manager-plugin": "^2.0",
-        "friendsofphp/php-cs-fixer": "^2.2",
-        "phpunit/phpunit": "^6.5",
-        "phpunit/phpunit-mock-objects": "^4.0|^5.0",
-        "phpunit/php-token-stream": "^1.4|^2.0|^3.0",
-        "php-http/guzzle6-adapter": "^1.1",
-        "php-http/message-factory": "^1.0.2",
-        "satooshi/php-coveralls": "^2.0",
-        "symfony/phpunit-bridge": "^3.2"
+        "heimrichhannot/contao-utils-bundle": "^2.235.1",
+        "symfony/dependency-injection": "^5.4 || ^6.0"
     },
     "authors": [
         {
@@ -36,16 +24,10 @@
         },
         "classmap": [
             "src/"
-        ],
-        "exclude-from-classmap": [
-            "src/Resources/contao/config/",
-            "src/Resources/contao/dca/",
-            "src/Resources/contao/languages/",
-            "src/Resources/contao/templates/"
         ]
     },
-    "config": {
-        "preferred-install": "dist"
+    "conflict": {
+        "heimrichhannot/contao-newsalert": "*"
     },
     "extra": {
         "contao-manager-plugin": "HeimrichHannot\\ContaoNewsAlertBundle\\ContaoManager\\Plugin"

@@ -12,28 +12,20 @@
  * Modules
  */
 
+use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule;
+use HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule;
+
 $GLOBALS['BE_MOD']['content']['news']['tables'][] = 'tl_newsalert_recipients';
 $GLOBALS['BE_MOD']['content']['news']['tables'][] = 'tl_newsalert_sent';
 
-$GLOBALS['FE_MOD']['huh_newsalert'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule::MODULE_NAME] = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule';
-$GLOBALS['FE_MOD']['huh_newsalert'][\HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule::MODULE_NAME] = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule';
+$GLOBALS['FE_MOD']['huh_newsalert'][NewsalertSubscribeModule::MODULE_NAME] = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertSubscribeModule';
+$GLOBALS['FE_MOD']['huh_newsalert'][NewsalertRedirectModule::MODULE_NAME] = 'HeimrichHannot\ContaoNewsAlertBundle\Modules\NewsalertRedirectModule';
 
 /*
  * Models
  */
 
 $GLOBALS['TL_MODELS']['tl_newsalert_recipients'] = 'HeimrichHannot\ContaoNewsAlertBundle\Models\NewsalertRecipientsModel';
-
-/*
- * Cron
- */
-
-$GLOBALS['TL_CRON']['monthly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'monthly'];
-$GLOBALS['TL_CRON']['weekly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'weekly'];
-$GLOBALS['TL_CRON']['daily'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'daily'];
-$GLOBALS['TL_CRON']['hourly'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'hourly'];
-$GLOBALS['TL_CRON']['minutely'][]    = ['HeimrichHannot\ContaoNewsAlertBundle\Components\PoorManCron', 'minutely'];
-
 
 /*
  * Notification Center
@@ -45,6 +37,8 @@ $arrTokens = [
     'huh_newsalert_news_subheadline',
     'huh_newsalert_news_teaser',
     'huh_newsalert_news_content',
+    'huh_newsalert_news_enclosure_html',
+    'huh_newsalert_news_enclosure_text',
     'huh_newsalert_news_url',
     'huh_newsalert_recipient_topics',
     'huh_newsalert_recipient_topic_count',

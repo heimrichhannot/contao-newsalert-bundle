@@ -20,7 +20,7 @@ class NewsArchiveTopics implements NewsTopicSourceInterface
      *
      * @return string
      */
-    public static function getAlias()
+    public static function getAlias(): string
     {
         return 'archive';
     }
@@ -30,7 +30,7 @@ class NewsArchiveTopics implements NewsTopicSourceInterface
      *
      * @return array
      */
-    public static function getTopics()
+    public static function getTopics(): array
     {
         $objArchives = NewsArchiveModel::findAll();
         $arrArchives = [];
@@ -44,11 +44,11 @@ class NewsArchiveTopics implements NewsTopicSourceInterface
     /**
      * Returns topics by news item.
      *
-     * @param $objItem \NewsModel
+     * @param $objItem NewsModel
      *
      * @return array
      */
-    public static function getTopicsByItem($objItem)
+    public static function getTopicsByItem($objItem): array
     {
         $strArchive = NewsArchiveModel::findById($objItem->pid)->title;
 

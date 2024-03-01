@@ -2,31 +2,51 @@ services:
   _defaults:
     public: true
 
+  HeimrichHannot\ContaoNewsAlertBundle\:
+    resource: '../src/{Components,DataContainer,Migration}/*'
+    exclude: '../src/Components/{DcaAddon.php,NewsTopicCollection.php}'
+    public: false
+    autoconfigure: true
+    autowire: true
+
+  HeimrichHannot\ContaoNewsAlertBundle\DataContainer\NewsalertRecipientsContainer:
+    public: true
+    autoconfigure: true
+    autowire: true
+
+  HeimrichHannot\ContaoNewsAlertBundle\EventListener\ContaoCronListener:
+    autoconfigure: true
+    autowire: true
+
 # EventListener
 
   huh.newsalert.listener.newsposted:
     class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener
     public: true
     arguments: ['@service_container']
+  HeimrichHannot\ContaoNewsAlertBundle\EventListener\NewsPostedListener: '@huh.newsalert.listener.newsposted'
+
   huh.newsalert.listener.callback.table.modules:
     class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\ModulesTableCallbackListener
     arguments: ['@contao.framework']
   huh.newsalert.listener.callback.dca:
     class: HeimrichHannot\ContaoNewsAlertBundle\EventListener\DcaCallbackListener
+
 # Choices
+
   huh.newsalert.choice.newstopic:
     public: true
     class: HeimrichHannot\ContaoNewsAlertBundle\Choice\NewsTopicChoice
     arguments:
       - "@contao.framework"
+    deprecated: The service %service_id% has deprecated and will be removed in next major version.
+
 # Others
 
   huh.newsalert.topiccollection:
     public: true
     class: HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection
-
-  HeimrichHannot\ContaoNewsAlertBundle\Components\NewsArchiveTopics:
-    tags: [hh.newsalert.topic_source]
+  HeimrichHannot\ContaoNewsAlertBundle\Components\NewsTopicCollection: '@huh.newsalert.topiccollection'
 
 # Deprecated aliases
 
