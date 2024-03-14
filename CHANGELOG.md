@@ -1,5 +1,8 @@
 # Changelog
 
+## [4.5.1] - 2024-03-14
+- Fixed: some checkbox types where not char (run migration after update!)
+
 ## [4.5.0] - 2024-03-01
 - Added: autoconfiguration support for topic sources
 - Added: topic source selection to frontend module (migrated from newsalert module)

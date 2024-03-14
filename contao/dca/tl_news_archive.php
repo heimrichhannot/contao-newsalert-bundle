@@ -8,6 +8,9 @@
  * @license http://www.gnu.org/licences/lgpl-3.0.html LGPL
  */
 
+use Contao\ArrayUtil;
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
+
 $dc         = &$GLOBALS['TL_DCA']['tl_news_archive'];
 $translator = System::getContainer()->get('translator');
 
@@ -15,7 +18,7 @@ $translator = System::getContainer()->get('translator');
  * List comments_legend
  */
 
-array_insert($dc['list']['global_operations'], 1, [
+ArrayUtil::arrayInsert($dc['list']['global_operations'], 1, [
     'newsalert_recipients' =>
         [
             'label' => $translator->trans('hh.newsalert.tl_news.newsalert_recipients'),
@@ -24,7 +27,7 @@ array_insert($dc['list']['global_operations'], 1, [
         ]
 ]);
 
-$palette = \Contao\CoreBundle\DataContainer\PaletteManipulator::create();
+$palette = PaletteManipulator::create();
 $palette
     ->addLegend('newsalert_legend', 'comments_legend')
     ->addField('newsalert_activate', 'newsalert_legend')
@@ -35,15 +38,15 @@ $dc['palettes']['__selector__'][]        = 'newsalert_activate';
 $dc['subpalettes']['newsalert_activate'] = 'newsalert_configuration';
 
 $fields = [
-    'newsalert_activate'      => [
-        'label'     => [
+    'newsalert_activate' => [
+        'label' => [
             $translator->trans('hh.newsalert.tl_news_archive.newsalert_activate.0'),
             $translator->trans('hh.newsalert.tl_news_archive.newsalert_activate.1')
         ],
         'inputType' => 'checkbox',
-        'exclude'   => true,
-        'sql'       => "int(1) NOT NULL default '0'",
-        'eval'      => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
+        'exclude' => true,
+        'sql' => "char(1) NOT NULL default ''",
+        'eval' => ['tl_class' => 'w50 clr', 'submitOnChange' => true],
     ],
     'newsalert_configuration' => [
         'label'            => [
