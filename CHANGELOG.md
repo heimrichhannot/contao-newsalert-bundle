@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.5.2] - 2024-04-22
+- Fixed: do not initialize framework in service constructor
+- Fixed: a deprecation
+
 ## [4.5.1] - 2024-03-14
 - Fixed: some checkbox types where not char (run migration after update!)
 

@@ -47,7 +47,6 @@ class NewsPostedListener
         $this->container = $container;
         $this->translator = $container->get('translator');
         $this->tokengenerator = new TokenGenerator();
-        $container->get('contao.framework')->initialize();
     }
 
     /**
@@ -173,7 +172,7 @@ class NewsPostedListener
             while ($objContents->next()) {
                 $item = $objContents->current();
                 if (!empty($item->headline)) {
-                    $title = deserialize($item->headline);
+                    $title = StringUtil::deserialize($item->headline);
                     $headline = '<'.$title['unit'].'>'.$title['value'].'</'.$title['unit'].'>';
                     $strContent .= $headline;
                 }

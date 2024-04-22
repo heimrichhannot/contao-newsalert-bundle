@@ -3,11 +3,15 @@
 namespace HeimrichHannot\ContaoNewsAlertBundle\EventListener;
 
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCronJob;
+use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\ModuleModel;
 
 class ContaoCronListener
 {
-    public function __construct(private NewsPostedListener $newsPostedListener)
+    public function __construct(
+        private NewsPostedListener $newsPostedListener,
+        private ContaoFramework $framework
+    )
     {
     }
 
@@ -43,6 +47,8 @@ class ContaoCronListener
 
     private function sendNewsalerts($strInterval)
     {
+        $this->framework->initialize();
+
         $objModules = ModuleModel::findBy(
             ['newsalertSendType=?', 'newsalertPoorManCronIntervall=?'],
             ['poormancron', $strInterval]
